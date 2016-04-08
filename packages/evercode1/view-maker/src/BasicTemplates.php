@@ -46,7 +46,14 @@ class BasicTemplates
     public function basicIndexTemplate($masterPage, $modelName)
     {
 
-        list($upperCaseModelName) = $this->commonBuilder->formatTokens($modelName);
+        list($upperCaseModelName,
+            $field_name,
+            $modelId,
+            $modelAttribute,
+            $createdAt,
+            $modelRoute,
+            $tableName,
+            $folderName) = $this->commonBuilder->formatTokens($modelName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')

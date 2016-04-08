@@ -8,7 +8,13 @@ class CommonTemplates
     public function commonCreateTemplate($masterPage, $modelName)
     {
         list($upperCaseModelName,
-            $field_name) = $this->formatTokens($modelName);
+            $field_name,
+            $modelId,
+            $modelAttribute,
+            $createdAt,
+            $modelRoute,
+            $tableName,
+            $folderName) = $this->formatTokens($modelName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -68,7 +74,11 @@ EOD;
         list($upperCaseModelName,
             $field_name,
             $modelId,
-            $modelAttribute) = $this->formatTokens($modelName);
+            $modelAttribute,
+            $createdAt,
+            $modelRoute,
+            $tableName,
+            $folderName) = $this->formatTokens($modelName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -127,11 +137,14 @@ EOD;
 
     public function commonShowTemplate($masterPage, $modelName)
     {
-        $upperCaseModelName = ucfirst($modelName);
-        //$field_name = $modelName . '_name';
-        $modelId = $modelName . '->id';
-        $modelAttribute = $modelName . '->' . $modelName . '_name';
-        $createdAt = $modelName . '->created_at';
+        list($upperCaseModelName,
+            $field_name,
+            $modelId,
+            $modelAttribute,
+            $createdAt,
+            $modelRoute,
+            $tableName,
+            $folderName) = $this->formatTokens($modelName);
 
 
         $content = <<<EOD
@@ -227,8 +240,18 @@ EOD;
         $modelId = $modelName . '->id';
         $modelAttribute = $modelName . '->' . $modelName . '_name';
         $createdAt = $modelName . '->created_at';
+        $modelRoute = $modelName;
+        $tableName = $modelName . '_table';
+        $folderName = $modelName;
 
-        return [$upperCaseModelName, $field_name, $modelId, $modelAttribute, $createdAt];
+        return [$upperCaseModelName,
+                $field_name,
+                $modelId,
+                $modelAttribute,
+                $createdAt,
+                $modelRoute,
+                $tableName,
+                $folderName];
     }
 
 }

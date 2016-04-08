@@ -13,6 +13,7 @@ trait BuildsTemplates
         $dtBuilder = new DatatableTemplates;
 
 
+
         switch($type){
 
             case 'plain' :
