@@ -3,7 +3,7 @@
 
 @section('title')
 
-    <title>The Widget Page</title>
+    <title>The AlphaWidget Page</title>
 
 @endsection
 
@@ -13,14 +13,14 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/widget'>Widget</a></li>
+        <li><a href='/alpha-widget'>AlphaWidget</a></li>
         </ol>
 
-        <h1>Widget</h1>
+        <h1>AlphaWidget</h1>
 
-        @include('widget.datatable')
+        @include('alpha-widget.datatable')
 
-        <div> <a href="/widget/create">
+        <div> <a href="/alpha-widget/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -32,6 +32,6 @@
 
 @section('scripts')
 
-    @include('widget.datatable-script')
+    @include('alpha-widget.datatable-script')
 
 @endsection

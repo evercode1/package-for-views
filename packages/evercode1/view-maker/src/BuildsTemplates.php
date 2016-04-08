@@ -5,7 +5,7 @@ namespace Evercode1\ViewMaker;
 trait BuildsTemplates
 {
 
-    private function getTemplate($filename, $type, $masterPage, $modelName)
+    private function getTemplate($filename, $type, $masterPage, $modelName, $folderName)
     {
 
         $basicBuilder = new BasicTemplates;
@@ -21,11 +21,11 @@ trait BuildsTemplates
                 break;
 
             case 'basic' :
-                return $basicBuilder->buildBasicTemplate($filename, $masterPage, $modelName);
+                return $basicBuilder->buildBasicTemplate($filename, $masterPage, $modelName, $folderName);
                 break;
 
             case 'dt' :
-                return $dtBuilder->buildDtTemplate($filename, $masterPage, $modelName);
+                return $dtBuilder->buildDtTemplate($filename, $masterPage, $modelName, $folderName);
                 break;
 
             default :

@@ -1,5 +1,5 @@
 
-    <table id="widget_table" class="display">
+    <table id="alphaWidget_table" class="display">
         <thead>
         <tr>
             <th>Id</th>

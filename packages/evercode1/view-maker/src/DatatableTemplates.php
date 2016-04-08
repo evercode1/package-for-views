@@ -13,7 +13,7 @@ class DatatableTemplates
 
     }
 
-    public function buildDtTemplate($filename, $masterPage, $modelName)
+    public function buildDtTemplate($filename, $masterPage, $modelName, $folderName)
     {
 
 
@@ -22,27 +22,27 @@ class DatatableTemplates
 
             case 'create' :
 
-                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
 
             case 'edit' :
 
-                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
 
             case 'show' :
 
-                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
 
             case 'index' :
 
-                return $this->dtIndexTemplate($masterPage, $modelName);
+                return $this->dtIndexTemplate($masterPage, $modelName , $folderName);
 
             case 'datatable' :
 
-                return $this->dtDatatableTemplate($modelName);
+                return $this->dtDatatableTemplate($modelName, $folderName);
 
             case 'datatable-script' :
 
-                return $this->dtDatatableScriptTemplate($modelName);
+                return $this->dtDatatableScriptTemplate($modelName, $folderName);
 
 
 
@@ -55,7 +55,7 @@ class DatatableTemplates
     }
 
 
-    public function dtIndexTemplate($masterPage, $modelName)
+    public function dtIndexTemplate($masterPage, $modelName, $folderName)
     {
         list($upperCaseModelName,
              $field_name,
@@ -63,8 +63,8 @@ class DatatableTemplates
              $modelAttribute,
              $createdAt,
              $modelRoute,
-             $tableName,
-             $folderName) = $this->commonBuilder->formatTokens($modelName);
+             $tableName
+             ) = $this->commonBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
@@ -82,14 +82,14 @@ class DatatableTemplates
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/$modelName'>$upperCaseModelName</a></li>
+        <li><a href='/$modelRoute'>$upperCaseModelName</a></li>
         </ol>
 
         <h1>$upperCaseModelName</h1>
 
         @include('$folderName.datatable')
 
-        <div> <a href="/$modelName/create">
+        <div> <a href="/$modelRoute/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -112,7 +112,7 @@ EOD;
 
     }
 
-    public function dtDatatableTemplate($modelName)
+    public function dtDatatableTemplate($modelName, $folderName)
     {
         list($upperCaseModelName,
             $field_name,
@@ -120,8 +120,8 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->commonBuilder->formatTokens($modelName);
+            $tableName
+            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
@@ -145,7 +145,7 @@ EOD;
 
     }
 
-    public function dtDatatableScriptTemplate($modelName)
+    public function dtDatatableScriptTemplate($modelName, $folderName)
     {
 
         list($upperCaseModelName,
@@ -154,8 +154,8 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->commonBuilder->formatTokens($modelName);
+            $tableName
+            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
@@ -175,7 +175,7 @@ EOD;
                 { "data": "id"},
                 { "data": "$field_name",
                     "render": function(data,type,row,meta) {
-                        return '<a href="/$modelName/'+row.id+'">'+data+'</a>';
+                        return '<a href="/$modelRoute/'+row.id+'">'+data+'</a>';
                     }
                 },
                 { "data": "created_at",
@@ -188,7 +188,7 @@ EOD;
                     }
                 },
                 {"defaultContent": "null", "render": function(data,type,row,meta) {
-                    return '<a href="/$modelName/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
+                    return '<a href="/$modelRoute/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
                 }
                 }
             ]

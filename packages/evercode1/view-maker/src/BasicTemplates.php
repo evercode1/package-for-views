@@ -14,26 +14,26 @@ class BasicTemplates
 
     }
 
-    public function buildBasicTemplate($filename, $masterPage, $modelName)
+    public function buildBasicTemplate($filename, $masterPage, $modelName, $folderName)
     {
 
         switch ($filename) {
 
             case 'create' :
 
-                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
 
             case 'edit' :
 
-                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
 
             case 'show' :
 
-                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName);
+                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
 
             case 'index' :
 
-                return $this->basicIndexTemplate($masterPage, $modelName);
+                return $this->basicIndexTemplate($masterPage, $modelName, $folderName);
 
             default:
 
@@ -43,7 +43,7 @@ class BasicTemplates
     }
 
 
-    public function basicIndexTemplate($masterPage, $modelName)
+    public function basicIndexTemplate($masterPage, $modelName, $folderName)
     {
 
         list($upperCaseModelName,
@@ -52,8 +52,8 @@ class BasicTemplates
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->commonBuilder->formatTokens($modelName);
+            $tableName
+            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -68,7 +68,7 @@ class BasicTemplates
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/$modelName'>$upperCaseModelName</a></li>
+        <li><a href='/$modelRoute'>$upperCaseModelName</a></li>
         </ol>
 
 <h1>This is your $upperCaseModelName Index Page</h1>

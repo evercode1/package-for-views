@@ -5,7 +5,7 @@ namespace Evercode1\ViewMaker;
 class CommonTemplates
 {
 
-    public function commonCreateTemplate($masterPage, $modelName)
+    public function commonCreateTemplate($masterPage, $modelName, $folderName)
     {
         list($upperCaseModelName,
             $field_name,
@@ -13,8 +13,8 @@ class CommonTemplates
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->formatTokens($modelName);
+            $tableName
+            ) = $this->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -27,14 +27,14 @@ class CommonTemplates
 
 @section('content')
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelName'>$upperCaseModelName</a></li><li class='active'>Create</li></ol>
+        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelRoute'>$upperCaseModelName</a></li><li class='active'>Create</li></ol>
 
         <h2>Create a New $upperCaseModelName</h2>
 
         <hr/>
 
 
-        <form class="form" role="form" method="POST" action="{{ url('/$modelName') }}">
+        <form class="form" role="form" method="POST" action="{{ url('/$modelRoute') }}">
 
         {!! csrf_field() !!}
 
@@ -69,7 +69,7 @@ EOD;
 
     }
 
-    public function commonEditTemplate($masterPage, $modelName)
+    public function commonEditTemplate($masterPage, $modelName, $folderName)
     {
         list($upperCaseModelName,
             $field_name,
@@ -77,8 +77,8 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->formatTokens($modelName);
+            $tableName
+            ) = $this->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -92,14 +92,14 @@ EOD;
 @section('content')
 
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelName'>$upperCaseModelName</a></li><li><a href='/$modelName/{{\$$modelId}}'>{{\$$modelAttribute}}</a></li><li class='active'>Edit</li></ol>
+        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelRoute'>$upperCaseModelName</a></li><li><a href='/$modelName/{{\$$modelId}}'>{{\$$modelAttribute}}</a></li><li class='active'>Edit</li></ol>
 
         <h1>Edit $upperCaseModelName</h1>
 
         <hr/>
 
 
-        <form class="form" role="form" method="POST" action="{{ url('/$modelName/'. \$$modelId) }}">
+        <form class="form" role="form" method="POST" action="{{ url('/$modelRoute/'. \$$modelId) }}">
         <input type="hidden" name="_method" value="patch">
         {!! csrf_field() !!}
 
@@ -135,7 +135,7 @@ EOD;
 
     }
 
-    public function commonShowTemplate($masterPage, $modelName)
+    public function commonShowTemplate($masterPage, $modelName, $folderName)
     {
         list($upperCaseModelName,
             $field_name,
@@ -143,8 +143,8 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName,
-            $folderName) = $this->formatTokens($modelName);
+            $tableName
+            ) = $this->formatTokens($modelName, $folderName);
 
 
         $content = <<<EOD
@@ -160,8 +160,8 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/$modelName'>$upperCaseModelName</a></li>
-        <li><a href='/$modelName/{{ \$$modelId }}'>{{ \$$modelAttribute }}</a></li>
+        <li><a href='/$modelRoute'>$upperCaseModelName</a></li>
+        <li><a href='/$modelRoute/{{ \$$modelId }}'>{{ \$$modelAttribute }}</a></li>
         </ol>
 
         <h1>$upperCaseModelName Details</h1>
@@ -189,7 +189,7 @@ EOD;
                                 {{ \$$modelAttribute }}</a></td>
                         <td>{{ \$$createdAt }}</td>
 
-                        <td> <a href="/widget/{{ \$$modelId }}/edit">
+                        <td> <a href="/$modelRoute/{{ \$$modelId }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -197,7 +197,7 @@ EOD;
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/$modelName/'. \$$modelId) }}">
+                       <form class="form" role="form" method="POST" action="{{ url('/$modelRoute/'. \$$modelId) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 
@@ -233,16 +233,16 @@ EOD;
 
     }
 
-    public function formatTokens($modelName)
+    public function formatTokens($modelName, $folderName)
     {
         $upperCaseModelName = ucfirst($modelName);
-        $field_name = $modelName . '_name';
+        $field_name = snake_case($modelName) . '_name';
         $modelId = $modelName . '->id';
-        $modelAttribute = $modelName . '->' . $modelName . '_name';
+        $modelAttribute = $modelName . '->' . $field_name;
         $createdAt = $modelName . '->created_at';
-        $modelRoute = $modelName;
+        $modelRoute = $folderName;
         $tableName = $modelName . '_table';
-        $folderName = $modelName;
+
 
         return [$upperCaseModelName,
                 $field_name,
@@ -250,8 +250,7 @@ EOD;
                 $modelAttribute,
                 $createdAt,
                 $modelRoute,
-                $tableName,
-                $folderName];
+                $tableName];
     }
 
 }

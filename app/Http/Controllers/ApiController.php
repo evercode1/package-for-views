@@ -20,4 +20,16 @@ class ApiController extends Controller
         return json_encode($result);
 
     }
+
+    public function alphaWidgetData(){
+
+        $result['data'] = DB::table('alpha_widgets')
+            ->select('id',
+                'alpha_widget_name',
+                'created_at')
+            ->get();
+
+        return json_encode($result);
+
+    }
 }

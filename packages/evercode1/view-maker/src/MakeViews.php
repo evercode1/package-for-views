@@ -13,7 +13,7 @@ class MakeViews extends Command
      * @var string
      */
     protected $signature = 'make:views
-                           {ModelName}
+                           {FolderName}
                            {MasterPage}
                            {type=plain}';
 
@@ -39,6 +39,8 @@ class MakeViews extends Command
     private $masterPage;
 
     private $modelName;
+
+    private $folderName;
 
     private $folderPath;
 
@@ -170,15 +172,33 @@ class MakeViews extends Command
 
         // need to format model name here
 
-        $this->modelName = $this->inputs['ModelName'];
+        $this->folderName = $this->inputs['FolderName'];
+
+        $this->modelName = $this->formatModelName($this->folderName);
 
         $this->masterPage = $this->inputs['MasterPage'];
 
         $this->type = $this->inputs['type'];
 
-        $this->folderPath = strtolower('resources/views/' . $this->modelName);
+        $this->folderPath = strtolower('resources/views/' . $this->folderName);
 
     }
+
+    Private function formatModelName($folderName)
+    {
+
+        if (str_contains($folderName, '-')){
+
+           return $this->modelName = camel_case($folderName);
+
+        }
+
+        return $this->modelName = strtolower($folderName);
+
+
+    }
+
+
 
 
     // create and set the file paths to the $this->paths array
@@ -219,7 +239,11 @@ class MakeViews extends Command
 
             if ( ! is_array($filename)) {
 
-                $txt = $this->getTemplate($filename, $type, $this->masterPage, $this->modelName);
+                $txt = $this->getTemplate($filename,
+                                          $type,
+                                          $this->masterPage,
+                                          $this->modelName,
+                                          $this->folderName);
 
                 $handle = fopen($filepath, "w");
 

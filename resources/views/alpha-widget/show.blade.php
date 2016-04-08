@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Widget</title>
+    <title>AlphaWidget</title>
 
 @endsection
 
@@ -10,11 +10,11 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/widget'>Widget</a></li>
-        <li><a href='/widget/{{ $widget->id }}'>{{ $widget->widget_name }}</a></li>
+        <li><a href='/alpha-widget'>AlphaWidget</a></li>
+        <li><a href='/alpha-widget/{{ $alphaWidget->id }}'>{{ $alphaWidget->alpha_widget_name }}</a></li>
         </ol>
 
-        <h1>Widget Details</h1>
+        <h1>AlphaWidget Details</h1>
 
         <hr/>
 
@@ -34,12 +34,12 @@
 
 
                     <tr>
-                        <td>{{ $widget->id }} </td>
-                        <td> <a href="/widget/{{ $widget->id }}/edit">
-                                {{ $widget->widget_name }}</a></td>
-                        <td>{{ $widget->created_at }}</td>
+                        <td>{{ $alphaWidget->id }} </td>
+                        <td> <a href="/alphaWidget/{{ $alphaWidget->id }}/edit">
+                                {{ $alphaWidget->alpha_widget_name }}</a></td>
+                        <td>{{ $alphaWidget->created_at }}</td>
 
-                        <td> <a href="/widget/{{ $widget->id }}/edit">
+                        <td> <a href="/alpha-widget/{{ $alphaWidget->id }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -47,7 +47,7 @@
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/widget/'. $widget->id) }}">
+                       <form class="form" role="form" method="POST" action="{{ url('/alpha-widget/'. $alphaWidget->id) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 

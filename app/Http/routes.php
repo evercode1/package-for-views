@@ -12,6 +12,7 @@
 */
 
 Route::any('api/widget', 'ApiController@widgetData');
+Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
 
 Route::group(['middleware' => 'web'], function () {
 
@@ -22,5 +23,7 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     Route::resource('widget', 'WidgetController');
+
+    Route::resource('alpha-widget', 'AlphaWidgetController');
 
 });
