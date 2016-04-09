@@ -47,6 +47,7 @@ class MakeViews extends Command
 
         $this->configFromInputs();
 
+
        if ( $this->makeViewDirectory()->makeViewFiles($this->templateType) ) {
 
             $this->sendSuccessMessage();
@@ -66,8 +67,6 @@ class MakeViews extends Command
         $this->info('Views successfully created');
 
     }
-
-
 
 
 }

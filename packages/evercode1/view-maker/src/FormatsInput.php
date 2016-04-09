@@ -8,12 +8,12 @@ trait FormatsInput
     private $inputs = [];
 
     protected $views = ['create',
-        'show',
-        'edit',
-        'index'];
+                        'show',
+                        'edit',
+                        'index'];
 
     protected $DatatablesViews = ['datatable',
-        'datatable-script'];
+                                  'datatable-script'];
 
     private $templateType;
 
@@ -26,6 +26,8 @@ trait FormatsInput
     private $folderPath;
 
     private $paths = [];
+
+    public $tokens = [];
 
     private function configFromInputs()
     {
@@ -46,6 +48,9 @@ trait FormatsInput
         $this->setViewList();
 
         $this->setFilePaths();
+
+        $this->setTokens();
+
 
     }
 
@@ -81,6 +86,17 @@ trait FormatsInput
             $this->views = array_merge($this->views, $this->DatatablesViews);
         }
     }
+
+    private function setTokens()
+    {
+
+        $this->tokens['folderName'] = $this->folderName;
+        $this->tokens['modelName'] = $this->modelName;
+        $this->tokens['masterPage'] = $this->masterPage;
+
+    }
+
+
 
 
 }

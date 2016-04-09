@@ -6,16 +6,17 @@ namespace Evercode1\ViewMaker;
 class BasicTemplates
 {
 
-    public $tokenBuilder;
+    public $tokens;
 
-    public function __construct()
+    public function __construct($masterPage, $modelName, $folderName)
     {
-        $this->tokenBuilder = new CommonTemplates;
+
+        $this->tokens = new FormatsTokens($masterPage, $modelName, $folderName);
 
     }
 
 
-    public function basicIndexTemplate($masterPage, $modelName, $folderName)
+    public function basicIndexTemplate()
     {
 
         list($upperCaseModelName,
@@ -24,8 +25,11 @@ class BasicTemplates
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName
-            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
+            $tableName,
+            $masterPage,
+            $modelName,
+            $folderName
+            ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 @extends('layouts.$masterPage')

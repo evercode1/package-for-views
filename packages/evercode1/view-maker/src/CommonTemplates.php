@@ -4,8 +4,16 @@ namespace Evercode1\ViewMaker;
 
 class CommonTemplates
 {
+    public $tokens;
 
-    public function commonCreateTemplate($masterPage, $modelName, $folderName)
+    public function __construct($masterPage, $modelName, $folderName)
+    {
+
+        $this->tokens = new FormatsTokens($masterPage, $modelName, $folderName);
+
+    }
+
+    public function commonCreateTemplate()
     {
         list($upperCaseModelName,
             $field_name,
@@ -13,8 +21,11 @@ class CommonTemplates
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName
-            ) = $this->formatTokens($modelName, $folderName);
+            $tableName,
+            $masterPage,
+            $modelName,
+            $folderName
+            ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -69,7 +80,7 @@ EOD;
 
     }
 
-    public function commonEditTemplate($masterPage, $modelName, $folderName)
+    public function commonEditTemplate()
     {
         list($upperCaseModelName,
             $field_name,
@@ -77,8 +88,11 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName
-            ) = $this->formatTokens($modelName, $folderName);
+            $tableName,
+            $masterPage,
+            $modelName,
+            $folderName
+            ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 @extends('layouts.$masterPage')
@@ -135,7 +149,7 @@ EOD;
 
     }
 
-    public function commonShowTemplate($masterPage, $modelName, $folderName)
+    public function commonShowTemplate()
     {
         list($upperCaseModelName,
             $field_name,
@@ -143,8 +157,11 @@ EOD;
             $modelAttribute,
             $createdAt,
             $modelRoute,
-            $tableName
-            ) = $this->formatTokens($modelName, $folderName);
+            $tableName,
+            $masterPage,
+            $modelName,
+            $folderName
+            ) = $this->tokens->formatTokens();
 
 
         $content = <<<EOD
@@ -231,26 +248,6 @@ EOD;
 
         return $content;
 
-    }
-
-    public function formatTokens($modelName, $folderName)
-    {
-        $upperCaseModelName = ucfirst($modelName);
-        $field_name = snake_case($modelName) . '_name';
-        $modelId = $modelName . '->id';
-        $modelAttribute = $modelName . '->' . $field_name;
-        $createdAt = $modelName . '->created_at';
-        $modelRoute = $folderName;
-        $tableName = $modelName . '_table';
-
-
-        return [$upperCaseModelName,
-                $field_name,
-                $modelId,
-                $modelAttribute,
-                $createdAt,
-                $modelRoute,
-                $tableName];
     }
 
 }

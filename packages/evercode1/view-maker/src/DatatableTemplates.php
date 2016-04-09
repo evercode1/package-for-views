@@ -5,16 +5,17 @@ namespace Evercode1\ViewMaker;
 
 class DatatableTemplates
 {
-    public $tokenBuilder;
+    public $tokens;
 
-    public function __construct()
+    public function __construct($masterPage, $modelName, $folderName)
     {
-        $this->tokenBuilder = new CommonTemplates;
+
+        $this->tokens = new FormatsTokens($masterPage, $modelName, $folderName);
 
     }
 
 
-    public function dtIndexTemplate($masterPage, $modelName, $folderName)
+    public function dtIndexTemplate()
     {
         list($upperCaseModelName,
              $field_name,
@@ -22,8 +23,11 @@ class DatatableTemplates
              $modelAttribute,
              $createdAt,
              $modelRoute,
-             $tableName
-             ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
+             $tableName,
+             $masterPage,
+             $modelName,
+             $folderName
+             ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 
@@ -71,16 +75,19 @@ EOD;
 
     }
 
-    public function dtDatatableTemplate($modelName, $folderName)
+    public function dtDatatableTemplate()
     {
         list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName
-            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
+             $field_name,
+             $modelId,
+             $modelAttribute,
+             $createdAt,
+             $modelRoute,
+             $tableName,
+             $masterPage,
+             $modelName,
+             $folderName
+             ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 
@@ -104,17 +111,20 @@ EOD;
 
     }
 
-    public function dtDatatableScriptTemplate($modelName, $folderName)
+    public function dtDatatableScriptTemplate()
     {
 
         list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName
-            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
+             $field_name,
+             $modelId,
+             $modelAttribute,
+             $createdAt,
+             $modelRoute,
+             $tableName,
+             $masterPage,
+             $modelName,
+             $folderName
+             ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
 

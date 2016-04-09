@@ -36,27 +36,27 @@ trait BuildsTemplates
     public function buildBasicTemplate($filename, $masterPage, $modelName, $folderName)
     {
 
-        $basicTemplateBuilder = new BasicTemplates;
+        $basicTemplateBuilder = new BasicTemplates($masterPage, $modelName, $folderName);
 
-        $commonTemplateBuilder = new CommonTemplates;
+        $commonTemplateBuilder = new CommonTemplates($masterPage, $modelName, $folderName);
 
         switch ($filename) {
 
             case 'create' :
 
-                return $commonTemplateBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonCreateTemplate();
 
             case 'edit' :
 
-                return $commonTemplateBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonEditTemplate();
 
             case 'show' :
 
-                return $commonTemplateBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonShowTemplate();
 
             case 'index' :
 
-                return $basicTemplateBuilder->basicIndexTemplate($masterPage, $modelName, $folderName);
+                return $basicTemplateBuilder->basicIndexTemplate();
 
             default:
 
@@ -70,35 +70,35 @@ trait BuildsTemplates
     public function buildDtTemplate($filename, $masterPage, $modelName, $folderName)
     {
 
-        $dtTemplateBuilder = new DatatableTemplates;
+        $dtTemplateBuilder = new DatatableTemplates($masterPage, $modelName, $folderName);
 
-        $commonTemplateBuilder = new CommonTemplates;
+        $commonTemplateBuilder = new CommonTemplates($masterPage, $modelName, $folderName);
 
         switch ($filename) {
 
             case 'create' :
 
-                return $commonTemplateBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonCreateTemplate();
 
             case 'edit' :
 
-                return $commonTemplateBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonEditTemplate();
 
             case 'show' :
 
-                return $commonTemplateBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
+                return $commonTemplateBuilder->commonShowTemplate();
 
             case 'index' :
 
-                return $dtTemplateBuilder->dtIndexTemplate($masterPage, $modelName , $folderName);
+                return $dtTemplateBuilder->dtIndexTemplate();
 
             case 'datatable' :
 
-                return $dtTemplateBuilder->dtDatatableTemplate($modelName, $folderName);
+                return $dtTemplateBuilder->dtDatatableTemplate();
 
             case 'datatable-script' :
 
-                return $dtTemplateBuilder->dtDatatableScriptTemplate($modelName, $folderName);
+                return $dtTemplateBuilder->dtDatatableScriptTemplate();
 
             default:
 
