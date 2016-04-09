@@ -12,7 +12,7 @@ trait BuildsTemplates
         switch($templateType){
 
             case 'plain' :
-                return 'just a stub for ' . $fileName;
+                return $this->buildPlainTemplate($fileName, $tokens);
                 break;
 
             case 'basic' :
@@ -103,6 +103,38 @@ trait BuildsTemplates
             default:
 
                 return 'filename not supported';
+
+        }
+
+    }
+
+    public function buildPlainTemplate($fileName, array $tokens)
+    {
+        $plainTemplateBuilder = new PlainTemplates($tokens);
+
+        switch($fileName){
+
+            case 'create' :
+
+                return $plainTemplateBuilder->plainCreateTemplate();
+
+            case 'show' :
+
+                return $plainTemplateBuilder->plainShowTemplate();
+
+            case 'edit' :
+
+                return $plainTemplateBuilder->plainEditTemplate();
+
+            case 'index' :
+
+                return $plainTemplateBuilder->plainIndexTemplate();
+
+            default:
+
+                return 'filename not supported';
+
+
 
         }
 
