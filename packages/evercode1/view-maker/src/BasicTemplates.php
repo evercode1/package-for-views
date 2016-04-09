@@ -6,40 +6,12 @@ namespace Evercode1\ViewMaker;
 class BasicTemplates
 {
 
-    public $commonBuilder;
+    public $tokenBuilder;
 
     public function __construct()
     {
-        $this->commonBuilder = new CommonTemplates;
+        $this->tokenBuilder = new CommonTemplates;
 
-    }
-
-    public function buildBasicTemplate($filename, $masterPage, $modelName, $folderName)
-    {
-
-        switch ($filename) {
-
-            case 'create' :
-
-                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
-
-            case 'edit' :
-
-                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
-
-            case 'show' :
-
-                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
-
-            case 'index' :
-
-                return $this->basicIndexTemplate($masterPage, $modelName, $folderName);
-
-            default:
-
-                return 'filename not supported';
-
-        }
     }
 
 
@@ -53,7 +25,7 @@ class BasicTemplates
             $createdAt,
             $modelRoute,
             $tableName
-            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
+            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 @extends('layouts.$masterPage')

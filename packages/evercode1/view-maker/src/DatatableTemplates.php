@@ -5,52 +5,11 @@ namespace Evercode1\ViewMaker;
 
 class DatatableTemplates
 {
-    public $commonBuilder;
+    public $tokenBuilder;
 
     public function __construct()
     {
-        $this->commonBuilder = new CommonTemplates;
-
-    }
-
-    public function buildDtTemplate($filename, $masterPage, $modelName, $folderName)
-    {
-
-
-
-        switch ($filename) {
-
-            case 'create' :
-
-                return $this->commonBuilder->commonCreateTemplate($masterPage, $modelName, $folderName);
-
-            case 'edit' :
-
-                return $this->commonBuilder->commonEditTemplate($masterPage, $modelName, $folderName);
-
-            case 'show' :
-
-                return $this->commonBuilder->commonShowTemplate($masterPage, $modelName, $folderName);
-
-            case 'index' :
-
-                return $this->dtIndexTemplate($masterPage, $modelName , $folderName);
-
-            case 'datatable' :
-
-                return $this->dtDatatableTemplate($modelName, $folderName);
-
-            case 'datatable-script' :
-
-                return $this->dtDatatableScriptTemplate($modelName, $folderName);
-
-
-
-            default:
-
-                return 'filename not supported';
-
-        }
+        $this->tokenBuilder = new CommonTemplates;
 
     }
 
@@ -64,7 +23,7 @@ class DatatableTemplates
              $createdAt,
              $modelRoute,
              $tableName
-             ) = $this->commonBuilder->formatTokens($modelName, $folderName);
+             ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
@@ -121,7 +80,7 @@ EOD;
             $createdAt,
             $modelRoute,
             $tableName
-            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
+            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
@@ -155,7 +114,7 @@ EOD;
             $createdAt,
             $modelRoute,
             $tableName
-            ) = $this->commonBuilder->formatTokens($modelName, $folderName);
+            ) = $this->tokenBuilder->formatTokens($modelName, $folderName);
 
         $content = <<<EOD
 
