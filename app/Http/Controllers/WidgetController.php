@@ -17,6 +17,7 @@ class WidgetController extends Controller
      */
     public function index()
     {
+
         return view('widget.index');
     }
 
@@ -38,6 +39,7 @@ class WidgetController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'widget_name' => 'required|unique:widgets|alpha_num|max:30',
 
