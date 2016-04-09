@@ -8,14 +8,12 @@ class FormatsTokens
     public $folderName;
     public $masterPage;
 
-    public function __construct($masterPage, $modelName, $folderName)
+    public function __construct(array $tokens)
     {
 
-        $this->modelName = $modelName;
-        $this->folderName = $folderName;
-        $this->masterPage = $masterPage;
-
-
+        $this->modelName = $tokens['modelName'];
+        $this->folderName = $tokens['folderName'];
+        $this->masterPage = $tokens['masterPage'];
 
     }
 

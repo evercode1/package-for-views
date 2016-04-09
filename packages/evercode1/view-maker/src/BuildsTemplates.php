@@ -5,27 +5,27 @@ namespace Evercode1\ViewMaker;
 trait BuildsTemplates
 {
 
-    private function getTemplate($filename, $templateType, $masterPage, $modelName, $folderName)
+    private function getTemplate($fileName, $templateType, array $tokens)
     {
 
 
         switch($templateType){
 
             case 'plain' :
-                return 'just a stub for ' . $filename;
+                return 'just a stub for ' . $fileName;
                 break;
 
             case 'basic' :
-                return $this->buildBasicTemplate($filename, $masterPage, $modelName, $folderName);
+                return $this->buildBasicTemplate($fileName, $tokens);
                 break;
 
             case 'dt' :
-                return $this->buildDtTemplate($filename, $masterPage, $modelName, $folderName);
+                return $this->buildDtTemplate($fileName, $tokens);
                 break;
 
             default :
 
-                return 'just a stub for ' . $filename;
+                return 'just a stub for ' . $fileName;
 
 
 
@@ -33,14 +33,14 @@ trait BuildsTemplates
 
     }
 
-    public function buildBasicTemplate($filename, $masterPage, $modelName, $folderName)
+    public function buildBasicTemplate($fileName, array $tokens)
     {
 
-        $basicTemplateBuilder = new BasicTemplates($masterPage, $modelName, $folderName);
+        $basicTemplateBuilder = new BasicTemplates($tokens);
 
-        $commonTemplateBuilder = new CommonTemplates($masterPage, $modelName, $folderName);
+        $commonTemplateBuilder = new CommonTemplates($tokens);
 
-        switch ($filename) {
+        switch ($fileName) {
 
             case 'create' :
 
@@ -67,14 +67,14 @@ trait BuildsTemplates
 
     }
 
-    public function buildDtTemplate($filename, $masterPage, $modelName, $folderName)
+    public function buildDtTemplate($fileName, array $tokens)
     {
 
-        $dtTemplateBuilder = new DatatableTemplates($masterPage, $modelName, $folderName);
+        $dtTemplateBuilder = new DatatableTemplates($tokens);
 
-        $commonTemplateBuilder = new CommonTemplates($masterPage, $modelName, $folderName);
+        $commonTemplateBuilder = new CommonTemplates($tokens);
 
-        switch ($filename) {
+        switch ($fileName) {
 
             case 'create' :
 

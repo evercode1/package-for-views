@@ -8,10 +8,10 @@ class BasicTemplates
 
     public $tokens;
 
-    public function __construct($masterPage, $modelName, $folderName)
+    public function __construct(array $tokens)
     {
 
-        $this->tokens = new FormatsTokens($masterPage, $modelName, $folderName);
+        $this->tokens = new FormatsTokens($tokens);
 
     }
 
@@ -55,8 +55,5 @@ EOD;
         return $content;
 
     }
-
-
-
 
 }

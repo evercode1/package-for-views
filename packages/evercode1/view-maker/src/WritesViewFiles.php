@@ -64,19 +64,15 @@ trait WritesViewFiles
 
     }
 
-    // make stubs called by makeViewFiles, type is plain, basic or dt
 
     private function makeFiles($templateType)
     {
-
 
         $this->writeFiles($templateType);
 
         return $this;
 
     }
-
-
 
     /**
      * @param $type
@@ -103,15 +99,13 @@ trait WritesViewFiles
      */
     private function writeEachFile($templateType, array $fileNames)
     {
-        foreach ($fileNames as $filename => $filepath) {
+        foreach ($fileNames as $fileName => $filepath) {
 
-            if ( ! is_array($filename)) {
+            if ( ! is_array($fileName)) {
 
-                $txt = $this->getTemplate($filename,
+                $txt = $this->getTemplate($fileName,
                                           $templateType,
-                                          $this->masterPage,
-                                          $this->modelName,
-                                          $this->folderName);
+                                          $this->tokens);
 
                 $handle = fopen($filepath, "w");
 
@@ -122,9 +116,5 @@ trait WritesViewFiles
 
         }
     }
-
-
-
-
 
 }

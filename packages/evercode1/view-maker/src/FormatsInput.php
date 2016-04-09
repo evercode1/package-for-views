@@ -29,7 +29,7 @@ trait FormatsInput
 
     public $tokens = [];
 
-    private function configFromInputs()
+    private function setConfigFromInputs()
     {
         // sets inputs from the artisan command line arguments
 

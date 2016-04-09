@@ -45,7 +45,7 @@ class MakeViews extends Command
     public function handle()
     {
 
-        $this->configFromInputs();
+        $this->setConfigFromInputs();
 
 
        if ( $this->makeViewDirectory()->makeViewFiles($this->templateType) ) {
