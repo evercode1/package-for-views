@@ -11,5 +11,5 @@
 
         @endif
 
-        FanboyPages All rights Reserved.</p>
+        Bill Keck All rights Reserved.</p>
 </div>

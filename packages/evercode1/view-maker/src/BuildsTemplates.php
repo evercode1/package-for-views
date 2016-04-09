@@ -5,7 +5,7 @@ namespace Evercode1\ViewMaker;
 trait BuildsTemplates
 {
 
-    private function getTemplate($filename, $type, $masterPage, $modelName, $folderName)
+    private function getTemplate($filename, $templateType, $masterPage, $modelName, $folderName)
     {
 
         $basicBuilder = new BasicTemplates;
@@ -14,7 +14,7 @@ trait BuildsTemplates
 
 
 
-        switch($type){
+        switch($templateType){
 
             case 'plain' :
                 return 'just a stub for ' . $filename;
@@ -37,6 +37,8 @@ trait BuildsTemplates
         }
 
     }
+
+
 
 
 }
