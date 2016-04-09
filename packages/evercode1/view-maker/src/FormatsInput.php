@@ -29,6 +29,10 @@ trait FormatsInput
 
     public $tokens = [];
 
+    private $validTemplateTypes = ['plain',
+                                   'basic',
+                                   'dt'];
+
     private function setConfigFromInputs()
     {
         // sets inputs from the artisan command line arguments
@@ -45,6 +49,8 @@ trait FormatsInput
 
         $this->folderPath = strtolower('resources/views/' . $this->folderName);
 
+        $this->validateTemplateTypeInput();
+
         $this->setViewList();
 
         $this->setFilePaths();
@@ -54,7 +60,28 @@ trait FormatsInput
 
     }
 
-    Private function formatModelName($folderName)
+    private function validateTemplateTypeInput()
+    {
+
+      if ($this->templateTypeNotValid($this->templateType)){
+
+
+          $this->error($this->templateType . ' is not a valid type');
+
+          die();
+
+      }
+
+
+    }
+
+    private function templateTypeNotValid($templateType)
+    {
+         return ! in_array($templateType, $this->validTemplateTypes);
+
+    }
+
+    private function formatModelName($folderName)
     {
 
         if (str_contains($folderName, '-')){

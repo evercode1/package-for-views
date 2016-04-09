@@ -35,8 +35,6 @@ trait WritesViewFiles
 
             case 'plain' :
 
-                //dd('make it plain');
-
                 return $this->makeFiles('plain');
 
                 break;
