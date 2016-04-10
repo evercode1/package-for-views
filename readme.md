@@ -8,6 +8,8 @@ You can browse the source files of this repository for reference in the tutorial
 
 ViewMaker creates an artisan command that lets you quickly scaffold views for create, show, edit, and index, based on your input.
 
+ViewMaker is for use with the Laravel PHP framework.  It's a plugin for the artisan command line tool that ships with Laravel.
+
 If you had a model named Widget, and you had a REST controller, you would want correspoing views
 for the controller methods.
 You simply input a model name, master page name and template type (plain, basic, or dt), and the 
