@@ -9,7 +9,7 @@ ViewMaker creates an artisan command that lets you quickly scaffold views for cr
 
 If you had a model named Widget, and you had a REST controller, you would want correspoing views
 for the controller methods.
-You simply input a model name, master page name and template type (plain, basic, or dt), for example, widget, and the 
+You simply input a model name, master page name and template type (plain, basic, or dt), and the 
 the view folder and the views are made for you instantly.
 
 ## Install
