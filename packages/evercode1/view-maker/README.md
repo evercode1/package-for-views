@@ -304,8 +304,7 @@ run.
 
 This convention will work great in most cases, but obviously there are some case where 
 it will have to be changed, for example if want to use it on a user model, you would end 
-up with user_name, which in the migration in Laravel  is actually just ‘name’.  
-Stick with Laravel defaults if you can. 
+up with user_name, which in the migration in Laravel  is actually just ‘name’.  Stick with Laravel defaults if you can. 
 
 So if you have situation like that or if you use a different convention, it’s ok, just 
 change it after the files are made.  You will have to work on these files anyway, since 
