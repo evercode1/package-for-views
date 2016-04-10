@@ -161,6 +161,8 @@ php artisan make:views widget master dt
 Assuming you have some records, and have set up your route, model, migration, api route, 
 and controller, that will get you the following:
 
+![](dt-index.png)
+
 Again note the header and footer are brought in by master page, which you create 
 separately on your own.  If you need an example to follow, use the demo site at:
 
