@@ -174,17 +174,21 @@ datatable-script.blade.php, which holds the datatable script.
 
 As long as you have included in your scripts in your master page or related files:
 
+```
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+```
 
 That has a jquery dependency, so you will need to put that after your jquery call.  
 You also need the following css:
 
+```
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-
+```
 You also need a meta tag:
 
+```
 <meta name="csrf-token" content="{!! csrf_token() !!}">
-
+```
 You can see how I did all this in the demo app:
 
 [demo](https://github.com/evercode1/package-for-views)
@@ -286,7 +290,9 @@ I have an example of this on the demo:
 As I mention in the other section, the templates are built with a single field, 
 with the following convention:
 
+```
 $modelName . '_name'
+```
 
 So that would mean that you have to have a widget_name column in your db.  A quick note 
 on why I do it this way.  You could have several models with a name attribute.  By 
