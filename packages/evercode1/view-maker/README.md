@@ -299,7 +299,7 @@ $modelName . '_name'
 So that would mean that you have to have a widget_name column in your db.  A quick note 
 on why I do it this way.  You could have several models with a name attribute.  By 
 making the model part of the name of the attribute, there is never confusion between 
-widget_name and product_name, and that makes working with queries easier in the long 
+widget_name and product_name, for example, and that makes working with queries easier in the long 
 run. 
 
 This convention will work great in most cases, but obviously there are some case where 
@@ -336,14 +336,14 @@ If you discover any security related issues, please email ikon321@yahoo.com inst
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/evercode1/trait-maker.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/evercode1/view-maker.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/evercode1/trait-maker/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/evercode1/trait-maker.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/evercode1/trait-maker.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/evercode1/trait-maker.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/evercode1/view-maker/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/evercode1/view-maker.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/evercode1/view-maker.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/evercode1/view-maker.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/evercode1/trait-maker
-[link-downloads]: https://packagist.org/packages/evercode1/trait-maker/stats
+[link-packagist]: https://packagist.org/packages/evercode1/view-maker
+[link-downloads]: https://packagist.org/packages/evercode1/view-maker/stats
 [link-author]: https://github.com/evercode1
 
