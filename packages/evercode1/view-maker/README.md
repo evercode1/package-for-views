@@ -71,16 +71,17 @@ directory, and then within that folder, the following files:
 
 All blade files will extend whatever value for master page that you inputted 
 on the command.  In the example above, the master page is named master.blade.php, 
-so we used ‘master’.  
+so we used 'master'.  
 
- If for whatever reason you are not using a master page for your application, 
- then you will have to go to each file and remove the @extends directive.  
- Since most applications will use a masterpage for common html markup, extending 
- the master page is included in the plain templates.
+If for whatever reason you are not using a master page for your application, 
+then you will have to go to each file and remove the @extends directive.
+  
+Since most applications will use a masterpage for common html markup, extending 
+the master page is included in the plain templates.
 
 When using plain as the template type, you get the view folder and and the 4 view files.  In each file, you get the extends directive and a single <h1> tag,  for example in create.blade.php, you would see:
 
-“This is your Widget Create page”
+"This is your Widget Create page"
 
 And that’s it.  So use plain if you just want to stub out the folder and the files, 
 this can still be a time-saver.
