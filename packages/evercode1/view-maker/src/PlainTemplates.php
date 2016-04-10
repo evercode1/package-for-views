@@ -41,7 +41,7 @@ class PlainTemplates
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Index Page</h1>
+<h1>This is your $upperCaseModelName Index page</h1>
 
 @endsection
 EOD;
@@ -76,7 +76,7 @@ EOD;
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Create Page</h1>
+<h1>This is your $upperCaseModelName Create page</h1>
 
 @endsection
 EOD;
@@ -111,7 +111,7 @@ EOD;
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Show Page</h1>
+<h1>This is your $upperCaseModelName Show page</h1>
 
 @endsection
 EOD;
@@ -146,7 +146,7 @@ EOD;
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Edit Page</h1>
+<h1>This is your $upperCaseModelName Edit page</h1>
 
 @endsection
 EOD;
