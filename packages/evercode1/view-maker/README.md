@@ -9,7 +9,7 @@ ViewMaker creates an artisan command that lets you quickly scaffold views for cr
 
 If you had a model named Widget, and you had a REST controller, you would want correspoing views
 for the controller methods.
-You simply input a model name, master page name and mode (plain, basic, or dt), for example, widget, and the 
+You simply input a model name, master page name and template type (plain, basic, or dt), for example, widget, and the 
 
 ## Install
 
@@ -139,7 +139,7 @@ support the basic views at:
 
 [demo](https://github.com/evercode1/package-for-views)
 
-Please note that is the code, not a live demo.
+Please note that is the code on github, not a live demo.
 
 Since the templates only provide for a single field, it is easy to add fields, modify 
 the html markup and css to suit your own tastes and needs.  Using the make:views command 
@@ -303,28 +303,8 @@ change it after the files are made.  You will have to work on these files anyway
 it’s unlikely you will build models with a single field name.  At any rate, it’s meant 
 to be a starting point, a fast way to get up and running.
 
-I hope you have enjoy this plugin and find it useful.  Please comment, share, like and 
-review if you can, thanks.
-
-I don’t have a donate button, but If you would like to support my work and learn more 
+I hope you have enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like to support my work and learn more 
 about Laravel, you can do so by buying one of my books, [Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot), I really appreciate it.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Change log
 
