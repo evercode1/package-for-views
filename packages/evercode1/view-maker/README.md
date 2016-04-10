@@ -79,7 +79,9 @@ then you will have to go to each file and remove the @extends directive.
 Since most applications will use a masterpage for common html markup, extending 
 the master page is included in the plain templates.
 
-When using plain as the template type, you get the view folder and and the 4 view files.  In each file, you get the extends directive and a single <h1> tag,  for example in create.blade.php, you would see:
+When using plain as the template type, you get the view folder and and the 4 view 
+files.  In each file, you get the extends directive and a single \<h1> tag,  
+for example in create.blade.php, you would see:
 
 "This is your Widget Create page"
 
