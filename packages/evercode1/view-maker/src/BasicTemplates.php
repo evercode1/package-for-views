@@ -19,24 +19,12 @@ class BasicTemplates
     public function basicIndexTemplate()
     {
 
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
-
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
@@ -44,15 +32,15 @@ class BasicTemplates
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/$modelRoute'>$upperCaseModelName</a></li>
+        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
         </ol>
 
-<h1>This is your $upperCaseModelName Index Page</h1>
+<h1>This is your :::upperCaseModelName::: Index Page</h1>
 
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 

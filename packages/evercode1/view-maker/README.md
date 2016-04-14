@@ -1,4 +1,4 @@
-# ViewMaker
+# ViewMaker For Laravel 5.2
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -7,10 +7,14 @@
 
 ViewMaker creates an artisan command that lets you quickly scaffold views for create, show, edit, and index, based on your input.
 
+ViewMaker is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line tool that ships with Laravel.
+
 If you had a model named Widget, and you had a REST controller, you would want correspoing views
 for the controller methods.
-You simply input a model name, master page name and template type (plain, basic, or dt), and the 
-the view folder and the views are made for you instantly.
+
+You simply input a model name, master page name and template type (plain, basic, dt, or vue), and 
+the view folder and corresponding views are made for you instantly.  Our dt and vue templates come with working
+js datagrids out of the box.
 
 ## Install
 
@@ -30,7 +34,7 @@ Evercode1\ViewMaker\ViewMakerServiceProvider::class,
 
 ## Summary
 
-ViewMaker creates an artisan command that lets you quickly scaffold views for create, 
+ViewMaker will install an artisan command that lets you quickly scaffold views for create, 
 show, edit, and index, based on your input.
 
 The make:views command has  the following arguments:
@@ -54,8 +58,12 @@ php artisan make:views widget master basic
 php artisan make:views widget master dt
 ```
 
+```
+php artisan make:views widget master vue
+```
+
 The plain template creates simple stubs, the basic template gives you a 
-couple of working forms and the dt templates give you a working datatables 
+couple of working forms and the dt and vue templates give you a working data 
 grid implementation with search and column sorts.  
 
 The templates are described in detail in the following sections.
@@ -148,7 +156,9 @@ is a starting point that will get you up and running quickly.
 
 ## Datatables Templates
 
-Sometimes we need to do quick prototyping of data grids.
+Sometimes we need to do quick prototyping of data grids.  With our datatables implementation,
+you get all of the views that come with basic, but you get also get a working data grid
+on the index page.
 
 Our dt template is a simple implementation of jquery datatables, which can get you up 
 and running quickly with a sortable, searchable grid.  The command for that looks like 
@@ -251,7 +261,114 @@ Datatables is a popular jquery plugin, the docs are here:
 
 [Datatables](https://datatables.net/)
 
+## Vue.js Templates
+
+Sometimes we need to do quick prototyping of data grids and we want to use vue.js.
+With our vue.js implementation, you get all of the views that come with basic, but 
+you get also get a working data gridon the index page.
+
+Our vue template is a simple implementation of a vue.js grid component, which can get you up 
+and running quickly with a sortable, searchable grid.  The command for that looks like 
+this:
+
+```
+php artisan make:views widget master vue
+```
+
+Assuming you have some records, and have set up your route, model, migration, api route, 
+and controller, that will get you the following on your index page:
+
+![](vue-index.png)
+
+Again note the header and footer are brought in by master page, which you create 
+separately on your own.  If you need an example to follow, use the demo site at:
+
+[demo](https://github.com/evercode1/package-for-views)
+
+You can copy the master.blade.php and related files from there if you wish to.
+
+You also need a meta tag, which will create the tokens for your ajax calls,
+so put it in the appropriate place in your head section:
+
+```
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+```
+You can see how I did all this in the demo app:
+
+[demo](https://github.com/evercode1/package-for-views)
+
+I break out my meta section as a view partial, which gets called into master.blade.php,
+but you can do it any way you want as long as you have it in there correctly.
+
+Please note that is the code, not a live demo.  But you can see how I structured the 
+master page and the cdn calls.
+
+When you run the make:views command with ‘vue’, you get your script, template, and css
+all included on the same index page.  You also get create.blade.php, edit.blade.php, and show.blade.php,
+but those are the same as the basic template, so refer to that for what those will look like.
+
+The ViewMaker will get you up and running quickly, but you should move your 
+vue js code to a permanent home, such as in public/js folder 
+or assets/js or some other location for your js assets.  It’s up to you how you 
+want to organize that.  The same is true for the css that I provided for it.
+
+In addition to having the route resource and matching controller, you also need a route 
+for your api call, which again, using widget as an example, would be:
+
+```
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
+```
+
+Note: this is a different convention than the datatables version.
+
+The route assumes you have a controller named ApiController with a widgetVueData method.  Oviously,
+if your model is something other than Widget, you would substitute the model name for widget.
+I’m using any as the verb here so I can do a get request to debug.  As a basic example, your api controller could look 
+like this:
+
+~~~~
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use DB;
+
+class ApiController extends Controller
+{
+   public function widgetVueData()
+       {
+   
+           $widgets = DB::table('widgets')
+                    ->select('id as Id',
+                             'widget_name as Name',
+                             'created_at as Created')
+                    ->get();
+   
+           return $widgets;
+   
+       }
+}
+
+~~~~
+
+Obviously, you can add new columns to the select statement as you require them, as long 
+as you have added them in your db.  You would also have to have a corresponding table 
+row in your grid on the index view and add the column name or names in the vue component.
+
+Vue.js is a popular javascript library, the docs are here:
+
+[Vue.js](https://vuejs.org/)
+
+What you get is a working, ajax-powered vue.js grid, but it's just a starting point.  If you 
+are just starting with Vue, it will give you some idea of how it works.
+
 ## Conventions
+
+### models
 
 For models with a single word, use the lowercase version of the word as the first 
 argument of the command:
@@ -267,14 +384,58 @@ words, such as AlphaWidget, then use the lowercase, separated by a dash:
 php artisan make:views alpha-widget master dt
 ```
 
-In such a case, your route would be:
+Note, in such a case, your route would be:
 
 ```
 Route::resource('alpha-widget', 'AlphaWidgetController');
 ```
 
-The name of your view folder would also be alpha-widget, so in your controller 
-methods, you do the following for create view for example:
+### routes
+
+Routes for models with a single word take on the lowercase value of the model.  For
+example, for the Widget model, you would have the following route:
+
+```
+Route::resource('widget', 'WidgetController');
+```
+Routes for models made up of compound words, will have a dash separating them.  For
+example, for the AlphaWidget model, you would have the following route:
+
+```
+Route::resource('alpha-widget', 'AlphaWidgetController');
+```
+### Api Routes
+
+If you wish the ajax calls to work out of the box for datatables and vue.js, then you 
+need to follow the conventions when naming the api routes.
+
+The following routes are an example for the datatables api routes.
+
+Single word model:
+
+Route::any('api/widget', 'ApiController@widgetData');
+
+Multiple world model:
+
+Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
+
+For vue.js, use the following api route convention:
+
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
+
+For multiple word models and using vue.js:
+
+Route::any('api/beta-widget-vue', 'ApiController@betaWidgetVueData');
+
+You are free to deviate from this as you wish, however you will need to overwrite
+the parts of the index.blade.php file that make the api call with your own values.
+
+### View Folder Conventions
+
+View folders will be created with the lowercase string value of the model name.
+If you have a multi-word model, for example, AlphaWidget, the name of your view folder 
+would also be alpha-widget, so in your controller methods, you do the following for 
+create view for example:
 
 ~~~~
 
@@ -289,6 +450,7 @@ I have an example of this on the demo:
 
 [demo](https://github.com/evercode1/package-for-views)
 
+### field names
 As I mention in the other section, the templates are built with a single field, 
 with the following convention:
 
@@ -310,6 +472,10 @@ So if you have situation like that or if you use a different convention, it’s 
 change it after the files are made.  You will have to work on these files anyway, since 
 it’s unlikely you will build models with a single field name.  At any rate, it’s meant 
 to be a starting point, a fast way to get up and running.
+
+Also note that this convention is only for the initial field supplied with the template.
+Any fields that you add to your models and tables are completely at your discretion, since
+you will have to add those yourself anyway.
 
 I hope you have enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like to support my work and learn more 
 about Laravel, you can do so by buying one of my books, [Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot), I really appreciate it.

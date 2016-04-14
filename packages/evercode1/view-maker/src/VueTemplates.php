@@ -1,4 +1,26 @@
-@extends('layouts.master')
+<?php
+
+namespace Evercode1\ViewMaker;
+
+
+class VueTemplates
+{
+
+    public $tokens;
+
+    public function __construct(array $tokens)
+    {
+
+        $this->tokens = new FormatsTokens($tokens);
+
+    }
+
+
+    public function vueIndexTemplate()
+    {
+
+        $content = <<<EOD
+@extends('layouts.:::masterPage:::')
 @section('css')
     <style>
         [v-cloak] {
@@ -67,12 +89,12 @@
                     @{{row.Id}}
                 </td>
                 <td>
-                    <a href="/widget/@{{row.Id}}">@{{row.Name}}</a>
+                    <a href=":::modelRoute:::/@{{row.Id}}">@{{row.Name}}</a>
                 </td>
                 <td>
                     @{{row.Created}}
                 </td>
-                <td ><a href="/widget/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
+                <td ><a href=":::modelRoute:::/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
             </tr>
             </tbody>
         </table>
@@ -85,15 +107,15 @@
     </script>
 
     <!-- demo root element -->
-    <div id="widget">
+    <div id=":::modelName:::">
         <form id="search">
             Search <input name="query" v-model="searchQuery">
         </form>
-        <widget-grid
+        <:::gridName:::
                 :data="gridData"
                 :columns="gridColumns"
                 :filter-key="searchQuery">
-        </widget-grid>
+        <:::endGridName:::>
     </div>
 @endsection
 
@@ -111,7 +133,7 @@
         });
 
         // register the grid component
-        Vue.component('widget-grid', {
+        Vue.component(':::gridName:::', {
             template: '#grid-template',
             props: {
                 data: Array,
@@ -137,8 +159,8 @@
         });
 
         // bootstrap the vue instance
-        var widget = new Vue({
-            el: '#widget',
+        var :::modelName::: = new Vue({
+            el: '#:::modelName:::',
             data: {
                 searchQuery: '',
                 gridColumns: ['Id', 'Name', 'Created'],
@@ -152,7 +174,7 @@
 
             methods: {
                 loadData: function () {
-                    $.getJSON('api/widget-vue', function (rows) {
+                    $.getJSON(':::vueApiRoute:::', function (rows) {
                         this.gridData = rows;
                     }.bind(this));
                 }
@@ -161,3 +183,10 @@
         });
     </script>
 @endsection
+EOD;
+
+        return $this->tokens->formatTokens($content);
+
+    }
+
+}

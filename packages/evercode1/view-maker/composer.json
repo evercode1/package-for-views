@@ -1,7 +1,7 @@
 {
   "name": "evercode1/view-maker",
   "type": "library",
-  "description": "Artisan Command To Create Restful Views Stubs",
+  "description": "ViewMaker for Laravel 5.2 Artisan Command",
   "keywords": [
     "evercode1",
     "view-maker",

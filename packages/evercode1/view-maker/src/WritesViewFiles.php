@@ -51,6 +51,12 @@ trait WritesViewFiles
 
                 break;
 
+            case 'vue'  :
+
+                return $this->makeFiles('vue');
+
+                break;
+
             default:
 
                 $this->error($templateType . ' is not a valid type');

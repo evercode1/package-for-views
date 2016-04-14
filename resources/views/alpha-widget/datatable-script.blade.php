@@ -2,10 +2,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#widget_table').DataTable({
+        $('#alphaWidget_table').DataTable({
             select: false,
             "ajax": {
-                "url": "/api/widget",
+                "url": "/api/alpha-widget",
                 "type": "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -13,9 +13,9 @@
             },
             "columns": [
                 { "data": "id"},
-                { "data": "widget_name",
+                { "data": "alpha_widget_name",
                     "render": function(data,type,row,meta) {
-                        return '<a href="/widget/'+row.id+'">'+data+'</a>';
+                        return '<a href="/alpha-widget/'+row.id+'">'+data+'</a>';
                     }
                 },
                 { "data": "created_at",
@@ -28,7 +28,7 @@
                     }
                 },
                 {"defaultContent": "null", "render": function(data,type,row,meta) {
-                    return '<a href="/widget/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
+                    return '<a href="/alpha-widget/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
                 }
                 }
             ]

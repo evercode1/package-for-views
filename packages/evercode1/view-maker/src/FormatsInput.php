@@ -31,7 +31,8 @@ trait FormatsInput
 
     private $validTemplateTypes = ['plain',
                                    'basic',
-                                   'dt'];
+                                   'dt',
+                                   'vue'];
 
     private function setConfigFromInputs()
     {

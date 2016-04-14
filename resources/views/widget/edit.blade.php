@@ -9,7 +9,12 @@
 @section('content')
 
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/widget'>Widget</a></li><li><a href='/widget/{{$widget->id}}'>{{$widget->widget_name}}</a></li><li class='active'>Edit</li></ol>
+        <ol class='breadcrumb'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/widget'>Widget</a></li>
+        <li><a href='/widget/{{$widget->id}}'>{{$widget->widget_name}}</a></li>
+        <li class='active'>Edit</li>
+        </ol>
 
         <h1>Edit Widget</h1>
 

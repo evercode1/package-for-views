@@ -48,6 +48,7 @@ class MakeViews extends Command
         $this->setConfigFromInputs();
 
 
+
        if ( $this->makeViewDirectory()->makeViewFiles($this->templateType) ) {
 
             $this->sendSuccessMessage();

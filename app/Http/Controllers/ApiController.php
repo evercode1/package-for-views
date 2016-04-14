@@ -9,6 +9,20 @@ use DB;
 
 class ApiController extends Controller
 {
+
+    public function alphaWidgetData(){
+
+        $result['data'] = DB::table('alpha_widgets')
+                        ->select('id',
+                                 'alpha_widget_name',
+                                 'created_at')
+                        ->get();
+
+        return json_encode($result);
+
+    }
+
+
     public function widgetData(){
 
         $result['data'] = DB::table('widgets')
@@ -21,15 +35,18 @@ class ApiController extends Controller
 
     }
 
-    public function alphaWidgetData(){
+    public function widgetVueData()
+    {
 
-        $result['data'] = DB::table('alpha_widgets')
-            ->select('id',
-                'alpha_widget_name',
-                'created_at')
-            ->get();
+        $widgets = DB::table('widgets')
+                 ->select('id as Id',
+                          'widget_name as Name',
+                          'created_at as Created')
+                 ->get();
 
-        return json_encode($result);
+        return $widgets;
 
     }
+
+
 }

@@ -18,140 +18,93 @@ class PlainTemplates
     public function plainIndexTemplate()
     {
 
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
-
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Index page</h1>
+<h1>This is your :::upperCaseModelName::: Index page</h1>
 
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 
     public function plainCreateTemplate()
     {
 
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Create page</h1>
+<h1>This is your :::upperCaseModelName::: Create page</h1>
 
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 
     public function plainShowTemplate()
     {
 
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
-
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Show page</h1>
+<h1>This is your :::upperCaseModelName::: Show page</h1>
 
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 
     public function plainEditTemplate()
     {
 
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
-
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
-<h1>This is your $upperCaseModelName Edit page</h1>
+<h1>This is your :::upperCaseModelName::: Edit page</h1>
 
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 

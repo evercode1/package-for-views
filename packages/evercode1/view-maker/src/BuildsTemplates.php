@@ -23,6 +23,10 @@ trait BuildsTemplates
                 return $this->buildDtTemplate($fileName, $tokens);
                 break;
 
+            case 'vue' :
+                return $this->buildVueTemplate($fileName, $tokens);
+                break;
+
             default :
 
                 return 'just a stub for ' . $fileName;
@@ -137,6 +141,40 @@ trait BuildsTemplates
 
 
         }
+
+    }
+
+    public function buildVueTemplate($fileName, array $tokens)
+    {
+
+        $vueTemplateBuilder = new VueTemplates($tokens);
+
+        $commonTemplateBuilder = new CommonTemplates($tokens);
+
+        switch ($fileName) {
+
+            case 'create' :
+
+                return $commonTemplateBuilder->commonCreateTemplate();
+
+            case 'edit' :
+
+                return $commonTemplateBuilder->commonEditTemplate();
+
+            case 'show' :
+
+                return $commonTemplateBuilder->commonShowTemplate();
+
+            case 'index' :
+
+                return $vueTemplateBuilder->vueIndexTemplate();
+
+            default:
+
+                return 'filename not supported';
+
+        }
+
 
     }
 

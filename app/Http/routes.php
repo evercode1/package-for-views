@@ -13,6 +13,7 @@
 
 Route::any('api/widget', 'ApiController@widgetData');
 Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
 
 
 

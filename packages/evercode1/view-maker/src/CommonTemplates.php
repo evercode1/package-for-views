@@ -15,49 +15,39 @@ class CommonTemplates
 
     public function commonCreateTemplate()
     {
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
+
 
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>Create a $upperCaseModelName</title>
+    <title>Create a :::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelRoute'>$upperCaseModelName</a></li><li class='active'>Create</li></ol>
+        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li><li class='active'>Create</li></ol>
 
-        <h2>Create a New $upperCaseModelName</h2>
+        <h2>Create a New :::upperCaseModelName:::</h2>
 
         <hr/>
 
 
-        <form class="form" role="form" method="POST" action="{{ url('/$modelRoute') }}">
+        <form class="form" role="form" method="POST" action="{{ url(':::modelRoute:::') }}">
 
         {!! csrf_field() !!}
 
-        <!-- $field_name Form Input -->
-            <div class="form-group{{ \$errors->has('$field_name') ? ' has-error' : '' }}">
-                <label class="control-label">$upperCaseModelName Name</label>
+        <!-- :::field_name::: Form Input -->
+            <div class="form-group{{ \$errors->has(':::field_name:::') ? ' has-error' : '' }}">
+                <label class="control-label">:::upperCaseModelName::: Name</label>
 
-                    <input type="text" class="form-control" name="$field_name" value="{{ old('$field_name') }}">
+                    <input type="text" class="form-control" name=":::field_name:::" value="{{ old(':::field_name:::') }}">
 
-                    @if (\$errors->has('$field_name'))
+                    @if (\$errors->has(':::field_name:::'))
                         <span class="help-block">
-                                        <strong>{{ \$errors->first('$field_name') }}</strong>
+                                        <strong>{{ \$errors->first(':::field_name:::') }}</strong>
                                     </span>
                     @endif
 
@@ -76,56 +66,50 @@ class CommonTemplates
 EOD;
 
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 
     public function commonEditTemplate()
     {
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
 
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>Edit $upperCaseModelName</title>
+    <title>Edit :::upperCaseModelName:::</title>
 
 @endsection
 
 @section('content')
 
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href='/$modelRoute'>$upperCaseModelName</a></li><li><a href='/$modelName/{{\$$modelId}}'>{{\$$modelAttribute}}</a></li><li class='active'>Edit</li></ol>
+        <ol class='breadcrumb'>
+        <li><a href='/'>Home</a></li>
+        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::/{{\$:::modelId:::}}'>{{\$:::modelAttribute:::}}</a></li>
+        <li class='active'>Edit</li>
+        </ol>
 
-        <h1>Edit $upperCaseModelName</h1>
+        <h1>Edit :::upperCaseModelName:::</h1>
 
         <hr/>
 
 
-        <form class="form" role="form" method="POST" action="{{ url('/$modelRoute/'. \$$modelId) }}">
+        <form class="form" role="form" method="POST" action="{{ url(':::modelRoute:::/'. \$:::modelId:::) }}">
         <input type="hidden" name="_method" value="patch">
         {!! csrf_field() !!}
 
-        <!-- $field_name Form Input -->
-            <div class="form-group{{ \$errors->has('$field_name') ? ' has-error' : '' }}">
-                <label class="control-label">$upperCaseModelName Name</label>
+        <!-- :::field_name::: Form Input -->
+            <div class="form-group{{ \$errors->has(':::field_name:::') ? ' has-error' : '' }}">
+                <label class="control-label">:::upperCaseModelName::: Name</label>
 
-                    <input type="text" class="form-control" name="$field_name" value="{{ \$$modelAttribute }}">
+                    <input type="text" class="form-control" name=":::field_name:::" value="{{ \$:::modelAttribute::: }}">
 
-                    @if (\$errors->has('$field_name'))
+                    @if (\$errors->has(':::field_name:::'))
                         <span class="help-block">
-                                        <strong>{{ \$errors->first('$field_name') }}</strong>
+                                        <strong>{{ \$errors->first(':::field_name:::') }}</strong>
                                     </span>
                     @endif
 
@@ -144,32 +128,21 @@ EOD;
 EOD;
 
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
 
     }
 
     public function commonShowTemplate()
     {
-        list($upperCaseModelName,
-            $field_name,
-            $modelId,
-            $modelAttribute,
-            $createdAt,
-            $modelRoute,
-            $tableName,
-            $masterPage,
-            $modelName,
-            $folderName
-            ) = $this->tokens->formatTokens();
 
 
         $content = <<<EOD
-@extends('layouts.$masterPage')
+@extends('layouts.:::masterPage:::')
 
 @section('title')
 
-    <title>$upperCaseModelName</title>
+    <title>:::upperCaseModelName:::</title>
 
 @endsection
 
@@ -177,11 +150,11 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/$modelRoute'>$upperCaseModelName</a></li>
-        <li><a href='/$modelRoute/{{ \$$modelId }}'>{{ \$$modelAttribute }}</a></li>
+        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::/{{ \$:::modelId::: }}'>{{ \$:::modelAttribute::: }}</a></li>
         </ol>
 
-        <h1>$upperCaseModelName Details</h1>
+        <h1>:::upperCaseModelName::: Details</h1>
 
         <hr/>
 
@@ -201,12 +174,12 @@ EOD;
 
 
                     <tr>
-                        <td>{{ \$$modelId }} </td>
-                        <td> <a href="/$modelName/{{ \$$modelId }}/edit">
-                                {{ \$$modelAttribute }}</a></td>
-                        <td>{{ \$$createdAt }}</td>
+                        <td>{{ \$:::modelId::: }} </td>
+                        <td> <a href=":::modelRoute:::/{{ \$:::modelId::: }}/edit">
+                                {{ \$:::modelAttribute::: }}</a></td>
+                        <td>{{ \$:::createdAt::: }}</td>
 
-                        <td> <a href="/$modelRoute/{{ \$$modelId }}/edit">
+                        <td> <a href=":::modelRoute:::/{{ \$:::modelId::: }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -214,7 +187,7 @@ EOD;
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/$modelRoute/'. \$$modelId) }}">
+                       <form class="form" role="form" method="POST" action="{{ url(':::modelRoute:::/'. \$:::modelId:::) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 
@@ -246,7 +219,7 @@ EOD;
 @endsection
 EOD;
 
-        return $content;
+        return $this->tokens->formatTokens($content);
 
     }
 
