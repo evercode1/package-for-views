@@ -92,7 +92,7 @@ class VueTemplates
                     <a href=":::modelRoute:::/@{{row.Id}}">@{{row.Name}}</a>
                 </td>
                 <td>
-                    @{{row.Created}}
+                    @{{row.Created | formatDate}}
                 </td>
                 <td ><a href=":::modelRoute:::/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
             </tr>
@@ -124,12 +124,24 @@ class VueTemplates
 
     <!-- jquery required before -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+
     <script>
 
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        Vue.filter('formatDate', function(value){
+
+           <!-- instantiate a moment object and hand it the string date -->
+
+            var d = moment(value);
+            var month = d.month() +1 < 10 ? "0" + (d.month() +1) : d.month() +1;
+            var day = d.date()  < 10 ? "0" + (d.date()): d.date();
+            return month + "/" + day + "/" + d.year();
         });
 
         // register the grid component
