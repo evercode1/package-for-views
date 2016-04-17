@@ -30,7 +30,7 @@ class DatatableTemplates
 
 @section('content')
 
-    <div class="container">
+
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
@@ -47,7 +47,7 @@ class DatatableTemplates
               </button></a>
             </div>
 
-    </div>
+
 
 @endsection
 

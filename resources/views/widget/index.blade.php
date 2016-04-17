@@ -36,6 +36,13 @@
 @endsection
 
 @section('content')
+
+<ol class='breadcrumb'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/widget'>Widget</a></li>
+        </ol>
+
+
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
         <div class="row">
@@ -95,6 +102,12 @@
                 :filter-key="searchQuery">
         </widget-grid>
     </div>
+
+    <div> <a href="/widget/create">
+              <button type="button" class="btn btn-lg btn-primary">
+                        Create New
+              </button></a>
+            </div>
 @endsection
 
 @section('scripts')

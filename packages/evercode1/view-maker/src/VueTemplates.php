@@ -58,6 +58,13 @@ class VueTemplates
 @endsection
 
 @section('content')
+
+<ol class='breadcrumb'>
+        <li><a href='/'>Home</a></li>
+        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        </ol>
+
+
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
         <div class="row">
@@ -117,6 +124,12 @@ class VueTemplates
                 :filter-key="searchQuery">
         <:::endGridName:::>
     </div>
+
+    <div> <a href=":::modelRoute:::/create">
+              <button type="button" class="btn btn-lg btn-primary">
+                        Create New
+              </button></a>
+            </div>
 @endsection
 
 @section('scripts')
