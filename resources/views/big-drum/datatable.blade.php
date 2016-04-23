@@ -1,5 +1,5 @@
 
-    <table id="category_table" class="display">
+    <table id="big_drum_table" class="display">
         <thead>
         <tr>
             <th>Id</th>

@@ -121,7 +121,9 @@ class CrudTokens
 
         $model = $this->formatModelName($model);
 
-        $model = $this->formatModelPath($model);
+        $model = snake_case($model);
+
+        $model = strtolower($model);
 
         return $model = str_plural($model);
 

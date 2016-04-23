@@ -4,16 +4,16 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class LoafTest extends TestCase
+class BigDrumTest extends TestCase
 {
-    public function testCreateNewLoaf()
+    public function testCreateNewBigDrum()
     {
 
         $randomString = str_random(10);
 
-        $this->visit('/loaf/create')
-              ->type($randomString, 'loaf_name')
+        $this->visit('/big-drum/create')
+              ->type($randomString, 'big_drum_name')
               ->press('Create')
-              ->seePageIs('/loaf');
+              ->seePageIs('/big-drum');
     }
 }

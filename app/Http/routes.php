@@ -43,3 +43,13 @@ Route::resource('widget', 'WidgetController');
 Route::any('api/gadget', 'ApiController@gadgetData');
 Route::any('api/gadget-vue', 'ApiController@gadgetVueData');
 Route::resource('gadget', 'GadgetController');
+
+
+// Api Routes
+
+Route::any('api/big-drum', 'ApiController@bigDrumData');
+Route::any('api/big-drum-vue', 'ApiController@bigDrumVueData');
+
+// BigDrum Routes
+
+Route::resource('big-drum', 'BigDrumController');

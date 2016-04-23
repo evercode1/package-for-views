@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Drum;
+use App\BigDrum;
 use Illuminate\Support\Facades\Redirect;
 
-class DrumController extends Controller
+class BigDrumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class DrumController extends Controller
     public function index()
     {
 
-        return view('drum.index');
+        return view('big-drum.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class DrumController extends Controller
      */
     public function create()
     {
-        return view('drum.create');
+        return view('big-drum.create');
     }
 
     /**
@@ -41,14 +41,14 @@ class DrumController extends Controller
     {
 
         $this->validate($request, [
-            'drum_name' => 'required|unique:drums|alpha_num|max:30',
+            'big_drum_name' => 'required|unique:big_drums|alpha_num|max:30',
 
         ]);
 
-        $drum = Drum::create(['drum_name' => $request->drum_name]);
-        $drum->save();
+        $bigDrum = BigDrum::create(['big_drum_name' => $request->big_drum_name]);
+        $bigDrum->save();
 
-        return Redirect::route('drum.index');
+        return Redirect::route('big-drum.index');
 
     }
 
@@ -60,9 +60,9 @@ class DrumController extends Controller
      */
     public function show($id)
     {
-        $drum = Drum::findOrFail($id);
+        $bigDrum = BigDrum::findOrFail($id);
 
-        return view('drum.show', compact('drum'));
+        return view('big-drum.show', compact('bigDrum'));
     }
 
     /**
@@ -73,9 +73,9 @@ class DrumController extends Controller
      */
     public function edit($id)
     {
-        $drum = Drum::findOrFail($id);
+        $bigDrum = BigDrum::findOrFail($id);
 
-        return view('drum.edit', compact('drum'));
+        return view('big-drum.edit', compact('bigDrum'));
     }
 
     /**
@@ -88,14 +88,14 @@ class DrumController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'drum_name' => 'required|string|max:40|unique:drums,drum_name,' .$id
+            'big_drum_name' => 'required|string|max:40|unique:big_drums,big_drum_name,' .$id
 
         ]);
-        $drum = Drum::findOrFail($id);
-        $drum->update(['drum_name' => $request->drum_name]);
+        $bigDrum = BigDrum::findOrFail($id);
+        $bigDrum->update(['big_drum_name' => $request->big_drum_name]);
 
 
-        return Redirect::route('drum.show', ['drum' => $drum]);
+        return Redirect::route('big-drum.show', ['bigDrum' => $bigDrum]);
     }
 
     /**
@@ -106,8 +106,8 @@ class DrumController extends Controller
      */
     public function destroy($id)
     {
-        Drum::destroy($id);
+        BigDrum::destroy($id);
 
-        return Redirect::route('drum.index');
+        return Redirect::route('big-drum.index');
     }
 }

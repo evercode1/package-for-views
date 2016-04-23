@@ -6,7 +6,7 @@
 
 @section('title')
 
-    <title>The Category Page</title>
+    <title>The BigDrum Page</title>
 
 @endsection
 
@@ -16,14 +16,14 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/category'>Category</a></li>
+        <li><a href='/big-drum'>BigDrum</a></li>
         </ol>
 
-        <h1>Category</h1>
+        <h1>BigDrum</h1>
 
-        @include('category.datatable')
+        @include('big-drum.datatable')
 
-        <div> <a href="/category/create">
+        <div> <a href="/big-drum/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -35,6 +35,6 @@
 
 @section('scripts')
 
-    @include('category.datatable-script')
+    @include('big-drum.datatable-script')
 
 @endsection

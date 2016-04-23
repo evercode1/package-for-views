@@ -2,10 +2,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#category_table').DataTable({
+        $('#big_drum_table').DataTable({
             select: false,
             "ajax": {
-                "url": "/api/category",
+                "url": "/api/big-drum",
                 "type": "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -13,9 +13,9 @@
             },
             "columns": [
                 { "data": "id"},
-                { "data": "category_name",
+                { "data": "big_drum_name",
                     "render": function(data,type,row,meta) {
-                        return '<a href="/category/'+row.id+'">'+data+'</a>';
+                        return '<a href="/big-drum/'+row.id+'">'+data+'</a>';
                     }
                 },
                 { "data": "created_at",
@@ -28,7 +28,7 @@
                     }
                 },
                 {"defaultContent": "null", "render": function(data,type,row,meta) {
-                    return '<a href="/category/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
+                    return '<a href="/big-drum/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
                 }
                 }
             ]

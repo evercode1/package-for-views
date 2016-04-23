@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Category</title>
+    <title>BigDrum</title>
 
 @endsection
 
@@ -10,11 +10,11 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/category'>Category</a></li>
-        <li><a href='/category/{{ $category->id }}'>{{ $category->category_name }}</a></li>
+        <li><a href='/big-drum'>BigDrum</a></li>
+        <li><a href='/big-drum/{{ $bigDrum->id }}'>{{ $bigDrum->big_drum_name }}</a></li>
         </ol>
 
-        <h1>Category Details</h1>
+        <h1>BigDrum Details</h1>
 
         <hr/>
 
@@ -34,12 +34,12 @@
 
 
                     <tr>
-                        <td>{{ $category->id }} </td>
-                        <td> <a href="/category/{{ $category->id }}/edit">
-                                {{ $category->category_name }}</a></td>
-                        <td>{{ $category->created_at }}</td>
+                        <td>{{ $bigDrum->id }} </td>
+                        <td> <a href="/big-drum/{{ $bigDrum->id }}/edit">
+                                {{ $bigDrum->big_drum_name }}</a></td>
+                        <td>{{ $bigDrum->created_at }}</td>
 
-                        <td> <a href="/category/{{ $category->id }}/edit">
+                        <td> <a href="/big-drum/{{ $bigDrum->id }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -47,7 +47,7 @@
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/category/'. $category->id) }}">
+                       <form class="form" role="form" method="POST" action="{{ url('/big-drum/'. $bigDrum->id) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 

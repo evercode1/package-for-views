@@ -28,3 +28,12 @@ $factory->define(App\Gadget::class, function (Faker\Generator $faker) {
 
     ];
 });
+
+
+
+$factory->define(App\BigDrum::class, function (Faker\Generator $faker) {
+    return [
+        'big_drum_name' => $faker->unique()->word,
+
+    ];
+});

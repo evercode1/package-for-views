@@ -71,7 +71,7 @@ EOD;
 
         $content = <<<EOD
 
-    <table id=":::tableName:::" class="display">
+    <table id=":::dtTableName:::" class="display">
         <thead>
         <tr>
             <th>Id</th>
@@ -99,7 +99,7 @@ EOD;
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script>
     \$(document).ready( function () {
-        \$('#:::tableName:::').DataTable({
+        \$('#:::dtTableName:::').DataTable({
             select: false,
             "ajax": {
                 "url": "/api:::modelRoute:::",
