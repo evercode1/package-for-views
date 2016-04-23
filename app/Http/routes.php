@@ -50,16 +50,22 @@ Route::resource('gadget', 'GadgetController');
 Route::any('api/big-drum', 'ApiController@bigDrumData');
 Route::any('api/big-drum-vue', 'ApiController@bigDrumVueData');
 
-// BigDrum Routes
 
-Route::resource('big-drum', 'BigDrumController');
 
 
 // Api Routes
 
-Route::any('api/black-hammer', 'ApiController@blackHammerData');
-Route::any('api/black-hammer-vue', 'ApiController@blackHammerVueData');
+Route::any('api/orange', 'ApiController@orangeData');
+Route::any('api/orange-vue', 'ApiController@orangeVueData');
 
-// BlackHammer Routes
+// Orange Routes
 
-Route::resource('black-hammer', 'BlackHammerController');
+Route::resource('orange', 'OrangeController');
+// Api Routes
+
+Route::any('api/orange', 'ApiController@orangeData');
+Route::any('api/orange-vue', 'ApiController@orangeVueData');
+
+// Orange Routes
+
+Route::resource('orange', 'OrangeController');

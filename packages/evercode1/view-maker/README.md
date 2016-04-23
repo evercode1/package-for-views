@@ -19,6 +19,10 @@ sortable columns.  It also builds a basic unit test and sets up your factory for
 ViewMaker also ships with a make:crud command, which creates the model, migration, routes, controllers, factory, and test
 without the views, in case you want to create those separately.
 
+I hope you enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like 
+to support my work and learn more about Laravel, you can do so by buying one of 
+my books, [Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot), 
+I really appreciate it.
 
 ## Install
 
@@ -660,19 +664,27 @@ The following routes are an example for the datatables api routes.
 
 Single word model:
 
+```
 Route::any('api/widget', 'ApiController@widgetData');
+```
 
 Multiple world model:
 
+```
 Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
+```
 
 For vue.js, use the following api route convention:
 
+```
 Route::any('api/widget-vue', 'ApiController@widgetVueData');
+```
 
 For multiple word models and using vue.js:
 
+```
 Route::any('api/beta-widget-vue', 'ApiController@betaWidgetVueData');
+```
 
 You are free to deviate from this as you wish, however you will need to overwrite
 the parts of the index.blade.php file that make the api call with your own values.
@@ -724,8 +736,10 @@ Also note that this convention is only for the initial field supplied with the t
 Any fields that you add to your models and tables are completely at your discretion, since
 you will have to add those yourself anyway.
 
-I hope you have enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like to support my work and learn more 
-about Laravel, you can do so by buying one of my books, [Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot), I really appreciate it.
+I hope you enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like 
+to support my work and learn more about Laravel, you can do so by buying one of 
+my books, [Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot), 
+I really appreciate it.
 
 ## Change log
 
