@@ -11,9 +11,36 @@
 |
 */
 
+
+
+
+
 $factory->define(App\Widget::class, function (Faker\Generator $faker) {
     return [
         'widget_name' => $faker->unique()->word,
+
+    ];
+});
+
+$factory->define(App\Gadget::class, function (Faker\Generator $faker) {
+    return [
+        'gadget_name' => $faker->unique()->word,
+
+    ];
+});
+
+$factory->define(App\Apple::class, function (Faker\Generator $faker) {
+    return [
+        'apple_name' => $faker->unique()->word,
+
+    ];
+});
+
+
+
+$factory->define(App\Grape::class, function (Faker\Generator $faker) {
+    return [
+        'grape_name' => $faker->unique()->word,
 
     ];
 });

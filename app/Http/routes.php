@@ -11,9 +11,9 @@
 |
 */
 
-Route::any('api/widget', 'ApiController@widgetData');
+
 Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
-Route::any('api/widget-vue', 'ApiController@widgetVueData');
+
 
 
 
@@ -25,7 +25,7 @@ Route::any('api/widget-vue', 'ApiController@widgetVueData');
         return view('welcome');
     });
 
-    Route::resource('widget', 'WidgetController');
+
 
     Route::resource('alpha-widget', 'AlphaWidgetController');
 
@@ -34,3 +34,25 @@ Route::any('api/widget-vue', 'ApiController@widgetVueData');
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::any('api/widget', 'ApiController@widgetData');
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
+Route::resource('widget', 'WidgetController');
+Route::any('api/widget', 'ApiController@widgetData');
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
+Route::resource('widget', 'WidgetController');
+Route::any('api/gadget', 'ApiController@gadgetData');
+Route::any('api/gadget-vue', 'ApiController@gadgetVueData');
+Route::resource('gadget', 'GadgetController');
+Route::any('api/apple', 'ApiController@appleData');
+Route::any('api/apple-vue', 'ApiController@appleVueData');
+Route::resource('apple', 'AppleController');
+
+
+// Api Routes
+
+Route::any('api/grape', 'ApiController@grapeData');
+Route::any('api/grape-vue', 'ApiController@grapeVueData');
+
+// Grape Routes
+
+Route::resource('grape', 'GrapeController');

@@ -31,6 +31,7 @@ class ViewMakerServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'Evercode1\ViewMaker\MakeViews',
+        'Evercode1\ViewMaker\MakeCrud',
     ];
 
 

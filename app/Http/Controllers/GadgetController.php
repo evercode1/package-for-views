@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Widget;
+use App\Gadget;
 use Illuminate\Support\Facades\Redirect;
 
-class WidgetController extends Controller
+class GadgetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class WidgetController extends Controller
     public function index()
     {
 
-        return view('widget.index');
+        return view('gadget.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class WidgetController extends Controller
      */
     public function create()
     {
-        return view('widget.create');
+        return view('gadget.create');
     }
 
     /**
@@ -41,14 +41,14 @@ class WidgetController extends Controller
     {
 
         $this->validate($request, [
-            'widget_name' => 'required|unique:widgets|alpha_num|max:30',
+            'gadget_name' => 'required|unique:gadgets|alpha_num|max:30',
 
         ]);
 
-        $widget = Widget::create(['widget_name' => $request->widget_name]);
-        $widget->save();
+        $gadget = Gadget::create(['gadget_name' => $request->gadget_name]);
+        $gadget->save();
 
-        return Redirect::route('widget.index');
+        return Redirect::route('gadget.index');
 
     }
 
@@ -60,9 +60,9 @@ class WidgetController extends Controller
      */
     public function show($id)
     {
-        $widget = Widget::findOrFail($id);
+        $gadget = Gadget::findOrFail($id);
 
-        return view('widget.show', compact('widget'));
+        return view('gadget.show', compact('gadget'));
     }
 
     /**
@@ -73,9 +73,9 @@ class WidgetController extends Controller
      */
     public function edit($id)
     {
-        $widget = Widget::findOrFail($id);
+        $gadget = Gadget::findOrFail($id);
 
-        return view('widget.edit', compact('widget'));
+        return view('gadget.edit', compact('gadget'));
     }
 
     /**
@@ -88,14 +88,14 @@ class WidgetController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'widget_name' => 'required|string|max:40|unique:widgets,widget_name,' .$id
+            'gadget_name' => 'required|string|max:40|unique:gadgets,gadget_name,' .$id
 
         ]);
-        $widget = Widget::findOrFail($id);
-        $widget->update(['widget_name' => $request->widget_name]);
+        $gadget = Gadget::findOrFail($id);
+        $gadget->update(['gadget_name' => $request->gadget_name]);
 
 
-        return Redirect::route('widget.show', ['widget' => $widget]);
+        return Redirect::route('gadget.show', ['gadget' => $gadget]);
     }
 
     /**
@@ -106,8 +106,8 @@ class WidgetController extends Controller
      */
     public function destroy($id)
     {
-        Widget::destroy($id);
+        Gadget::destroy($id);
 
-        return Redirect::route('widget.index');
+        return Redirect::route('gadget.index');
     }
 }

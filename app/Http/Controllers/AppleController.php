@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Widget;
+use App\Apple;
 use Illuminate\Support\Facades\Redirect;
 
-class WidgetController extends Controller
+class AppleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class WidgetController extends Controller
     public function index()
     {
 
-        return view('widget.index');
+        return view('apple.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class WidgetController extends Controller
      */
     public function create()
     {
-        return view('widget.create');
+        return view('apple.create');
     }
 
     /**
@@ -41,14 +41,14 @@ class WidgetController extends Controller
     {
 
         $this->validate($request, [
-            'widget_name' => 'required|unique:widgets|alpha_num|max:30',
+            'apple_name' => 'required|unique:apples|alpha_num|max:30',
 
         ]);
 
-        $widget = Widget::create(['widget_name' => $request->widget_name]);
-        $widget->save();
+        $apple = Apple::create(['apple_name' => $request->apple_name]);
+        $apple->save();
 
-        return Redirect::route('widget.index');
+        return Redirect::route('apple.index');
 
     }
 
@@ -60,9 +60,9 @@ class WidgetController extends Controller
      */
     public function show($id)
     {
-        $widget = Widget::findOrFail($id);
+        $apple = Apple::findOrFail($id);
 
-        return view('widget.show', compact('widget'));
+        return view('apple.show', compact('apple'));
     }
 
     /**
@@ -73,9 +73,9 @@ class WidgetController extends Controller
      */
     public function edit($id)
     {
-        $widget = Widget::findOrFail($id);
+        $apple = Apple::findOrFail($id);
 
-        return view('widget.edit', compact('widget'));
+        return view('apple.edit', compact('apple'));
     }
 
     /**
@@ -88,14 +88,14 @@ class WidgetController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'widget_name' => 'required|string|max:40|unique:widgets,widget_name,' .$id
+            'apple_name' => 'required|string|max:40|unique:apples,apple_name,' .$id
 
         ]);
-        $widget = Widget::findOrFail($id);
-        $widget->update(['widget_name' => $request->widget_name]);
+        $apple = Apple::findOrFail($id);
+        $apple->update(['apple_name' => $request->apple_name]);
 
 
-        return Redirect::route('widget.show', ['widget' => $widget]);
+        return Redirect::route('apple.show', ['apple' => $apple]);
     }
 
     /**
@@ -106,8 +106,8 @@ class WidgetController extends Controller
      */
     public function destroy($id)
     {
-        Widget::destroy($id);
+        Apple::destroy($id);
 
-        return Redirect::route('widget.index');
+        return Redirect::route('apple.index');
     }
 }

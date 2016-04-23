@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Widget;
+use App\Grape;
 use Illuminate\Support\Facades\Redirect;
 
-class WidgetController extends Controller
+class GrapeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class WidgetController extends Controller
     public function index()
     {
 
-        return view('widget.index');
+        return view('grape.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class WidgetController extends Controller
      */
     public function create()
     {
-        return view('widget.create');
+        return view('grape.create');
     }
 
     /**
@@ -41,14 +41,14 @@ class WidgetController extends Controller
     {
 
         $this->validate($request, [
-            'widget_name' => 'required|unique:widgets|alpha_num|max:30',
+            'grape_name' => 'required|unique:grapes|alpha_num|max:30',
 
         ]);
 
-        $widget = Widget::create(['widget_name' => $request->widget_name]);
-        $widget->save();
+        $grape = Grape::create(['grape_name' => $request->grape_name]);
+        $grape->save();
 
-        return Redirect::route('widget.index');
+        return Redirect::route('grape.index');
 
     }
 
@@ -60,9 +60,9 @@ class WidgetController extends Controller
      */
     public function show($id)
     {
-        $widget = Widget::findOrFail($id);
+        $grape = Grape::findOrFail($id);
 
-        return view('widget.show', compact('widget'));
+        return view('grape.show', compact('grape'));
     }
 
     /**
@@ -73,9 +73,9 @@ class WidgetController extends Controller
      */
     public function edit($id)
     {
-        $widget = Widget::findOrFail($id);
+        $grape = Grape::findOrFail($id);
 
-        return view('widget.edit', compact('widget'));
+        return view('grape.edit', compact('grape'));
     }
 
     /**
@@ -88,14 +88,14 @@ class WidgetController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'widget_name' => 'required|string|max:40|unique:widgets,widget_name,' .$id
+            'grape_name' => 'required|string|max:40|unique:grapes,grape_name,' .$id
 
         ]);
-        $widget = Widget::findOrFail($id);
-        $widget->update(['widget_name' => $request->widget_name]);
+        $grape = Grape::findOrFail($id);
+        $grape->update(['grape_name' => $request->grape_name]);
 
 
-        return Redirect::route('widget.show', ['widget' => $widget]);
+        return Redirect::route('grape.show', ['grape' => $grape]);
     }
 
     /**
@@ -106,8 +106,8 @@ class WidgetController extends Controller
      */
     public function destroy($id)
     {
-        Widget::destroy($id);
+        Grape::destroy($id);
 
-        return Redirect::route('widget.index');
+        return Redirect::route('grape.index');
     }
 }
