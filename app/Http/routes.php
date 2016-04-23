@@ -53,3 +53,13 @@ Route::any('api/big-drum-vue', 'ApiController@bigDrumVueData');
 // BigDrum Routes
 
 Route::resource('big-drum', 'BigDrumController');
+
+
+// Api Routes
+
+Route::any('api/black-hammer', 'ApiController@blackHammerData');
+Route::any('api/black-hammer-vue', 'ApiController@blackHammerVueData');
+
+// BlackHammer Routes
+
+Route::resource('black-hammer', 'BlackHammerController');

@@ -10,6 +10,32 @@ use DB;
 class ApiController extends Controller
 {
 
+    public function blackHammerData(){
+
+        $result['data'] = DB::table('black_hammers')
+                         ->select('id',
+                                  'black_hammer_name',
+                                  'created_at')
+                         ->get();
+
+        return json_encode($result);
+
+    }
+
+    public function blackHammerVueData(){
+
+        $blackHammers = DB::table('black_hammers')
+                             ->select('id as Id',
+                                      'black_hammer_name as Name',
+                                      'created_at as Created')
+                             ->get();
+
+        return $blackHammers;
+
+    }
+
+
+
     public function bigDrumData(){
 
         $result['data'] = DB::table('big_drums')
@@ -33,12 +59,6 @@ class ApiController extends Controller
         return $bigDrums;
 
     }
-
-
-
-    
-
-
 
     public function gadgetData(){
 

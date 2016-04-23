@@ -11,7 +11,9 @@ class FormatsTokens
     public function __construct(array $tokens)
     {
 
+
         $this->setTokens($tokens);
+        $this->modelName = camel_case($this->modelName);
 
     }
 

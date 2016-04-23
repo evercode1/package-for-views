@@ -4,17 +4,21 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 
+ViewMaker is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line 
+tool that ships with Laravel.
 
-ViewMaker creates an artisan command that lets you quickly scaffold views for create, show, edit, and index, based on your input.
+ViewMaker creates a make:views artisan command that lets you quickly scaffold views for create, show, edit, and index, 
+based on your input.  You simply input a model name, master page name and template type (plain, basic, dt, or vue), 
+and the view folder and corresponding views are made for you instantly.  Our dt and vue templates come with working
+js datagrids out of the box.  
 
-ViewMaker is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line tool that ships with Laravel.
+VeiwMaker also has a powerful make:foundation command that puts it all together for you.  It creates a model from 
+scratch with corresponding migration, routes, controllers and views, forming a basic crud app, with searchable, 
+sortable columns.  It also builds a basic unit test and sets up your factory for quick population of seed data.
 
-If you had a model named Widget, and you had a REST controller, you would want correspoing views
-for the controller methods.
+ViewMaker also ships with a make:crud command, which creates the model, migration, routes, controllers, factory, and test
+without the views, in case you want to create those separately.
 
-You simply input a model name, master page name and template type (plain, basic, dt, or vue), and 
-the view folder and corresponding views are made for you instantly.  Our dt and vue templates come with working
-js datagrids out of the box.
 
 ## Install
 
@@ -34,39 +38,282 @@ Evercode1\ViewMaker\ViewMakerServiceProvider::class,
 
 ## Summary
 
-ViewMaker will install an artisan command that lets you quickly scaffold views for create, 
-show, edit, and index, based on your input.
+ViewMaker will install 3 artisan commands, make:views, make:crud, and make:foundation.
+
+Use make:views to create views, including:
+
+* appropriately-named view folder
+* index 
+* create
+* edit
+* show  
+
+Use make:crud to create the files necessary to display a view:
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+
+make:crud also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists)
+
+Use make:foundation to create all files, including:
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+* appropriately-named view folder
+* index view
+* create view
+* edit view
+* show view
+
+make:foundation also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists)
+
+Please note:
+
+ViewMaker templates assume you use and have a master page.  If you want to take advantage of
+working grid templates, then you will need the following:
+
+* a master page in a folder named layouts in your views folder
+* To use the DataTables template, jquery is a dependency
+* jquery must be called first by you (most likely in your masterpage)
+* To use the DataTables, you need an @yield('css') tag on your master page
+* To use ajax for grids, you need a meta tag for the csrf token in your master page
+
+example for csrf token:
+
+```
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+```
+Obviously, if you are not using our make:crud or make:foundation commands first, you will need to write your
+model, route, migration, and controllers in order to be able to see the views created by ViewMaker in your
+application.
+
+All of these requirements are listed in detail below, but since they are common sources of bugs,
+I have listed them up here.  You can use it as a check list to make sure you have what you need to
+use ViewMaker successfully.
+
+## make:views
+
+The make views lets you quickly scaffold views for create, show, edit, and index, based on your input.
 
 The make:views command has  the following arguments:
 
 ```
-php artisan make:views {modelName} {masterPageName} {templateType}
+php artisan make:views {ModelName} {MasterPageName} {TemplateType}
 ```
 
-So for example, if you had a model named Widget, and a master page 
+Before running make:views, at a minimum, you should already have your model, route and controller created.
+As an alternative to doing that manually, you can use ViewMaker's make:crud command to do it for you.  Or
+you could use make:foundation to create everything all at once.
+
+In any event before you do this, you also need to have your master page ready.
+
+So for example, if you had a model named Widget, and you  had a master page 
 named master.blade.php, you may do one of the following:
 
 ```
-php artisan make:views widget master plain
+php artisan make:views Widget master plain
 ```
 
 ```
-php artisan make:views widget master basic
+php artisan make:views Widget master basic
 ```
 
 ```
-php artisan make:views widget master dt
+php artisan make:views Widget master dt
 ```
 
 ```
-php artisan make:views widget master vue
+php artisan make:views Widget master vue
 ```
 
 The plain template creates simple stubs, the basic template gives you a 
 couple of working forms and the dt and vue templates give you a working data 
 grid implementation with search and column sorts.  
 
-The templates are described in detail in the following sections.
+The templates are described in detail in subsequent sections.  Also see the Prerequisite Tips
+section to make sure you have what you need before running this.  And finally, check out the conventions
+section for naming tips on models and instance variables, so you know what to expect there.
+
+## make:crud
+
+```
+php artisan make:crud Widget
+```
+
+The make:crud command takes a single argument, the name of the model you wish to build your crud on.  Since
+the make:crud command builds the model for you, all you need is a name.  The make:crud command will create
+the following file types:
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+
+It also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists)
+
+You could then run the make:views command and have it functional, once you've migrated and seeded data or created a 
+few records.
+
+## make:foundation
+
+The make:foundation command has the following arguments:
+
+```
+php artisan make:foundation {ModelName} {MasterPageName} {TemplateType}
+```
+
+So for example, if you wanted to create a model named Widget, and you had a master page 
+named master.blade.php, you may do one of the following:
+
+```
+php artisan make:foundation Widget master plain
+```
+
+```
+php artisan make:foundation Widget master basic
+```
+
+```
+php artisan make:foundation Widget master dt
+```
+
+```
+php artisan make:foundation Widget master vue
+```
+
+make:foundation will create the following:
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+* appropriately-named view folder
+* index view
+* create view
+* edit view
+* show view
+
+make:foundation also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists)
+
+## Prerequisite Tips
+
+To use the make:views or make:foundation command successfully, you need the following:
+
+* a master page in a folder named layouts in your views folder
+* To use the DataTables template, jquery is a dependency
+* jquery must be called first by you (most likely in your masterpage)
+* To use the DataTables, you need an @yield('css') tag on your master page
+* To use ajax for grids, you need a meta tag for the csrf token in your master page
+
+example for csrf token:
+
+```
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+```
+ If you need to reference what a master page is, here is the info:
+ 
+[Master Page Docs in Laravel](https://laravel.com/docs/5.2/blade#template-inheritance)
+
+To call in jquery, you may do so by CDN in your scripts section of your master page:
+
+```
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+```
+
+Please refer to the actual CDN for the newest link.
+
+In the css section of your master page or related partial, make sure you have the following:
+
+```
+@yield('css')
+```
+
+That should come after bootstrap or whatever your main css is.
+
+## make:foundation Workflow
+
+To fully understand the power of the make:foundation command, let's walk through a typcial use case.  For this,
+we will assume that you have a master page named master.blade.php in your layouts folder, which is in your views folder.  
+In it, you will have your csfr token:
+
+```
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+```
+
+You should also have your css tag;
+
+```
+@yield('css')
+```
+
+and your call to jquery, for example:
+
+```
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+```
+
+Now we're ready to try the command.  Let's create Widget foundation with the following command:
+
+```
+php artisan make:foundation Widget master dt
+```
+
+As a demo, let's just migrate what we have:
+
+```
+php artisan migrate
+```
+
+Everything should work at this point, but there is no data.  So let's run a unit test to add 
+a single record by running from the command line:
+
+```
+vendor/bin/phpunit
+```
+
+You should get green and a record in the db.
+
+Next you can use the factory to seed the db.  We start by calling tinker:
+
+```
+php artisan tinker
+```
+
+Then the following command:
+
+```
+factory('App\Widget', 30)->create();
+```
+
+Then control D from the command line to quit tinker.
+
+With that you should be able to go to your /widget route and see the following:
+
+![](dt-index.png)
 
 ## Plain Templates
 
@@ -255,7 +502,7 @@ class ApiController extends Controller
 Obviously, you can add new columns to the select statement as you require them, as long 
 as you have added them in your db.  You would also have to have a corresponding table 
 row on your datatable.blade.php partial.  And of course you would have to modify your 
-script to account for additional data.
+script to account for additional columns.
 
 Datatables is a popular jquery plugin, the docs are here:
 
@@ -265,7 +512,7 @@ Datatables is a popular jquery plugin, the docs are here:
 
 Sometimes we need to do quick prototyping of data grids and we want to use vue.js.
 With our vue.js implementation, you get all of the views that come with basic, but 
-you get also get a working data gridon the index page.
+you get also get a working data grid on the index page.
 
 Our vue template is a simple implementation of a vue.js grid component, which can get you up 
 and running quickly with a sortable, searchable grid.  The command for that looks like 

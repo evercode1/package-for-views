@@ -5,7 +5,7 @@ namespace Evercode1\ViewMaker;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 
-class MakeAll extends Command
+class MakeFoundation extends Command
 {
     use BuildsCrudTemplates, ConfiguresCrudInput, WritesCrudFiles, FormatsInput, BuildsTemplates, WritesViewFiles;
     /**
@@ -13,7 +13,7 @@ class MakeAll extends Command
      *
      * @var string
      */
-    protected $signature = 'make:all
+    protected $signature = 'make:foundation
                            {ModelName}
                            {MasterPage}
                            {TemplateType=plain}';
@@ -47,7 +47,7 @@ class MakeAll extends Command
 
         // setup for crud
 
-        $this->modelName = $this->argument('ModelName');
+        $this->modelName = $this->formatModel($this->argument('ModelName'));
 
         $this->setCrudTokens();
 
@@ -77,7 +77,14 @@ class MakeAll extends Command
     private function sendSuccessMessage()
     {
 
-        $this->info('Crud Files successfully created');
+        $this->info('All Files successfully created');
+
+    }
+
+    private function formatModel($model)
+    {
+        $model = camel_case($model);
+        return $model = ucwords($model);
 
     }
 

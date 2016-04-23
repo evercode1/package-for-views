@@ -46,7 +46,7 @@ class MakeCrud extends Command
     public function handle()
     {
 
-        $this->modelName = $this->argument('ModelName');
+        $this->modelName = $this->formatModel($this->argument('ModelName'));
 
         $this->setCrudTokens();
 
@@ -69,6 +69,13 @@ class MakeCrud extends Command
     {
 
         $this->info('Crud Files successfully created');
+
+    }
+
+    private function formatModel($model)
+    {
+        $model = camel_case($model);
+        return $model = ucwords($model);
 
     }
 
