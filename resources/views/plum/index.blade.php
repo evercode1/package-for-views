@@ -6,7 +6,7 @@
 
 @section('title')
 
-    <title>The Widget Page</title>
+    <title>The Plum Page</title>
 
 @endsection
 
@@ -16,14 +16,14 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/widget'>Widget</a></li>
+        <li><a href='/plum'>Plum</a></li>
         </ol>
 
-        <h1>Widget</h1>
+        <h1>Plum</h1>
 
-        @include('widget.datatable')
+        @include('plum.datatable')
 
-        <div> <a href="/widget/create">
+        <div> <a href="/plum/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -35,6 +35,6 @@
 
 @section('scripts')
 
-    @include('widget.datatable-script')
+    @include('plum.datatable-script')
 
 @endsection

@@ -255,23 +255,22 @@ class ApiController extends Controller
     public function :::apiControllerMethod:::(){
 
         \$result['data'] = DB::table(':::tableName:::')
-            ->select('id',
-                     ':::field_name:::',
-                     'created_at')
-            ->get();
+                         ->select('id',
+                                  ':::field_name:::',
+                                  'created_at')
+                         ->get();
 
         return json_encode(\$result);
 
     }
 
-    public function :::vueApiControllerMethod:::()
-    {
+    public function :::vueApiControllerMethod:::(){
 
         \$:::modelResults::: = DB::table(':::tableName:::')
-                 ->select('id as Id',
-                          ':::field_name::: as Name',
-                          'created_at as Created')
-                 ->get();
+                             ->select('id as Id',
+                                      ':::field_name::: as Name',
+                                      'created_at as Created')
+                                      ->get();
 
         return \$:::modelResults:::;
 
@@ -293,23 +292,22 @@ EOD;
     public function :::apiControllerMethod:::(){
 
         \$result['data'] = DB::table(':::tableName:::')
-            ->select('id',
-                     ':::field_name:::',
-                     'created_at')
-            ->get();
+                         ->select('id',
+                                  ':::field_name:::',
+                                  'created_at')
+                         ->get();
 
         return json_encode(\$result);
 
     }
 
-    public function :::vueApiControllerMethod:::()
-    {
+    public function :::vueApiControllerMethod:::(){
 
         \$:::modelResults::: = DB::table(':::tableName:::')
-                 ->select('id as Id',
-                          ':::field_name::: as Name',
-                          'created_at as Created')
-                 ->get();
+                             ->select('id as Id',
+                                      ':::field_name::: as Name',
+                                      'created_at as Created')
+                             ->get();
 
         return \$:::modelResults:::;
 
@@ -338,9 +336,9 @@ class :::upperCaseModelName:::Test extends TestCase
         \$randomString = str_random(10);
 
         \$this->visit('/:::modelPath:::/create')
-            ->type(\$randomString, ':::field_name:::')
-            ->press('Create')
-            ->seePageIs('/:::modelPath:::');
+              ->type(\$randomString, ':::field_name:::')
+              ->press('Create')
+              ->seePageIs('/:::modelPath:::');
     }
 }
 EOD;

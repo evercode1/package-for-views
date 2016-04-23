@@ -21,7 +21,7 @@ class MakeCrud extends Command
      *
      * @var string
      */
-    protected $description = 'create crud';
+    protected $description = 'create model, migration, route, controller, factory, and test';
 
 
 

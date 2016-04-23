@@ -19,7 +19,7 @@ trait FormatsInput
 
     private $masterPage;
 
-    private $modelName;
+    private $theModel;
 
     private $folderName;
 
@@ -40,9 +40,9 @@ trait FormatsInput
 
         $this->inputs = $this->argument();
 
-        $this->folderName = $this->inputs['FolderName'];
+        $this->theModel = $this->inputs['ModelName'];
 
-        $this->modelName = $this->formatModelName($this->folderName);
+        $this->folderName = $this->formatModelPath($this->theModel);
 
         $this->masterPage = $this->inputs['MasterPage'];
 
@@ -54,7 +54,7 @@ trait FormatsInput
 
         $this->setViewList();
 
-        $this->setFilePaths();
+        $this->setViewFilePaths();
 
         $this->setTokens();
 
@@ -82,23 +82,23 @@ trait FormatsInput
 
     }
 
-    private function formatModelName($folderName)
+
+
+    private function formatModelPath($model)
     {
+        $model = preg_split('/(?=[A-Z])/',$model);
 
-        if (str_contains($folderName, '-')){
+        $model = implode('-', $model);
 
-            return $this->modelName = camel_case($folderName);
+        $model = ltrim($model, '-');
 
-        }
-
-        return $this->modelName = strtolower($folderName);
-
+        return $model = strtolower($model);
 
     }
 
     // create and set the file paths to the $this->paths array
 
-    private function setFilePaths()
+    private function setViewFilePaths()
     {
         foreach ($this->views as $key => $file) {
 
@@ -119,7 +119,7 @@ trait FormatsInput
     {
 
         $this->tokens['folderName'] = $this->folderName;
-        $this->tokens['modelName'] = $this->modelName;
+        $this->tokens['modelName'] = $this->theModel;
         $this->tokens['masterPage'] = $this->masterPage;
 
     }

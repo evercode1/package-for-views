@@ -3,16 +3,17 @@
 namespace Evercode1\ViewMaker;
 
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
-class MakeViews extends Command
+class MakeAll extends Command
 {
-    use FormatsInput, BuildsTemplates, WritesViewFiles;
+    use BuildsCrudTemplates, ConfiguresCrudInput, WritesCrudFiles, FormatsInput, BuildsTemplates, WritesViewFiles;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:views
+    protected $signature = 'make:all
                            {ModelName}
                            {MasterPage}
                            {TemplateType=plain}';
@@ -22,8 +23,7 @@ class MakeViews extends Command
      *
      * @var string
      */
-    protected $description = 'create views';
-
+    protected $description = 'create model, route, controller, migration, factory, test and views';
 
 
     /**
@@ -45,17 +45,29 @@ class MakeViews extends Command
     public function handle()
     {
 
+        // setup for crud
+
+        $this->modelName = $this->argument('ModelName');
+
+        $this->setCrudTokens();
+
+        $this->setFilePaths();
+
+        // setup for views
+
         $this->setConfigFromInputs();
 
+        // runs all commands
 
-
-       if ( $this->makeViewDirectory()->makeViewFiles($this->templateType) ) {
+        if  ($this->makeCrudFiles() &&
+             $this->makeViewDirectory()->makeViewFiles($this->templateType)){
 
             $this->sendSuccessMessage();
 
-           return;
+            return;
 
-       }
+        }
+
 
         $this->error('Oops, something went wrong!');
 
@@ -65,7 +77,7 @@ class MakeViews extends Command
     private function sendSuccessMessage()
     {
 
-        $this->info('Views successfully created');
+        $this->info('Crud Files successfully created');
 
     }
 

@@ -6,7 +6,7 @@
 
 @section('title')
 
-    <title>The Widget Page</title>
+    <title>The Category Page</title>
 
 @endsection
 
@@ -16,14 +16,14 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/widget'>Widget</a></li>
+        <li><a href='/category'>Category</a></li>
         </ol>
 
-        <h1>Widget</h1>
+        <h1>Category</h1>
 
-        @include('widget.datatable')
+        @include('category.datatable')
 
-        <div> <a href="/widget/create">
+        <div> <a href="/category/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -35,6 +35,6 @@
 
 @section('scripts')
 
-    @include('widget.datatable-script')
+    @include('category.datatable-script')
 
 @endsection

@@ -14,7 +14,7 @@ trait WritesViewFiles
         if (file_exists(base_path($this->folderPath)))
         {
 
-            $this->error($this->modelName. ' folder already exists!');
+            $this->error($this->theModel. ' folder already exists!');
 
             die();
 
@@ -88,7 +88,7 @@ trait WritesViewFiles
         // so loop through with writeEachFile
         foreach ($this->paths as $numericKey => $fileNames) {
 
-            $this->writeEachFile($templateType, $fileNames);
+            $this->writeEachViewFile($templateType, $fileNames);
 
         }
     }
@@ -101,7 +101,7 @@ trait WritesViewFiles
      * $fileNames is handed in as an array
      * calls getTemplate from the BuildsTemplates trait
      */
-    private function writeEachFile($templateType, array $fileNames)
+    private function writeEachViewFile($templateType, array $fileNames)
     {
         foreach ($fileNames as $fileName => $filepath) {
 

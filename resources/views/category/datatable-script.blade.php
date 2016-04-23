@@ -2,10 +2,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#widget_table').DataTable({
+        $('#category_table').DataTable({
             select: false,
             "ajax": {
-                "url": "/api/widget",
+                "url": "/api/category",
                 "type": "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -13,9 +13,9 @@
             },
             "columns": [
                 { "data": "id"},
-                { "data": "widget_name",
+                { "data": "category_name",
                     "render": function(data,type,row,meta) {
-                        return '<a href="/widget/'+row.id+'">'+data+'</a>';
+                        return '<a href="/category/'+row.id+'">'+data+'</a>';
                     }
                 },
                 { "data": "created_at",
@@ -28,7 +28,7 @@
                     }
                 },
                 {"defaultContent": "null", "render": function(data,type,row,meta) {
-                    return '<a href="/widget/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
+                    return '<a href="/category/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
                 }
                 }
             ]

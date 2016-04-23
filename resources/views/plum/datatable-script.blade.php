@@ -2,10 +2,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#widget_table').DataTable({
+        $('#plum_table').DataTable({
             select: false,
             "ajax": {
-                "url": "/api/widget",
+                "url": "/api/plum",
                 "type": "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -13,9 +13,9 @@
             },
             "columns": [
                 { "data": "id"},
-                { "data": "widget_name",
+                { "data": "plum_name",
                     "render": function(data,type,row,meta) {
-                        return '<a href="/widget/'+row.id+'">'+data+'</a>';
+                        return '<a href="/plum/'+row.id+'">'+data+'</a>';
                     }
                 },
                 { "data": "created_at",
@@ -28,7 +28,7 @@
                     }
                 },
                 {"defaultContent": "null", "render": function(data,type,row,meta) {
-                    return '<a href="/widget/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
+                    return '<a href="/plum/'+row.id+'/edit">'+ '<button>Edit</button>' + '</a>';
                 }
                 }
             ]

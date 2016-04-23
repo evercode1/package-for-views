@@ -43,16 +43,3 @@ Route::resource('widget', 'WidgetController');
 Route::any('api/gadget', 'ApiController@gadgetData');
 Route::any('api/gadget-vue', 'ApiController@gadgetVueData');
 Route::resource('gadget', 'GadgetController');
-Route::any('api/apple', 'ApiController@appleData');
-Route::any('api/apple-vue', 'ApiController@appleVueData');
-Route::resource('apple', 'AppleController');
-
-
-// Api Routes
-
-Route::any('api/grape', 'ApiController@grapeData');
-Route::any('api/grape-vue', 'ApiController@grapeVueData');
-
-// Grape Routes
-
-Route::resource('grape', 'GrapeController');
