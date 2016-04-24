@@ -11,5 +11,5 @@
 
         @endif
 
-        Bill Keck All rights Reserved.</p>
+        All rights Reserved.</p>
 </div>

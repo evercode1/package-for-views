@@ -73,7 +73,7 @@ class MakeMaster extends Command
     private function sendSuccessMessage()
     {
 
-        $this->info('Views successfully created');
+        $this->info('Master Page successfully created');
 
     }
 
@@ -91,15 +91,13 @@ class MakeMaster extends Command
         mkdir(base_path('/resources/views/layouts'));
 
 
-
-        dd('made the layouts folder');
         return $this;
     }
 
     private function makeMasterFiles()
     {
 
-        $this->writeEachViewFile($this->appName, $this->files);
+        $this->writeEachMasterFile($this->appName, $this->files);
 
         return $this;
 
@@ -117,7 +115,7 @@ class MakeMaster extends Command
         $this->files['shim'] = base_path('resources/views/layouts/shim.blade.php');
     }
 
-    private function writeEachViewFile($appName, array $files)
+    private function writeEachMasterFile($appName, array $files)
     {
         foreach ($files as $fileName => $filePath) {
 
