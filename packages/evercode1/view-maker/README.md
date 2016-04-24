@@ -109,6 +109,87 @@ All of these requirements are listed in detail below, but since they are common 
 I have listed them up here.  You can use it as a check list to make sure you have what you need to
 use ViewMaker successfully.
 
+## make:foundation Workflow
+
+To fully understand the power of the make:foundation command, let's walk through a typcial use case.  For this,
+we will assume that you have a master page named master.blade.php in your layouts folder, which is in your views folder.  
+
+Before we start, in your masterpage, you should have your csfr token:
+
+```
+<meta name="csrf-token" content="{!! csrf_token() !!}">
+```
+
+Your masterpage should also have your css tag;
+
+```
+@yield('css')
+```
+
+and in the scripts section of your masterpage, you should have your call to jquery, for example:
+
+```
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+```
+
+You need to make sure that is all there before running the command, otherwise
+the views containing ajax and grids will not function properly.
+
+Now we're ready to try the make:foundation command.  Let's create a Widget 
+foundation with the following command:
+
+```
+php artisan make:foundation Widget master dt
+```
+
+After that runs, we're ready to migrate up to our db.  To keep it simple, let's just migrate what we have:
+
+```
+php artisan migrate
+```
+
+Everything should work at this point, but there is no data.  So let's run a unit test to add 
+a single record by running from the command line:
+
+```
+vendor/bin/phpunit
+```
+
+You should get green and a record in the db. It's a very basic test and it should pass. 
+
+If your test fails:
+
+Some versions of Laravel 5.2 require your routes to be in a web group.  Since 
+the new routes we made are just appended to the end of the file, you may need
+to move them inside a route group, depending on your version of Laravel.
+
+The test can also fail if another test, like ExampleTest, is having a problem and crashes
+the program.  In that case fix or remove the broken tests, and make sure your route group is correct, 
+in some versions you need one, in some versions you don't, and that should solve the problem.
+
+Next you can use the factory to seed the db.  We start by calling tinker:
+
+```
+php artisan tinker
+```
+
+Then the following command:
+
+```
+factory('App\Widget', 30)->create();
+```
+
+Then control D from the command line to quit tinker.
+
+If you don't want to use tinker, manually add some records via the create form.
+
+With that you should be able to go to your /widget route and see the following:
+
+![](dt-index.png)
+
+Please note that the header and footer pictured above are called in by the master page, so you will see
+the output of your masterpage instead.
+
 ## make:views
 
 The make views lets you quickly scaffold views for create, show, edit, and index, based on your input.
@@ -257,67 +338,6 @@ In the css section of your master page or related partial, make sure you have th
 ```
 
 That should come after bootstrap or whatever your main css is.
-
-## make:foundation Workflow
-
-To fully understand the power of the make:foundation command, let's walk through a typcial use case.  For this,
-we will assume that you have a master page named master.blade.php in your layouts folder, which is in your views folder.  
-In it, you will have your csfr token:
-
-```
-<meta name="csrf-token" content="{!! csrf_token() !!}">
-```
-
-You should also have your css tag;
-
-```
-@yield('css')
-```
-
-and your call to jquery, for example:
-
-```
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-```
-
-Now we're ready to try the command.  Let's create Widget foundation with the following command:
-
-```
-php artisan make:foundation Widget master dt
-```
-
-As a demo, let's just migrate what we have:
-
-```
-php artisan migrate
-```
-
-Everything should work at this point, but there is no data.  So let's run a unit test to add 
-a single record by running from the command line:
-
-```
-vendor/bin/phpunit
-```
-
-You should get green and a record in the db.
-
-Next you can use the factory to seed the db.  We start by calling tinker:
-
-```
-php artisan tinker
-```
-
-Then the following command:
-
-```
-factory('App\Widget', 30)->create();
-```
-
-Then control D from the command line to quit tinker.
-
-With that you should be able to go to your /widget route and see the following:
-
-![](dt-index.png)
 
 ## Plain Templates
 
