@@ -7,8 +7,6 @@
 You can browse the source files of this repository for reference in the tutorial below.
 The package itself can be found at [https://github.com/evercode1/view-maker](https://github.com/evercode1/view-maker).
 
-# ViewMaker For Laravel 5.2
-
 **ViewMaker** is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line 
 tool that ships with Laravel, providing ready-made templates, designed to optimize your work flow.
 
@@ -213,6 +211,12 @@ The test can also fail if another test, like ExampleTest, is having a problem an
 the program.  In that case fix or remove the broken tests, and make sure your route group is correct, 
 in some versions you need one, in some versions you don't, and that should solve the problem.
 
+Also note, if you are using the **[make:foundation](#makefoundation)** command and input 'plain' or 'basic' for template
+type, the test will fail because it is expecting to see the name of the record on the index page,
+and those templates intentionally do not include a way to do that, since the purpose is keep the code minimal.
+Similarly, if you choose an index only option, there will be no create view and the test will fail. In those 
+cases modify the test as you see fit. 
+
 Next you can use the factory to seed the db.  We start by calling tinker:
 
 ```
@@ -234,7 +238,7 @@ With that you should be able to go to your /widget route and see the following:
 ![](dt-index.png)
 
 Please note that the header and footer pictured above are called in by the master page, so 
-if you did not use our **[make:master](#makemaster)** command, you will see the output of your masterpage instead.
+if you did not use our **[make:master](#makemaster)** command, you will see the output of your masterpage instead or an error if you have no master page.
 
 As you can see the workflow with the **[make:foundation](#makefoundation)** command is optimal, in under a minute you are able to stand up
 a working crud application.  You can then easily modify it to add the fields you want, and you have everything in 
@@ -251,8 +255,11 @@ The make views lets you quickly scaffold views for create, show, edit, and index
 The make:views command has  the following arguments:
 
 ```
-php artisan make:views {ModelName} {MasterPageName} {TemplateType}
+php artisan make:views {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
 ```
+The last argument is optional and indicates that you only want the index view in the view folder.
+By default it is false, so unless you indicate otherwise, you will get all the views.
+If you do wish to use that option, you must enter the word 'index' as your last argument, no quotes.
 
 Before running make:views, at a minimum, you should already have your model, route and controller created.
 As an alternative to doing that manually, you can use **ViewMaker's** **[make:crud](#makecrud)** to do it for you.  Or
@@ -281,7 +288,7 @@ php artisan make:views Widget master dt
 php artisan make:views Widget master vue
 ```
 
-In the examples above, we teill it the model name, 'Widget', the master page name 'master', and the
+In the examples above, we tell it the model name, 'Widget', the master page name 'master', and the
 template type.
 
 The plain template creates simple stubs, the basic template gives you a 
@@ -317,7 +324,26 @@ This will create the following:
 The master page includes the partials and this makes the code very easy to work with.
 
 ViewMaker includes a minimal bootstrap implementation, which you can easily change to suit
-your tastes.
+your tastes.  Note that inside the css partial, you get the following:
+
+~~~~
+
+<!-- Move style to a permanent home in your main .css file -->
+<style>
+
+    body {
+        padding-top: 65px; }
+
+</style>
+
+~~~~
+
+This is so the breadcrumbs will show below the nav, which is a bootstrap top pin.  You should move that to a permanent 
+home as the comment suggests.  If your main .css already accounts for this padding, you can simply remove this
+style from your css.blade.php file.
+
+If you have a .css file that your application requires, you need to call it from your css.blade.php file.
+Obviously, you can and should modify these files in any way that suits your application's needs.
 
 Using ViewMaker's make:master also makes it easier to work with the other commands, such as **[make:foundation](#makefoundation)**,
 since it is setup for the dependencies that you need.
@@ -364,17 +390,23 @@ It also appends to the following files:
 * ApiController (if it already exists)
 
 You could then run the **[make:views](#makeviews)** command and have it functional, once you've migrated and seeded data or created a 
-few records.
+few records.  Note that the test included with make:crud will fail if you select 'plain' or 'basic' as
+your template type because those templates don't output the record name to the index page.  In that 
+case modify the test as you see fit.
 
 ## make:foundation
 
 The make:foundation command has the following arguments:
 
 ```
-php artisan make:foundation {ModelName} {MasterPageName} {TemplateType}
+php artisan make:foundation {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
 ```
 
-So for example, if you wanted to create a model named Widget, and you had a master page 
+The last argument is optional and indicates that you only want the index view in the view folder.  
+By default it is false, so unless you indicate otherwise, you will get all the views.  If you do wish
+to use that option, you must enter the word 'index' as your last argument, no quotes.
+
+Let's look at some typical examples.  If you wanted to create a model named Widget, and you had a master page 
 named master.blade.php, you may do one of the following:
 
 ```
@@ -411,6 +443,11 @@ make:foundation also appends to the following files:
 * routes.php
 * ModelFactory.php
 * ApiController (if it already exists)
+
+Note that the test included with make:foundation will fail if you select 'plain' or 'basic' as
+your template type or if you have because those templates don't output the record name to the index page.  
+Similarly, if you choose an index only option, there will be no create view and the test will fail. In those 
+cases modify the test as you see fit.
 
 ## Requirements For Views
 
@@ -913,6 +950,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [link-packagist]: https://packagist.org/packages/evercode1/view-maker
 [link-downloads]: https://packagist.org/packages/evercode1/view-maker/stats
-[link-author]: https://github.com/evercode1
-
 [link-author]: https://github.com/evercode1
