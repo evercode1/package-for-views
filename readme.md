@@ -403,8 +403,9 @@ php artisan make:foundation {ModelName} {MasterPageName} {TemplateType} {IndexOn
 ```
 
 The last argument is optional and indicates that you only want the index view in the view folder.  
-By default it is false, so unless you indicate otherwise, you will get all the views.  If you do wish
-to use that option, you must enter the word 'index' as your last argument, no quotes.
+By default it is false, which means it's an optional argument, so if you leave it off
+entirely, you get all the views.  If you do wish to use that option, you must enter 
+the word 'index' as your last argument, no quotes.
 
 Let's look at some typical examples.  If you wanted to create a model named Widget, and you had a master page 
 named master.blade.php, you may do one of the following:
