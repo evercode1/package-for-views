@@ -12,13 +12,6 @@
 */
 
 
-Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
-
-
-
-
-
-
     Route::get('/', function () {
 
 
@@ -27,45 +20,25 @@ Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
 
 
 
-    Route::resource('alpha-widget', 'AlphaWidgetController');
-
-
-
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+
+
+// Api Routes
+
 Route::any('api/widget', 'ApiController@widgetData');
 Route::any('api/widget-vue', 'ApiController@widgetVueData');
+
+// Widget Routes
+
 Route::resource('widget', 'WidgetController');
-Route::any('api/widget', 'ApiController@widgetData');
-Route::any('api/widget-vue', 'ApiController@widgetVueData');
-Route::resource('widget', 'WidgetController');
-Route::any('api/gadget', 'ApiController@gadgetData');
-Route::any('api/gadget-vue', 'ApiController@gadgetVueData');
-Route::resource('gadget', 'GadgetController');
-
-
 // Api Routes
 
-Route::any('api/big-drum', 'ApiController@bigDrumData');
-Route::any('api/big-drum-vue', 'ApiController@bigDrumVueData');
+Route::any('api/big-widget', 'ApiController@bigWidgetData');
+Route::any('api/big-widget-vue', 'ApiController@bigWidgetVueData');
 
+// BigWidget Routes
 
-
-
-// Api Routes
-
-Route::any('api/orange', 'ApiController@orangeData');
-Route::any('api/orange-vue', 'ApiController@orangeVueData');
-
-// Orange Routes
-
-Route::resource('orange', 'OrangeController');
-// Api Routes
-
-Route::any('api/orange', 'ApiController@orangeData');
-Route::any('api/orange-vue', 'ApiController@orangeVueData');
-
-// Orange Routes
-
-Route::resource('orange', 'OrangeController');
+Route::resource('big-widget', 'BigWidgetController');

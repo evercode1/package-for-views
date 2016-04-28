@@ -29,6 +29,8 @@ trait FormatsInput
 
     public $tokens = [];
 
+    private $index;
+
     private $validTemplateTypes = ['plain',
                                    'basic',
                                    'dt',
@@ -49,6 +51,8 @@ trait FormatsInput
         $this->templateType = $this->inputs['TemplateType'];
 
         $this->folderPath = strtolower('resources/views/' . $this->folderName);
+
+        $this->index = strtolower($this->inputs['IndexOnly']);
 
         $this->validateTemplateTypeInput();
 
@@ -112,6 +116,27 @@ trait FormatsInput
         if ($this->templateType == 'dt') {
 
             $this->views = array_merge($this->views, $this->DatatablesViews);
+        }
+
+        if ($this->index == 'index'){
+
+            switch($this->templateType){
+
+                case 'dt':
+
+                    array_push($this->DatatablesViews, 'index');
+                    $this->views = $this->DatatablesViews;
+                    break;
+
+                Default:
+
+                    $this->views = ['index'];
+                    break;
+
+
+            }
+
+
         }
     }
 

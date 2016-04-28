@@ -13,8 +13,6 @@
 
 
 
-
-
 $factory->define(App\Widget::class, function (Faker\Generator $faker) {
     return [
         'widget_name' => $faker->unique()->word,
@@ -22,10 +20,9 @@ $factory->define(App\Widget::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Gadget::class, function (Faker\Generator $faker) {
+$factory->define(App\BigWidget::class, function (Faker\Generator $faker) {
     return [
-        'gadget_name' => $faker->unique()->word,
+        'big_widget_name' => $faker->unique()->word,
 
     ];
 });
-

@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Gadget</title>
+    <title>BigWidget</title>
 
 @endsection
 
@@ -10,11 +10,11 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/gadget'>Gadget</a></li>
-        <li><a href='/gadget/{{ $gadget->id }}'>{{ $gadget->gadget_name }}</a></li>
+        <li><a href='/big-widget'>BigWidget</a></li>
+        <li><a href='/big-widget/{{ $bigWidget->id }}'>{{ $bigWidget->big_widget_name }}</a></li>
         </ol>
 
-        <h1>Gadget Details</h1>
+        <h1>BigWidget Details</h1>
 
         <hr/>
 
@@ -34,12 +34,12 @@
 
 
                     <tr>
-                        <td>{{ $gadget->id }} </td>
-                        <td> <a href="/gadget/{{ $gadget->id }}/edit">
-                                {{ $gadget->gadget_name }}</a></td>
-                        <td>{{ $gadget->created_at }}</td>
+                        <td>{{ $bigWidget->id }} </td>
+                        <td> <a href="/big-widget/{{ $bigWidget->id }}/edit">
+                                {{ $bigWidget->big_widget_name }}</a></td>
+                        <td>{{ $bigWidget->created_at }}</td>
 
-                        <td> <a href="/gadget/{{ $gadget->id }}/edit">
+                        <td> <a href="/big-widget/{{ $bigWidget->id }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -47,7 +47,7 @@
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/gadget/'. $gadget->id) }}">
+                       <form class="form" role="form" method="POST" action="{{ url('/big-widget/'. $bigWidget->id) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 

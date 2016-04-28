@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\AlphaWidget;
+use App\BigWidget;
 use Illuminate\Support\Facades\Redirect;
 
-class AlphaWidgetController extends Controller
+class BigWidgetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,8 @@ class AlphaWidgetController extends Controller
      */
     public function index()
     {
-        return view('alpha-widget.index');
+
+        return view('big-widget.index');
     }
 
     /**
@@ -27,7 +28,7 @@ class AlphaWidgetController extends Controller
      */
     public function create()
     {
-        return view('alpha-widget.create');
+        return view('big-widget.create');
     }
 
     /**
@@ -38,15 +39,16 @@ class AlphaWidgetController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'alpha_widget_name' => 'required|unique:alpha_widgets|alpha_num|max:30',
+            'big_widget_name' => 'required|unique:big_widgets|alpha_num|max:30',
 
         ]);
 
-        $alphaWidget = AlphaWidget::create(['alpha_widget_name' => $request->alpha_widget_name]);
-        $alphaWidget->save();
+        $bigWidget = BigWidget::create(['big_widget_name' => $request->big_widget_name]);
+        $bigWidget->save();
 
-        return Redirect::route('alpha-widget.index');
+        return Redirect::route('big-widget.index');
 
     }
 
@@ -58,9 +60,9 @@ class AlphaWidgetController extends Controller
      */
     public function show($id)
     {
-        $alphaWidget = AlphaWidget::findOrFail($id);
+        $bigWidget = BigWidget::findOrFail($id);
 
-        return view('alpha-widget.show', compact('alphaWidget'));
+        return view('big-widget.show', compact('bigWidget'));
     }
 
     /**
@@ -71,9 +73,9 @@ class AlphaWidgetController extends Controller
      */
     public function edit($id)
     {
-        $alphaWidget = AlphaWidget::findOrFail($id);
+        $bigWidget = BigWidget::findOrFail($id);
 
-        return view('alpha-widget.edit', compact('alphaWidget'));
+        return view('big-widget.edit', compact('bigWidget'));
     }
 
     /**
@@ -86,14 +88,14 @@ class AlphaWidgetController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'alpha_widget_name' => 'required|string|max:40|unique:alpha_widgets,alpha_widget_name,' .$id
+            'big_widget_name' => 'required|string|max:40|unique:big_widgets,big_widget_name,' .$id
 
         ]);
-        $alphaWidget = AlphaWidget::findOrFail($id);
-        $alphaWidget->update(['alpha_widget_name' => $request->alpha_widget_name]);
+        $bigWidget = BigWidget::findOrFail($id);
+        $bigWidget->update(['big_widget_name' => $request->big_widget_name]);
 
 
-        return Redirect::route('alpha-widget.show', ['alphaWidget' => $alphaWidget]);
+        return Redirect::route('big-widget.show', ['bigWidget' => $bigWidget]);
     }
 
     /**
@@ -104,8 +106,8 @@ class AlphaWidgetController extends Controller
      */
     public function destroy($id)
     {
-        AlphaWidget::destroy($id);
+        BigWidget::destroy($id);
 
-        return Redirect::route('alpha-widget.index');
+        return Redirect::route('big-widget.index');
     }
 }

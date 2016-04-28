@@ -10,28 +10,27 @@ use DB;
 class ApiController extends Controller
 {
 
-    public function gadgetData(){
+    public function bigWidgetData(){
 
-        $result['data'] = DB::table('gadgets')
-            ->select('id',
-                     'gadget_name',
-                     'created_at')
-            ->get();
+        $result['data'] = DB::table('big_widgets')
+                         ->select('id',
+                                  'big_widget_name',
+                                  'created_at')
+                         ->get();
 
         return json_encode($result);
 
     }
 
-    public function gadgetVueData()
-    {
+    public function bigWidgetVueData(){
 
-        $gadgets = DB::table('gadgets')
-                 ->select('id as Id',
-                          'gadget_name as Name',
-                          'created_at as Created')
-                 ->get();
+        $bigWidgets = DB::table('big_widgets')
+                             ->select('id as Id',
+                                      'big_widget_name as Name',
+                                      'created_at as Created')
+                             ->get();
 
-        return $gadgets;
+        return response()->json($bigWidgets);
 
     }
 
@@ -40,23 +39,22 @@ class ApiController extends Controller
     public function widgetData(){
 
         $result['data'] = DB::table('widgets')
-            ->select('id',
-                     'widget_name',
-                     'created_at')
-            ->get();
+                         ->select('id',
+                                  'widget_name',
+                                  'created_at')
+                         ->get();
 
         return json_encode($result);
 
     }
 
-    public function widgetVueData()
-    {
+    public function widgetVueData(){
 
         $widgets = DB::table('widgets')
-                 ->select('id as Id',
-                          'widget_name as Name',
-                          'created_at as Created')
-                 ->get();
+                             ->select('id as Id',
+                                      'widget_name as Name',
+                                      'created_at as Created')
+                                      ->get();
 
         return $widgets;
 

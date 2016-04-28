@@ -4,16 +4,16 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class WidgetTest extends TestCase
+class BigWidgetTest extends TestCase
 {
-    public function testCreateNewWidget()
+    public function testCreateNewBigWidget()
     {
 
         $randomString = str_random(10);
 
-        $this->visit('/widget/create')
-              ->type($randomString, 'widget_name')
+        $this->visit('/big-widget/create')
+              ->type($randomString, 'big_widget_name')
               ->press('Create')
-              ->seePageIs('/widget');
+              ->seePageIs('/big-widget');
     }
 }

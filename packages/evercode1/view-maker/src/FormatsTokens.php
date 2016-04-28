@@ -29,9 +29,9 @@ class FormatsTokens
         $masterPage = $this->masterPage;
         $modelName = $this->modelName;
         $folderName = $this->folderName;
-        $gridName = $this->modelName . '-grid';
-        $endGridName = '/' . $this->modelName . '-grid';
-        $vueApiRoute = 'api/' . $this->modelName . '-vue';
+        $gridName = $this->formatVueGridName() . '-grid';
+        $endGridName = '/' . $this->formatVueGridName() . '-grid';
+        $vueApiRoute = 'api/' . $this->folderName . '-vue';
 
         //create token array using compact
 
@@ -93,6 +93,18 @@ class FormatsTokens
     {
 
         return camel_case($this->modelName);
+    }
+
+    private function formatVueGridName()
+    {
+        $gridName = preg_split('/(?=[A-Z])/',$this->modelName);
+
+        $gridName = implode('-', $gridName);
+
+        $gridName = ltrim($gridName, '-');
+
+        return $gridName = strtolower($gridName);
+
     }
 
 

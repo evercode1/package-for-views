@@ -71,8 +71,13 @@ EOD;
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css" rel="stylesheet">
 
-<!-- our style -->
-<link href="/css/app.css" rel="stylesheet">
+<!-- Move style to a permanent home in your main .css file -->
+<style>
+
+    body {
+        padding-top: 65px; }
+
+</style>
 EOD;
 
 

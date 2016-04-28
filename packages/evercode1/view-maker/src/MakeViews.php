@@ -15,7 +15,8 @@ class MakeViews extends Command
     protected $signature = 'make:views
                            {ModelName}
                            {MasterPage}
-                           {TemplateType=plain}';
+                           {TemplateType}
+                           {IndexOnly=false}';
 
     /**
      * The console command description.

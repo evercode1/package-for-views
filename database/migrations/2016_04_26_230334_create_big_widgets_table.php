@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlphaWidgetsTable extends Migration
+class CreateBigWidgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class CreateAlphaWidgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('alpha_widgets', function (Blueprint $table) {
+        Schema::create('big_widgets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('alpha_widget_name', 30)->unique();
+            $table->string('big_widget_name', 30)->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateAlphaWidgetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('alpha_widgets');
+        Schema::drop('big_widgets');
     }
 }
