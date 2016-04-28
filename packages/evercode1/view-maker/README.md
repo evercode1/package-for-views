@@ -62,7 +62,7 @@ Use **[make:views](#makeviews)** to create views, including:
 * edit
 * show 
  
- Use **[make:master](#makemaster)** to create a master page, which includes:
+Use **[make:master](#makemaster)** to create a master page, which includes:
  
  * layouts folder
  * master (you give it your name) 
@@ -254,9 +254,10 @@ The make:views command has  the following arguments:
 ```
 php artisan make:views {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
 ```
-The last argument is optional and indicates that you only want the index view in the view folder.
-By default it is false, so unless you indicate otherwise, you will get all the views.
-If you do wish to use that option, you must enter the word 'index' as your last argument, no quotes.
+The last argument is optional and indicates that you only want the index view in the view folder.  
+By default it is false, which means it's an optional argument, so if you leave it off
+entirely, you get all the views.  If you do wish to use that option, you must enter 
+the word 'index' as your last argument, no quotes.
 
 Before running make:views, at a minimum, you should already have your model, route and controller created.
 As an alternative to doing that manually, you can use **ViewMaker's** **[make:crud](#makecrud)** to do it for you.  Or
@@ -767,7 +768,7 @@ class ApiController extends Controller
                              'created_at as Created')
                     ->get();
    
-           return $widgets;
+           return response()->json($widgets);
    
        }
 }
