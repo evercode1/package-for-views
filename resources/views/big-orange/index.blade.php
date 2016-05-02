@@ -1,26 +1,4 @@
-<?php
-
-namespace Evercode1\ViewMaker;
-
-
-class VueTemplates
-{
-
-    public $tokens;
-
-    public function __construct(array $tokens)
-    {
-
-        $this->tokens = new FormatsTokens($tokens);
-
-    }
-
-
-    public function vueIndexTemplate()
-    {
-
-        $content = <<<EOD
-@extends('layouts.:::masterPage:::')
+@extends('layouts.master')
 @section('css')
     <style>
         [v-cloak] {
@@ -61,7 +39,7 @@ class VueTemplates
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href='/big-orange'>BigOrange</a></li>
         </ol>
 
 
@@ -96,12 +74,12 @@ class VueTemplates
                     @{{row.Id}}
                 </td>
                 <td>
-                    <a href=":::modelRoute:::/@{{row.Id}}">@{{row.Name}}</a>
+                    <a href="/big-orange/@{{row.Id}}">@{{row.Name}}</a>
                 </td>
                 <td>
                     @{{row.Created | formatDate}}
                 </td>
-                <td ><a href=":::modelRoute:::/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
+                <td ><a href="/big-orange/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
             </tr>
             </tbody>
         </table>
@@ -122,11 +100,11 @@ class VueTemplates
     </script>
 
     <!-- root element -->
-    <div id=":::modelName:::">
+    <div id="bigOrange">
         <form id="search">
             Search <input name="query" v-model="searchQuery">
         </form>
-        <:::gridName:::
+        <big-orange-grid
                 :data="gridData"
                 :columns="gridColumns"
                 :filter-key="searchQuery"
@@ -136,10 +114,10 @@ class VueTemplates
                 :last_page="last_page"
                 :current_page="current_page"
                 :pages="pages">
-        <:::endGridName:::>
+        </big-orange-grid>
     </div>
 
-    <div> <a href=":::modelRoute:::/create">
+    <div> <a href="/big-orange/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -172,7 +150,7 @@ class VueTemplates
         });
 
         // register the grid component
-        Vue.component(':::gridName:::', {
+        Vue.component('big-orange-grid', {
             template: '#grid-template',
             props: {
                 data: Array,
@@ -223,7 +201,7 @@ class VueTemplates
 
                 getdata: function (page) {
 
-                    getPage = ':::vueApiRoute:::?page=' + page;
+                    getPage = 'api/big-orange-vue?page=' + page;
 
                     $.getJSON(getPage, function (data) {
                         this.data = data.data;
@@ -243,8 +221,8 @@ class VueTemplates
         });
 
         // bootstrap the vue instance
-        var :::modelName::: = new Vue({
-            el: '#:::modelName:::',
+        var bigOrange = new Vue({
+            el: '#bigOrange',
             data: {
                 searchQuery: '',
                 gridColumns: ['Id', 'Name', 'Created'],
@@ -264,7 +242,7 @@ class VueTemplates
 
             methods: {
                 loadData: function () {
-                    $.getJSON(':::vueApiRoute:::', function (data) {
+                    $.getJSON('api/big-orange-vue', function (data) {
                         this.gridData = data.data;
                         this.total = data.total;
                         this.last_page =  data.last_page;
@@ -289,10 +267,3 @@ class VueTemplates
         });
     </script>
 @endsection
-EOD;
-
-        return $this->tokens->formatTokens($content);
-
-    }
-
-}

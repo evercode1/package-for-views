@@ -63,7 +63,7 @@ class :::upperCaseModelName:::Controller extends Controller
     {
 
         \$this->validate(\$request, [
-            ':::field_name:::' => 'required|unique::::tableName:::|alpha_num|max:30',
+            ':::field_name:::' => 'required|unique::::tableName:::|string|max:30',
 
         ]);
 
@@ -270,9 +270,9 @@ class ApiController extends Controller
                              ->select('id as Id',
                                       ':::field_name::: as Name',
                                       'created_at as Created')
-                                      ->get();
+                             ->paginate(10);
 
-        return \$:::modelResults:::;
+        return response()->json(\$:::modelResults:::);
 
     }
 
@@ -307,7 +307,7 @@ EOD;
                              ->select('id as Id',
                                       ':::field_name::: as Name',
                                       'created_at as Created')
-                             ->get();
+                             ->paginate(10);
 
         return response()->json(\$:::modelResults:::);
 

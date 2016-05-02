@@ -491,8 +491,9 @@ In the following sections, we cover the template types that are available in the
 
 ## Plain Templates
 
-Using plain for template type will  create a widget folder in your views 
-directory, and then within that folder, the following files:
+Using plain for template type will create a view folder, named according to your input, in your views 
+directory.  For example, if you input Widget as the model, you would get a widget view folder. Then 
+within that folder, the following files:
 
 * create
 * show
@@ -511,7 +512,7 @@ the master page is included in the plain templates.
 
 When using plain as the template type, you get the view folder and and the 4 view 
 files.  In each file, you get the extends directive and a single \<h1> tag,  
-for example in create.blade.php, you would see:
+for example in create.blade.php, if you input Widget as your model, you would see:
 
 "This is your Widget Create page"
 
@@ -528,7 +529,7 @@ example:
 php artisan make:views widget master basic
 ```
 
-Using ‘basic’ for template type will  create a widget folder in your views directory, 
+Using ‘basic’ for template type will create a widget folder in your views directory, 
 and then within that folder, the following files:
 
 * create
@@ -701,7 +702,8 @@ and controller, that will get you the following on your index page:
 ![](vue-index.png)
 
 Again note the header and footer are brought in by master page, which you create 
-separately on your own.  
+separately on your own.  Though not shown in the image, as of version 3.1.2. the vue template
+has pagination.
 
 You also need a meta tag, which will create the tokens for your ajax calls,
 so put it in the appropriate place in your head section:
@@ -766,7 +768,7 @@ class ApiController extends Controller
                     ->select('id as Id',
                              'widget_name as Name',
                              'created_at as Created')
-                    ->get();
+                    ->paginate(10);
    
            return response()->json($widgets);
    

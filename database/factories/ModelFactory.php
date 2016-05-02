@@ -26,3 +26,19 @@ $factory->define(App\BigWidget::class, function (Faker\Generator $faker) {
 
     ];
 });
+
+
+
+$factory->define(App\Orange::class, function (Faker\Generator $faker) {
+    return [
+        'orange_name' => $faker->unique()->word,
+
+    ];
+});
+
+$factory->define(App\BigOrange::class, function (Faker\Generator $faker) {
+    return [
+        'big_orange_name' => $faker->unique()->word,
+
+    ];
+});

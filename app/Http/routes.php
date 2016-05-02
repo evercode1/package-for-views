@@ -42,3 +42,30 @@ Route::any('api/big-widget-vue', 'ApiController@bigWidgetVueData');
 // BigWidget Routes
 
 Route::resource('big-widget', 'BigWidgetController');
+// Api Routes
+
+
+// Api Routes
+
+Route::any('api/orange', 'ApiController@orangeData');
+Route::any('api/orange-vue', 'ApiController@orangeVueData');
+
+// Orange Routes
+
+Route::resource('orange', 'OrangeController');
+// Api Routes
+
+Route::any('api/orange', 'ApiController@orangeData');
+Route::any('api/orange-vue', 'ApiController@orangeVueData');
+
+// Orange Routes
+
+Route::resource('orange', 'OrangeController');
+// Api Routes
+
+Route::any('api/big-orange', 'ApiController@bigOrangeData');
+Route::any('api/big-orange-vue', 'ApiController@bigOrangeVueData');
+
+// BigOrange Routes
+
+Route::resource('big-orange', 'BigOrangeController');
