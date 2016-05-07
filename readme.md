@@ -792,6 +792,12 @@ If you are using our make:foundation or make:crud command to create your routes,
 
 If you are making your own models, routes, controllers, etc., it's important to reference things correctly or the views will not work.
 
+## Conventions
+
+If you are using our make:foundation or make:crud command to create your routes, models, controllers, etc, these are the conventions they follow, but all the work is done for you, so you don't have to worry about missing something.
+
+If you are making your own models, routes, controllers, etc., it's important to reference things correctly or the views will not work.
+
 ## Models
 
 When inputting model names, you have some options.  Ultimately ViewMaker will convert it to the proper format as long as it close.
