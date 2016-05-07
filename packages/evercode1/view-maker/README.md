@@ -135,7 +135,7 @@ All of these [requirements](#requirements-for-views) are listed in detail below,
 I have listed them up here.  You can use it as a check list to make sure you have what you need to
 use ViewMaker successfully.
 
-## make:foundation Workflow
+## make:foundation Workflow Example
 
 To fully understand the power of the **[make:foundation](#makefoundation)** command, let's walk through a typcial use case.  For this,
 we will assume that you have a master page named master.blade.php in your layouts folder, which is in your views folder.
@@ -790,89 +790,130 @@ are just starting with Vue, it will give you some idea of how it works.
 
 ## Conventions
 
-It's worth reviewing the conventions to see how it all works.  If you are using our **[make:foundation](#makefoundation)** or 
-**[make:crud](#makecrud)** command to create your routes, models, controllers, etc, these are the conventions they follow, but all the work is done for you, so you don't have to 
-worry about missing something.
+If you are using our make:foundation or make:crud command to create your routes, models, controllers, etc, these are the conventions they follow, but all the work is done for you, so you don't have to worry about missing something.
 
-If you are making your own models, routes, controllers, etc., it's important to reference things
-correctly or the views will not work.
+If you are making your own models, routes, controllers, etc., it's important to reference things correctly or the views will not work.
 
-### models
+### Models
 
-For models with a single word, use the lowercase version of the word as the first 
-argument of the command:
+When inputting model names, you have some options.  Ultimately ViewMaker will convert it to the proper format as long as it close.
 
-```
-php artisan make:views widget master dt
-```
+The best way to input the model name is to stick with Laravel’s conventions.  Here are a couple of examples:
 
-In this case, widget represents the Widget model.  If you have model with compound 
-words, for example, AlphaWidget, then use the lowercase, separated by a dash:
+~~~~
 
-```
-php artisan make:views alpha-widget master dt
-```
+php artisan make:views Widget master dt
 
-Note, in such a case, your route would be:
+~~~~
 
-```
+For compound words:
+
+~~~~
+
+php artisan make:views BigWidget master dt
+
+~~~~
+
+To make things easier, and to not have to delete a lot of files over a typo, I built in some flexibility into how you can supply the model name to the commands.
+
+For models with a single word, you can also use the lowercase version of the word as the first argument of the command:
+
+~~~~
+
+php artisan make:foundation widget master dt
+
+~~~~
+
+
+In this case, widget represents the Widget model. ViewMaker will convert it automatically to uppercase for use in the appropriate places in the templates.
+
+If you have model with compound words, for example, AlphaWidget, then you can type it as the lowercase, separated by a dash:
+
+~~~~
+
+php artisan make:foundation alpha-widget master dt
+
+~~~~
+
+
+Note, whether you use AlphaWidget or alpha-widget, your route would be:
+
+~~~~
+
 Route::resource('alpha-widget', 'AlphaWidgetController');
-```
 
-### routes
+~~~~
 
-Routes for models with a single word take on the lowercase value of the model.  For
-example, for the Widget model, you would have the following route:
+ViewMaker will convert plural in model names to singular, which is a handy protector against making mistakes.
 
-```
+
+### Routes
+
+Routes for models with a single word take on the lowercase value of the model. For example, for the Widget model, you would have the following route:
+
+~~~~
+
 Route::resource('widget', 'WidgetController');
-```
-Routes for models made up of compound words, will have a dash separating them.  For
-example, for the AlphaWidget model, you would have the following route:
 
-```
+~~~~
+
+
+Routes for models made up of compound words, will have a dash separating them. For example, for the AlphaWidget model, you would have the following route:
+
+~~~~
+
 Route::resource('alpha-widget', 'AlphaWidgetController');
-```
+
+~~~~
+
 ### Api Routes
 
-If you wish the ajax calls to work out of the box for datatables and vue.js, then you 
-need to follow the conventions when naming the api routes.
+If you wish the ajax calls to work out of the box for datatables and vue.js, then you need to follow the conventions when naming the api routes, assuming you are not using make:foundation to build them for you.
 
 The following routes are an example for the datatables api routes.
 
 Single word model:
 
-```
+~~~~
+
 Route::any('api/widget', 'ApiController@widgetData');
-```
+
+~~~~
+
 
 Multiple world model:
 
-```
+~~~~
+
 Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
-```
+
+~~~~
+
 
 For vue.js, use the following api route convention:
 
-```
+~~~~
+
 Route::any('api/widget-vue', 'ApiController@widgetVueData');
-```
+
+~~~~
+
 
 For multiple word models and using vue.js:
 
-```
+~~~~
+
 Route::any('api/beta-widget-vue', 'ApiController@betaWidgetVueData');
-```
 
-You are free to deviate from this as you wish, however you will need to overwrite
-the parts of the index.blade.php file that make the api call with your own values.
+~~~~
 
+
+You are free to deviate from this as you wish, however you will need to overwrite the parts of the index.blade.php file that make the api call with your own values.
 ### View Folder Conventions
 
-View folders will be created with the lowercase string value of the model name.
-If you have a multi-word model, for example, AlphaWidget, the name of your view folder 
-would also be alpha-widget, so in your controller methods, you do the following for 
-create view for example:
+View folders will be created with the lowercase string value of the model name. If you have a multi-word model, for example, AlphaWidget, the name of your view folder would also be alpha-widget, so in your controller methods, you do the following for create view for example:
+
+____________________________________________________________________________
 
 ~~~~
 
@@ -883,36 +924,32 @@ public function create()
 
 ~~~~
 
-I have an example of this on the demo:
+____________________________________________________________________________
 
-[demo](https://github.com/evercode1/package-for-views)
 
-### field names
-As I mention in the other section, the templates are built with a single field, 
-with the following convention:
+### Field Names
 
-```
+ViewMaker templates are built with a single field, with the following convention:
+
+~~~~
+
 $modelName . '_name'
-```
 
-So that would mean that you have to have a widget_name column in your db, if you are following the Widget model example.  A quick note 
-on why I do it this way.  You could have several models with a name attribute.  By 
-making the model part of the name of the attribute, there is never confusion between 
-widget_name and product_name, for example, and that makes working with queries easier in the long 
-run. 
+~~~~
 
-This convention will work great in most cases, but obviously there are some cases where 
-it will have to be changed, for example if want to use it on a user model, you would end 
-up with user_name, which in the migration in Laravel  is actually just ‘name’.  Stick with Laravel defaults if you can. 
 
-So if you have situation like that or if you use a different convention, it’s ok, just 
-change it after the files are made.  You will have to work on these files anyway, since 
-it’s unlikely you will build models with a single field name.  At any rate, it’s meant 
-to be a starting point, a fast way to get up and running.
+So that would mean that you have to have a widget_name column in your db, if you are following the Widget model example. 
 
-Also note that this convention is only for the initial field supplied with the template.
-Any fields that you add to your models and tables are completely at your discretion, since
-you will have to add those yourself anyway.
+A quick note on why I do it this way. You could have several models with a name attribute. By making the model part of the name of the attribute, there is never confusion between widget_name and product_name, for example, and that makes working with queries easier in the long run.
+
+This convention will work great in most cases, but obviously there are some cases where it will have to be changed, for example if want to use it on a user model, you would end up with user_name, which in the migration in Laravel is actually just ‘name’. Stick with Laravel defaults if you can.
+
+So if you have situation like that or if you use a different convention, it’s ok, just change it after the files are made. You will have to work on these files anyway, since it’s unlikely you will build models with a single field name. At any rate, it’s meant to be a starting point, a fast way to get up and running.
+
+Also note that this convention is only for the initial field supplied with the template. Any fields that you add to your models and tables are completely at your discretion, since you will have to add those yourself anyway.
+
+
+## Conclusion
 
 I hope you enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like 
 to support my work and learn more about Laravel, you can do so by buying one of 
