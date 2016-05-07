@@ -24,3 +24,20 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+
+// Api Routes
+
+Route::any('api/widget', 'ApiController@widgetData');
+Route::any('api/widget-vue', 'ApiController@widgetVueData');
+
+// Widget Routes
+
+Route::resource('widget', 'WidgetController');
+// Api Routes
+
+Route::any('api/auth-widget', 'ApiController@authWidgetData');
+Route::any('api/auth-widget-vue', 'ApiController@authWidgetVueData');
+
+// AuthWidget Routes
+
+Route::resource('auth-widget', 'AuthWidgetController');

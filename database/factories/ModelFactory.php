@@ -13,3 +13,18 @@
 
 
 
+
+
+$factory->define(App\Widget::class, function (Faker\Generator $faker) {
+    return [
+        'widget_name' => $faker->unique()->word,
+
+    ];
+});
+
+$factory->define(App\AuthWidget::class, function (Faker\Generator $faker) {
+    return [
+        'auth_widget_name' => $faker->unique()->word,
+
+    ];
+});
