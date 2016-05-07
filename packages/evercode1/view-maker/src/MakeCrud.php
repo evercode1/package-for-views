@@ -75,6 +75,7 @@ class MakeCrud extends Command
     private function formatModel($model)
     {
         $model = camel_case($model);
+        $model = str_singular($model);
         return $model = ucwords($model);
 
     }

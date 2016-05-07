@@ -264,12 +264,29 @@ class ApiController extends Controller
 
     }
 
-    public function :::vueApiControllerMethod:::(){
+    public function :::vueApiControllerMethod:::(Request \$request){
+
+        \$column = 'id';
+        \$direction = 'asc';
+
+        if (\$request->has('column')){
+
+            \$column = \$request->get('column');
+            if (\$column == 'Id'){
+                \$direction = \$request->get('direction') == 1 ? 'asc' : 'desc';
+            } else {
+
+                \$direction = \$request->get('direction') == 1 ? 'desc' : 'asc';
+            }
+
+
+        }
 
         \$:::modelResults::: = DB::table(':::tableName:::')
                              ->select('id as Id',
                                       ':::field_name::: as Name',
                                       'created_at as Created')
+                             ->orderBy(\$column, \$direction)
                              ->paginate(10);
 
         return response()->json(\$:::modelResults:::);
@@ -301,12 +318,29 @@ EOD;
 
     }
 
-    public function :::vueApiControllerMethod:::(){
+    public function :::vueApiControllerMethod:::(Request \$request){
+
+    \$column = 'id';
+        \$direction = 'asc';
+
+        if (\$request->has('column')){
+
+            \$column = \$request->get('column');
+            if (\$column == 'Id'){
+                \$direction = \$request->get('direction') == 1 ? 'asc' : 'desc';
+            } else {
+
+                \$direction = \$request->get('direction') == 1 ? 'desc' : 'asc';
+            }
+
+
+        }
 
         \$:::modelResults::: = DB::table(':::tableName:::')
                              ->select('id as Id',
                                       ':::field_name::: as Name',
                                       'created_at as Created')
+                             ->orderBy(\$column, \$direction)
                              ->paginate(10);
 
         return response()->json(\$:::modelResults:::);

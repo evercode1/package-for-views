@@ -69,6 +69,9 @@ class VueTemplates
     <script type="text/x-template" id="grid-template">
         <div class="row">
             <div class="col-lg-12">
+            <div class="pull-right">
+                    @{{ total }} Total Results
+            </div>
                 <section class="panel">
                     <div class="panel-body">
 
@@ -90,8 +93,7 @@ class VueTemplates
             <tbody>
             <tr v-for="
         row in data
-        | filterBy filterKey
-        | orderBy sortKey sortOrders[sortKey]">
+        | filterBy filterKey">
                 <td>
                     @{{row.Id}}
                 </td>
@@ -107,15 +109,31 @@ class VueTemplates
         </table>
                     </div>
 
+                    <div class="pull-right">
+
+                    page @{{ current_page }} of   @{{ last_page }} pages
+                    </div>
+
             </section>
+            <div class="row">
+            <div class="pull-right" style="margin-top:20px; margin-left:20px;">
+
+                <button @click="getData(go_to_page)"class="btn btn-default">
+                Go To Page:</button>
+                <input v-model="go_to_page"></input>
+
+            </div>
 
             <!-- paginate here -->
 
                 <ul class="pagination pull-right">
-                    <li><a @click.prevent="prevpage" >prev</a></li>
-                    <li v-for="page in pages" v-bind:class="{'active': checkpage(page)}"> <a @click="getdata(page)">@{{ page }}</a></li>
-                    <li><a @click="nextpage">next</a></li>
+                    <li><a @click="getData(first_page_url)"> << </a></li>
+                    <li><a @click.prevent="getData(prev_page_url)" >prev</a></li>
+                    <li v-for="page in pages" v-if="page > current_page - 2 && page < current_page + 2" v-bind:class="{'active': checkPage(page)}"> <a @click="getData(page)">@{{ page }}</a></li>
+                    <li><a @click="getData(next_page_url)">next</a></li>
+                    <li><a @click="getData(last_page_url)"> >> </a></li>
                 </ul>
+    </div>
         </div>
         </div>
 
@@ -135,7 +153,10 @@ class VueTemplates
                 :prev_page_url="prev_page_url"
                 :last_page="last_page"
                 :current_page="current_page"
-                :pages="pages">
+                :pages="pages"
+                :last_page_url="last_page_url"
+                :first_page_url="first_page_url"
+                :go_to_page="go_to_page">
         <:::endGridName:::>
     </div>
 
@@ -183,47 +204,76 @@ class VueTemplates
                 prev_page_url: String,
                 last_page: Number,
                 current_page: Number,
-                pages:  Array
+                pages:  Array,
+                first_page_url: String,
+                last_page_url: String,
+                go_to_page: Number
             },
             data: function () {
-                var sortOrders = {};
-                this.columns.forEach(function (key) {
-                    sortOrders[key] = 1;
-                });
+                var sortOrder = 1;
+                var sortKey = '';
+
                 return {
-                    sortKey: '',
-                    sortOrders: sortOrders
+                    sortKey: sortKey,
+                    sortOrder: sortOrder
                 }
             },
             methods: {
                 sortBy: function (key) {
                     this.sortKey = key;
-                    this.sortOrders[key] = this.sortOrders[key] * -1;
-                },
-                nextpage: function () {
-                    $.getJSON(this.next_page_url, function (data) {
-                        this.data = data.data;
-                        this.total = data.total;
-                        this.last_page =  data.last_page;
-                        this.next_page_url = data.next_page_url;
-                        this.prev_page_url = data.prev_page_url;
-                        this.current_page = data.current_page;
-                    }.bind(this));
-                },
-                prevpage: function () {
-                    $.getJSON(this.prev_page_url, function (data) {
-                        this.data = data.data;
-                        this.total = data.total;
-                        this.last_page =  data.last_page;
-                        this.next_page_url = data.next_page_url;
-                        this.prev_page_url = data.prev_page_url;
-                        this.current_page = data.current_page;
-                    }.bind(this));
+                    this.sortOrder = (this.sortOrder == 1) ? -1 : 1;
+                    this.getData(1);
+
                 },
 
-                getdata: function (page) {
+                getData: function (page) {
 
-                    getPage = ':::vueApiRoute:::?page=' + page;
+                    switch (page){
+
+                        case this.prev_page_url :
+
+                            getPage = this.prev_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+
+                        case this.next_page_url :
+
+                            getPage = this.next_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+                        case this.first_page_url :
+
+                            getPage = this.first_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+
+                        case this.last_page_url :
+
+                            getPage = this.last_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+
+                        case this.go_to_page :
+
+                            if( this.go_to_page != '' && this.go_to_page <= parseInt(this.last_page)){
+
+                                getPage = ':::vueApiRoute:::?page=' + this.go_to_page + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                                this.go_to_page = '';
+
+                            } else {
+
+                                alert('Please enter a valid page number');
+                            }
+
+                            break;
+
+                        default :
+
+                            getPage = ':::vueApiRoute:::?page=' + page + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+                    }
 
                     $.getJSON(getPage, function (data) {
                         this.data = data.data;
@@ -232,6 +282,7 @@ class VueTemplates
                         this.next_page_url = data.next_page_url;
                         this.prev_page_url = data.prev_page_url;
                         this.current_page = data.current_page;
+                        console.log(this.data);
                     }.bind(this));
                 },
                 checkpage: function(page){
@@ -256,7 +307,10 @@ class VueTemplates
                 prev_page_url: null,
                 last_page: null,
                 current_page: null,
-                pages: []
+                pages: [],
+                first_page_url: String,
+                last_page_url: String,
+                go_to_page: ''
             },
             ready: function () {
                 this.loadData();
@@ -271,6 +325,8 @@ class VueTemplates
                         this.next_page_url = data.next_page_url;
                         this.prev_page_url = data.prev_page_url;
                         this.current_page = data.current_page;
+                        this.first_page_url = ':::vueApiRoute:::?page=1';
+                        this.last_page_url = ':::vueApiRoute:::?page=' + this.last_page;
                         this.setPageNumbers();
                     }.bind(this));
                 },

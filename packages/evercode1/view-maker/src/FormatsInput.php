@@ -42,7 +42,7 @@ trait FormatsInput
 
         $this->inputs = $this->argument();
 
-        $this->theModel = $this->inputs['ModelName'];
+        $this->theModel = str_singular($this->inputs['ModelName']);
 
         $this->folderName = $this->formatModelPath($this->theModel);
 
