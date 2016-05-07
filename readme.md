@@ -951,6 +951,9 @@ So if you have situation like that or if you use a different convention, it’s 
 
 Also note that this convention is only for the initial field supplied with the template. Any fields that you add to your models and tables are completely at your discretion, since you will have to add those yourself anyway.
 
+
+## Conclusion
+
 I hope you enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like 
 to support my work and learn more about Laravel, you can do so by buying one of 
 my books, **[Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot)**, 
