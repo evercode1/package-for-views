@@ -1,11 +1,8 @@
-# Tutorial For ViewMaker
+# Tutorial for ViewMaker For Laravel 5.2
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
-
-You can browse the source files of this repository for reference in the tutorial below.
-The package itself can be found at [https://github.com/evercode1/view-maker](https://github.com/evercode1/view-maker).
 
 **ViewMaker** is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line 
 tool that ships with Laravel, providing ready-made templates, designed to optimize your work flow.
@@ -65,7 +62,7 @@ Use **[make:views](#makeviews)** to create views, including:
 * edit
 * show 
  
- Use **[make:master](#makemaster)** to create a master page, which includes:
+Use **[make:master](#makemaster)** to create a master page, which includes:
  
  * layouts folder
  * master (you give it your name) 
@@ -257,9 +254,10 @@ The make:views command has  the following arguments:
 ```
 php artisan make:views {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
 ```
-The last argument is optional and indicates that you only want the index view in the view folder.
-By default it is false, so unless you indicate otherwise, you will get all the views.
-If you do wish to use that option, you must enter the word 'index' as your last argument, no quotes.
+The last argument is optional and indicates that you only want the index view in the view folder.  
+By default it is false, which means it's an optional argument, so if you leave it off
+entirely, you get all the views.  If you do wish to use that option, you must enter 
+the word 'index' as your last argument, no quotes.
 
 Before running make:views, at a minimum, you should already have your model, route and controller created.
 As an alternative to doing that manually, you can use **ViewMaker's** **[make:crud](#makecrud)** to do it for you.  Or
@@ -403,9 +401,8 @@ php artisan make:foundation {ModelName} {MasterPageName} {TemplateType} {IndexOn
 ```
 
 The last argument is optional and indicates that you only want the index view in the view folder.  
-By default it is false, which means it's an optional argument, so if you leave it off
-entirely, you get all the views.  If you do wish to use that option, you must enter 
-the word 'index' as your last argument, no quotes.
+By default it is false, so unless you indicate otherwise, you will get all the views.  If you do wish
+to use that option, you must enter the word 'index' as your last argument, no quotes.
 
 Let's look at some typical examples.  If you wanted to create a model named Widget, and you had a master page 
 named master.blade.php, you may do one of the following:
@@ -494,8 +491,9 @@ In the following sections, we cover the template types that are available in the
 
 ## Plain Templates
 
-Using plain for template type will  create a widget folder in your views 
-directory, and then within that folder, the following files:
+Using plain for template type will create a view folder, named according to your input, in your views 
+directory.  For example, if you input Widget as the model, you would get a widget view folder. Then 
+within that folder, the following files:
 
 * create
 * show
@@ -514,7 +512,7 @@ the master page is included in the plain templates.
 
 When using plain as the template type, you get the view folder and and the 4 view 
 files.  In each file, you get the extends directive and a single \<h1> tag,  
-for example in create.blade.php, you would see:
+for example in create.blade.php, if you input Widget as your model, you would see:
 
 "This is your Widget Create page"
 
@@ -531,7 +529,7 @@ example:
 php artisan make:views widget master basic
 ```
 
-Using ‘basic’ for template type will  create a widget folder in your views directory, 
+Using ‘basic’ for template type will create a widget folder in your views directory, 
 and then within that folder, the following files:
 
 * create
@@ -704,7 +702,8 @@ and controller, that will get you the following on your index page:
 ![](vue-index.png)
 
 Again note the header and footer are brought in by master page, which you create 
-separately on your own.  
+separately on your own.  Though not shown in the image, as of version 3.1.2. the vue template
+has pagination.
 
 You also need a meta tag, which will create the tokens for your ajax calls,
 so put it in the appropriate place in your head section:
@@ -769,9 +768,9 @@ class ApiController extends Controller
                     ->select('id as Id',
                              'widget_name as Name',
                              'created_at as Created')
-                    ->get();
+                    ->paginate(10);
    
-           return $widgets;
+           return response()->json($widgets);
    
        }
 }
@@ -789,91 +788,129 @@ Vue.js is a popular javascript library, the docs are here:
 What you get is a working, ajax-powered vue.js grid, but it's just a starting point.  If you 
 are just starting with Vue, it will give you some idea of how it works.
 
-## Conventions
+If you are using our make:foundation or make:crud command to create your routes, models, controllers, etc, these are the conventions they follow, but all the work is done for you, so you don't have to worry about missing something.
 
-It's worth reviewing the conventions to see how it all works.  If you are using our **[make:foundation](#makefoundation)** or 
-**[make:crud](#makecrud)** command to create your routes, models, controllers, etc, these are the conventions they follow, but all the work is done for you, so you don't have to 
-worry about missing something.
+If you are making your own models, routes, controllers, etc., it's important to reference things correctly or the views will not work.
 
-If you are making your own models, routes, controllers, etc., it's important to reference things
-correctly or the views will not work.
+## Models
 
-### models
+When inputting model names, you have some options.  Ultimately ViewMaker will convert it to the proper format as long as it close.
 
-For models with a single word, use the lowercase version of the word as the first 
-argument of the command:
+The best way to input the model name is to stick with Laravel’s conventions.  Here are a couple of examples:
 
-```
-php artisan make:views widget master dt
-```
+~~~~
 
-In this case, widget represents the Widget model.  If you have model with compound 
-words, for example, AlphaWidget, then use the lowercase, separated by a dash:
+php artisan make:views Widget master dt
 
-```
-php artisan make:views alpha-widget master dt
-```
+~~~~
 
-Note, in such a case, your route would be:
+For compound words:
 
-```
+~~~~
+
+php artisan make:views BigWidget master dt
+
+~~~~
+
+To make things easier, and to not have to delete a lot of files over a typo, I built in some flexibility into how you can supply the model name to the commands.
+
+For models with a single word, you can also use the lowercase version of the word as the first argument of the command:
+
+~~~~
+
+php artisan make:foundation widget master dt
+
+~~~~
+
+
+In this case, widget represents the Widget model. ViewMaker will convert it automatically to uppercase for use in the appropriate places in the templates.
+
+If you have model with compound words, for example, AlphaWidget, then you can type it as the lowercase, separated by a dash:
+
+~~~~
+
+php artisan make:foundation alpha-widget master dt
+
+~~~~
+
+
+Note, whether you use AlphaWidget or alpha-widget, your route would be:
+
+~~~~
+
 Route::resource('alpha-widget', 'AlphaWidgetController');
-```
 
-### routes
+~~~~
 
-Routes for models with a single word take on the lowercase value of the model.  For
-example, for the Widget model, you would have the following route:
+ViewMaker, as I mentioned also in chapter 3, will convert plural in model names to singular, which is a handy protector against making mistakes.
 
-```
+
+## Routes
+
+Routes for models with a single word take on the lowercase value of the model. For example, for the Widget model, you would have the following route:
+
+~~~~
+
 Route::resource('widget', 'WidgetController');
-```
-Routes for models made up of compound words, will have a dash separating them.  For
-example, for the AlphaWidget model, you would have the following route:
 
-```
+~~~~
+
+
+Routes for models made up of compound words, will have a dash separating them. For example, for the AlphaWidget model, you would have the following route:
+
+~~~~
+
 Route::resource('alpha-widget', 'AlphaWidgetController');
-```
-### Api Routes
 
-If you wish the ajax calls to work out of the box for datatables and vue.js, then you 
-need to follow the conventions when naming the api routes.
+~~~~
+## Api Routes
+
+If you wish the ajax calls to work out of the box for datatables and vue.js, then you need to follow the conventions when naming the api routes, assuming you are not using make:foundation to build them for you.
 
 The following routes are an example for the datatables api routes.
 
 Single word model:
 
-```
+~~~~
+
 Route::any('api/widget', 'ApiController@widgetData');
-```
+
+~~~~
+
 
 Multiple world model:
 
-```
+~~~~
+
 Route::any('api/alpha-widget', 'ApiController@alphaWidgetData');
-```
+
+~~~~
+
 
 For vue.js, use the following api route convention:
 
-```
+~~~~
+
 Route::any('api/widget-vue', 'ApiController@widgetVueData');
-```
+
+~~~~
+
 
 For multiple word models and using vue.js:
 
-```
+~~~~
+
 Route::any('api/beta-widget-vue', 'ApiController@betaWidgetVueData');
-```
 
-You are free to deviate from this as you wish, however you will need to overwrite
-the parts of the index.blade.php file that make the api call with your own values.
+~~~~
 
-### View Folder Conventions
 
-View folders will be created with the lowercase string value of the model name.
-If you have a multi-word model, for example, AlphaWidget, the name of your view folder 
-would also be alpha-widget, so in your controller methods, you do the following for 
-create view for example:
+You are free to deviate from this as you wish, however you will need to overwrite the parts of the index.blade.php file that make the api call with your own values.
+## View Folder Conventions
+
+View folders will be created with the lowercase string value of the model name. If you have a multi-word model, for example, AlphaWidget, the name of your view folder would also be alpha-widget, so in your controller methods, you do the following for create view for example:
+
+____________________________________________________________________________
 
 ~~~~
 
@@ -884,36 +921,29 @@ public function create()
 
 ~~~~
 
-I have an example of this on the demo:
+____________________________________________________________________________
 
-[demo](https://github.com/evercode1/package-for-views)
 
-### field names
-As I mention in the other section, the templates are built with a single field, 
-with the following convention:
+## Field Names
 
-```
+As I mention in the other section, the templates are built with a single field, with the following convention:
+
+~~~~
+
 $modelName . '_name'
-```
 
-So that would mean that you have to have a widget_name column in your db, if you are following the Widget model example.  A quick note 
-on why I do it this way.  You could have several models with a name attribute.  By 
-making the model part of the name of the attribute, there is never confusion between 
-widget_name and product_name, for example, and that makes working with queries easier in the long 
-run. 
+~~~~
 
-This convention will work great in most cases, but obviously there are some cases where 
-it will have to be changed, for example if want to use it on a user model, you would end 
-up with user_name, which in the migration in Laravel  is actually just ‘name’.  Stick with Laravel defaults if you can. 
 
-So if you have situation like that or if you use a different convention, it’s ok, just 
-change it after the files are made.  You will have to work on these files anyway, since 
-it’s unlikely you will build models with a single field name.  At any rate, it’s meant 
-to be a starting point, a fast way to get up and running.
+So that would mean that you have to have a widget_name column in your db, if you are following the Widget model example. 
 
-Also note that this convention is only for the initial field supplied with the template.
-Any fields that you add to your models and tables are completely at your discretion, since
-you will have to add those yourself anyway.
+A quick note on why I do it this way. You could have several models with a name attribute. By making the model part of the name of the attribute, there is never confusion between widget_name and product_name, for example, and that makes working with queries easier in the long run.
+
+This convention will work great in most cases, but obviously there are some cases where it will have to be changed, for example if want to use it on a user model, you would end up with user_name, which in the migration in Laravel is actually just ‘name’. Stick with Laravel defaults if you can.
+
+So if you have situation like that or if you use a different convention, it’s ok, just change it after the files are made. You will have to work on these files anyway, since it’s unlikely you will build models with a single field name. At any rate, it’s meant to be a starting point, a fast way to get up and running.
+
+Also note that this convention is only for the initial field supplied with the template. Any fields that you add to your models and tables are completely at your discretion, since you will have to add those yourself anyway.
 
 I hope you enjoy this plugin and find it useful.  I don’t have a donate button, but If you would like 
 to support my work and learn more about Laravel, you can do so by buying one of 
@@ -952,3 +982,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-packagist]: https://packagist.org/packages/evercode1/view-maker
 [link-downloads]: https://packagist.org/packages/evercode1/view-maker/stats
 [link-author]: https://github.com/evercode1
+
