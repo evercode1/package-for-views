@@ -135,7 +135,7 @@ All of these [requirements](#requirements-for-views) are listed in detail below,
 I have listed them up here.  You can use it as a check list to make sure you have what you need to
 use ViewMaker successfully.
 
-## make:foundation Workflow
+## make:foundation Workflow Example
 
 To fully understand the power of the **[make:foundation](#makefoundation)** command, let's walk through a typcial use case.  For this,
 we will assume that you have a master page named master.blade.php in your layouts folder, which is in your views folder.
@@ -798,7 +798,7 @@ If you are using our make:foundation or make:crud command to create your routes,
 
 If you are making your own models, routes, controllers, etc., it's important to reference things correctly or the views will not work.
 
-## Models
+### Models
 
 When inputting model names, you have some options.  Ultimately ViewMaker will convert it to the proper format as long as it close.
 
@@ -848,10 +848,10 @@ Route::resource('alpha-widget', 'AlphaWidgetController');
 
 ~~~~
 
-ViewMaker, as I mentioned also in chapter 3, will convert plural in model names to singular, which is a handy protector against making mistakes.
+ViewMaker will convert plural in model names to singular, which is a handy protector against making mistakes.
 
 
-## Routes
+### Routes
 
 Routes for models with a single word take on the lowercase value of the model. For example, for the Widget model, you would have the following route:
 
@@ -869,7 +869,8 @@ Routes for models made up of compound words, will have a dash separating them. F
 Route::resource('alpha-widget', 'AlphaWidgetController');
 
 ~~~~
-## Api Routes
+
+### Api Routes
 
 If you wish the ajax calls to work out of the box for datatables and vue.js, then you need to follow the conventions when naming the api routes, assuming you are not using make:foundation to build them for you.
 
@@ -912,7 +913,8 @@ Route::any('api/beta-widget-vue', 'ApiController@betaWidgetVueData');
 
 
 You are free to deviate from this as you wish, however you will need to overwrite the parts of the index.blade.php file that make the api call with your own values.
-## View Folder Conventions
+
+### View Folder Conventions
 
 View folders will be created with the lowercase string value of the model name. If you have a multi-word model, for example, AlphaWidget, the name of your view folder would also be alpha-widget, so in your controller methods, you do the following for create view for example:
 
@@ -930,7 +932,7 @@ public function create()
 ____________________________________________________________________________
 
 
-## Field Names
+### Field Names
 
 As I mention in the other section, the templates are built with a single field, with the following convention:
 
