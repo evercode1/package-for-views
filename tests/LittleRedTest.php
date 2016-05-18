@@ -4,16 +4,17 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AuthWidgetTest extends TestCase
+class LittleRedTest extends TestCase
 {
-    public function testCreateNewAuthWidget()
+    public function testCreateNewLittleRed()
     {
 
         $randomString = str_random(10);
 
-        $this->visit('/auth-widget/create')
-              ->type($randomString, 'auth_widget_name')
+        $this->visit('/little-red/create')
+              ->type($randomString, 'little_red_name')
+              ->select(1, 'blue_id')
               ->press('Create')
-              ->seePageIs('/auth-widget');
+              ->seePageIs('/little-red');
     }
 }

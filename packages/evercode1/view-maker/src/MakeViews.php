@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class MakeViews extends Command
 {
-    use FormatsInput, BuildsTemplates, WritesViewFiles;
+    use FormatsInput, BuildsTemplates, WritesViewFiles, HasParentAndChildAndSlug;
     /**
      * The name and signature of the console command.
      *
@@ -16,6 +16,7 @@ class MakeViews extends Command
                            {ModelName}
                            {MasterPage}
                            {TemplateType}
+                           {Slug=false}
                            {IndexOnly=false}';
 
     /**
@@ -45,6 +46,7 @@ class MakeViews extends Command
      */
     public function handle()
     {
+
 
         $this->setConfigFromInputs();
 

@@ -7,14 +7,15 @@ use Carbon\Carbon;
 
 class MakeCrud extends Command
 {
-    use BuildsCrudTemplates, ConfiguresCrudInput, WritesCrudFiles;
+    use BuildsCrudTemplates, FormatsInput, ConfiguresCrudInput, WritesCrudFiles, HasParentAndChildAndSlug;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'make:crud
-                           {ModelName}';
+                           {ModelName}
+                           {Slug=false}';
 
     /**
      * The console command description.
@@ -47,6 +48,8 @@ class MakeCrud extends Command
     {
 
         $this->modelName = $this->formatModel($this->argument('ModelName'));
+
+        $this->slug = $this->argument('Slug');
 
         $this->setCrudTokens();
 

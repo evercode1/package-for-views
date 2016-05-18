@@ -5,12 +5,23 @@ namespace Evercode1\ViewMaker;
 class CrudTokens
 {
     public $model;
+    public $parent;
+    public $child;
+    public $slug;
 
 
-    public function __construct($modelName)
+    public function __construct(array $tokens)
     {
 
-        $this->model = $modelName;
+        $this->model = $tokens['model'];
+        $this->slug = $tokens['slug'];
+
+        if (isset($tokens['parent'])){
+
+            $this->parent = $tokens['parent'];
+            $this->child = $tokens['child'];
+        }
+
 
     }
 
@@ -41,6 +52,8 @@ class CrudTokens
 
         $useModel = 'use App\\' . $upperCaseModelName;
 
+        $useParent = 'use App\\' . $this->formatModelName($this->parent);
+
         $apiRoute = 'api/' . $modelPath;
 
         $vueApiRoute = 'api/' . $modelPath . '-vue';
@@ -53,6 +66,34 @@ class CrudTokens
 
         $controllerName = $this->formatModelName($this->model) . 'Controller';
 
+        $parent = $this->parent;
+
+        $parentFieldName = snake_case($this->parent) . '_name';
+
+        $parentId = $this->formatInstanceName($this->parent) . '->id';
+
+        $parent_id= snake_case($this->parent) . '_id';
+
+        $parentValidationList = $this->formatInstanceName($this->parent) . 'ValidationList';
+
+        $parentInstance = $this->formatInstanceName($this->parent);
+
+        $parentInstances = strtolower(str_plural($parentInstance));
+
+        $parentsTableName = $this->formatParentsTableName($this->parent);
+
+        $childsTableName = $this->formatTableName($this->child);
+
+        $childMigrationModel = $this->formatMigrationModel($this->child);
+
+        $child = $this->child;
+
+        $childRelation = $this->formatChildRelation($this->child);
+
+        $model = $this->model;
+
+        $slug = $this->slug;
+
         //create token array using compact
 
         $tokens = compact('upperCaseModelName',
@@ -64,14 +105,27 @@ class CrudTokens
                           'modelId',
                           'modelAttribute',
                           'useModel',
+                          'useParent',
                           'apiRoute',
                           'vueApiRoute',
                           'apiControllerMethod',
                           'vueApiControllerMethod',
                           'modelResults',
-                          'controllerName');
-
-
+                          'controllerName',
+                          'parent',
+                          'parentFieldName',
+                          'parentId',
+                          'parent_id',
+                          'parentValidationList',
+                          'parentInstance',
+                          'parentInstances',
+                          'parentsTableName',
+                          'childsTableName',
+                          'childMigrationModel',
+                          'child',
+                          'childRelation',
+                          'model',
+                          'slug');
 
 
         return $tokens;
@@ -169,6 +223,39 @@ class CrudTokens
         return $modelMethod . 'VueData';
 
     }
+
+    private function formatParents($parent)
+    {
+
+        $parent = camel_case($parent);
+
+        return str_plural($parent);
+
+
+    }
+
+    private function formatParentsTableName($parent)
+    {
+
+        $parent = snake_case($parent);
+
+        return str_plural($parent);
+
+
+
+    }
+
+    private function formatChildRelation($child)
+    {
+
+        $child = camel_case($child);
+
+        return str_plural($child);
+
+
+    }
+
+
 
 
 }

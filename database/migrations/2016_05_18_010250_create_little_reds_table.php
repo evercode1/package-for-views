@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthWidgetsTable extends Migration
+class CreateLittleRedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,11 @@ class CreateAuthWidgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('auth_widgets', function (Blueprint $table) {
+        Schema::create('little_reds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('auth_widget_name', 30)->unique();
+            $table->string('little_red_name', 30)->unique();
+            $table->string('slug', 30);
+            $table->integer('blue_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateAuthWidgetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('auth_widgets');
+        Schema::drop('little_reds');
     }
 }

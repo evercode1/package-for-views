@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Widget extends Model
 {
     protected $fillable = ['widget_name'];
+
+    public function gadgets()
+    {
+
+        return $this->hasMany('App\Gadget');
+    }
 }

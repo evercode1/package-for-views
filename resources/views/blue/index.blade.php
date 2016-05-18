@@ -39,14 +39,19 @@
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/auth-widget'>AuthWidget</a></li>
+        <li><a href='/blue'>Blue</a></li>
         </ol>
+
+        <h1>Blues</h1>
 
 
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
         <div class="row">
             <div class="col-lg-12">
+            <form id="search">
+                    Search <input name="query" v-model="query" @keyup="search(query)">
+                </form>
             <div class="pull-right">
                     @{{ total }} Total Results
             </div>
@@ -62,26 +67,24 @@
                 :class="{active: sortKey == key}">
                 @{{key | capitalize}}
                 <span class="arrow"
-                      :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+                      :class="sortOrder > 0 ? 'asc' : 'dsc'">
           </span>
                 </th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="
-        row in data
-        | filterBy filterKey">
+            <tr v-for="row in data">
                 <td>
                     @{{row.Id}}
                 </td>
                 <td>
-                    <a href="/auth-widget/@{{row.Id}}">@{{row.Name}}</a>
+                    <a href="/blue/@{{row.Id}}-@{{row.Slug}}">@{{row.Name}}</a>
                 </td>
                 <td>
                     @{{row.Created | formatDate}}
                 </td>
-                <td ><a href="/auth-widget/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
+                <td ><a href="/blue/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
             </tr>
             </tbody>
         </table>
@@ -106,9 +109,9 @@
 
                 <ul class="pagination pull-right">
                     <li><a @click="getData(first_page_url)"> << </a></li>
-                    <li><a @click.prevent="getData(prev_page_url)" >prev</a></li>
+                    <li v-if="checkUrlNotNull(prev_page_url)"><a @click.prevent="getData(prev_page_url)" >prev</a></li>
                     <li v-for="page in pages" v-if="page > current_page - 2 && page < current_page + 2" v-bind:class="{'active': checkPage(page)}"> <a @click="getData(page)">@{{ page }}</a></li>
-                    <li><a @click="getData(next_page_url)">next</a></li>
+                    <li v-if="checkUrlNotNull(next_page_url)"><a @click="getData(next_page_url)">next</a></li>
                     <li><a @click="getData(last_page_url)"> >> </a></li>
                 </ul>
     </div>
@@ -118,14 +121,11 @@
     </script>
 
     <!-- root element -->
-    <div id="authWidget">
-        <form id="search">
-            Search <input name="query" v-model="searchQuery">
-        </form>
-        <auth-widget-grid
+    <div id="blue">
+        <blue-grid
                 :data="gridData"
                 :columns="gridColumns"
-                :filter-key="searchQuery"
+                :query="query"
                 :total="total"
                 :next_page_url="next_page_url"
                 :prev_page_url="prev_page_url"
@@ -135,10 +135,10 @@
                 :last_page_url="last_page_url"
                 :first_page_url="first_page_url"
                 :go_to_page="go_to_page">
-        </auth-widget-grid>
+        </blue-grid>
     </div>
 
-    <div> <a href="/auth-widget/create">
+    <div> <a href="/blue/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -171,12 +171,12 @@
         });
 
         // register the grid component
-        Vue.component('auth-widget-grid', {
+        Vue.component('blue-grid', {
             template: '#grid-template',
             props: {
                 data: Array,
                 columns: Array,
-                filterKey: String,
+                query: String,
                 total: Number,
                 next_page_url: String,
                 prev_page_url: String,
@@ -204,21 +204,29 @@
 
                 },
 
+                search: function(query){
+
+                this.getData(query);
+
+                },
+
                 getData: function (page) {
 
                     switch (page){
 
                         case this.prev_page_url :
 
-                            getPage = this.prev_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+                                    getPage = this.prev_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
 
-                            break;
+                                    break;
 
                         case this.next_page_url :
 
-                            getPage = this.next_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+                                getPage = this.next_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
 
-                            break;
+                                break;
+
+
                         case this.first_page_url :
 
                             getPage = this.first_page_url + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
@@ -231,11 +239,17 @@
 
                             break;
 
+                            case this.query :
+
+                            getPage = 'api/blue-vue?keyword=' + this.query + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+
+                            break;
+
                         case this.go_to_page :
 
                             if( this.go_to_page != '' && this.go_to_page <= parseInt(this.last_page)){
 
-                                getPage = 'api/auth-widget-vue?page=' + this.go_to_page + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+                                getPage = 'api/blue-vue?page=' + this.go_to_page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
 
                                 this.go_to_page = '';
 
@@ -248,63 +262,103 @@
 
                         default :
 
-                            getPage = 'api/auth-widget-vue?page=' + page + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+                            getPage = 'api/blue-vue?page=' + page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
 
                             break;
                     }
 
-                    $.getJSON(getPage, function (data) {
-                        this.data = data.data;
-                        this.total = data.total;
-                        this.last_page =  data.last_page;
-                        this.next_page_url = data.next_page_url;
-                        this.prev_page_url = data.prev_page_url;
-                        this.current_page = data.current_page;
-                        console.log(this.data);
-                    }.bind(this));
+                    if (this.query == '' && getPage != null){
+
+                        $.getJSON(getPage, function (data) {
+                            this.data = data.data;
+                            this.total = data.total;
+                            this.last_page =  data.last_page;
+                            this.next_page_url = data.next_page_url;
+                            this.prev_page_url = data.prev_page_url;
+                            this.current_page = data.current_page;
+                            }.bind(this));
+
+                    } else {
+
+                        if (getPage != null){
+
+                            $.getJSON(getPage, function (data) {
+                            this.data = data.data;
+                            this.total = data.total;
+                            this.last_page =  data.last_page;
+                            this.next_page_url = (data.next_page_url == null) ? null : data.next_page_url + '&keyword=' +this.query;
+                            this.prev_page_url = (data.prev_page_url == null) ? null : data.prev_page_url + '&keyword=' +this.query;
+                            this.first_page_url = 'api/blue-vue?page=1&keyword=' +this.query;
+                            this.last_page_url = 'api/blue-vue?page=' + this.last_page + '&keyword=' +this.query;
+                            this.current_page = data.current_page;
+                            this.resetPageNumbers();
+                            }.bind(this));
+
+                    }
+
+                }
+
                 },
-                checkpage: function(page){
+                checkPage: function(page){
 
                     return page == this.current_page;
+
+                },
+
+                resetPageNumbers: function(){
+
+                    this.pages = [];
+
+                    for (var i = 1; i <= this.last_page; i++) {
+                        this.pages.push(i);
+
+                    }
+
+
+                },
+
+                checkUrlNotNull: function(url){
+
+                    return url != null;
 
                 }
             }
         });
 
         // bootstrap the vue instance
-        var authWidget = new Vue({
-            el: '#authWidget',
+        var blue = new Vue({
+            el: '#blue',
             data: {
-                searchQuery: '',
+                query: '',
                 gridColumns: ['Id', 'Name', 'Created'],
-                gridData: {
-                    rows: null
-                },
+                gridData: [],
                 total: null,
                 next_page_url: null,
                 prev_page_url: null,
                 last_page: null,
                 current_page: null,
                 pages: [],
-                first_page_url: String,
-                last_page_url: String,
-                go_to_page: ''
+                first_page_url: null,
+                last_page_url: null,
+                go_to_page: null
             },
             ready: function () {
                 this.loadData();
             },
 
+            components: 'blue-grid',
+
             methods: {
                 loadData: function () {
-                    $.getJSON('api/auth-widget-vue', function (data) {
+                    $.getJSON('api/blue-vue', function (data) {
                         this.gridData = data.data;
                         this.total = data.total;
                         this.last_page =  data.last_page;
                         this.next_page_url = data.next_page_url;
                         this.prev_page_url = data.prev_page_url;
                         this.current_page = data.current_page;
-                        this.first_page_url = 'api/auth-widget-vue?page=1';
-                        this.last_page_url = 'api/auth-widget-vue?page=' + this.last_page;
+                        this.first_page_url = 'api/blue-vue?page=1';
+                        this.last_page_url = 'api/blue-vue?page=' + this.last_page;
                         this.setPageNumbers();
                     }.bind(this));
                 },

@@ -13,8 +13,6 @@
 
 
 
-
-
 $factory->define(App\Widget::class, function (Faker\Generator $faker) {
     return [
         'widget_name' => $faker->unique()->word,
@@ -22,9 +20,37 @@ $factory->define(App\Widget::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\AuthWidget::class, function (Faker\Generator $faker) {
+$factory->define(App\Gadget::class, function (Faker\Generator $faker) {
     return [
-        'auth_widget_name' => $faker->unique()->word,
+        'gadget_name' => $faker->unique()->word,
+        'widget_id' => $faker->numberBetween($min = 1, $max = 4),
+
+    ];
+});
+
+
+
+$factory->define(App\Blue::class, function (Faker\Generator $faker) {
+
+        $uniqueWord = $faker->unique()->word;
+        $slug = str_slug($uniqueWord, "-");
+
+    return [
+        'blue_name' => $uniqueWord,
+        'slug' => $slug,
+
+    ];
+});
+
+$factory->define(App\LittleRed::class, function (Faker\Generator $faker) {
+
+       $uniqueWord = $faker->unique()->word;
+        $slug = str_slug($uniqueWord, "-");
+
+    return [
+        'little_red_name' => $uniqueWord,
+        'blue_id' => $faker->numberBetween($min = 1, $max = 4),
+        'slug' => $slug,
 
     ];
 });

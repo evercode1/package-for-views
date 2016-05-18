@@ -10,42 +10,208 @@ trait BuildsCrudTemplates
     private function getContentFromTemplate($fileName,  array $tokens, $fileExists=false)
     {
 
-
         switch($fileName){
 
             case 'model' :
-                return $this->buildModelTemplate($tokens);
+
+                if ($this->hasParent($tokens) &&  $this->isParent($tokens)){
+
+                        if ($this->hasSlug($tokens)){
+
+                            return $this->buildTemplate($tokens, 'parentModelSlugTemplate');
+                            break;
+                        }
+
+                        return $this->buildTemplate($tokens, 'parentModelTemplate');
+                        break;
+
+                    } else {
+
+                        if ($this->isChild($tokens)) {
+
+                            if ($this->hasSlug($tokens)){
+
+                                return $this->buildTemplate($tokens, 'childModelSlugTemplate');
+                                break;
+
+
+                            }
+
+                            return $this->buildTemplate($tokens, 'childModelTemplate');
+                            break;
+                        }
+
+                    }
+
+                if ($this->hasSlug($tokens)){
+
+                    return $this->buildTemplate($tokens, 'modelSlugTemplate');
+                    break;
+
+                }
+
+                return $this->buildTemplate($tokens, 'modelTemplate');
                 break;
 
             case 'controller' :
-                return $this->buildControllerTemplate($tokens);
+
+                if ($this->hasChild($tokens) && $this->isChild($tokens)){
+
+                            if ($this->hasSlug($tokens)){
+
+                                return $this->buildTemplate($tokens, 'childControllerSlugTemplate');
+                                break;
+                            }
+
+                            return $this->buildTemplate($tokens, 'childControllerTemplate');
+                            break;
+
+
+                }
+
+                if ($this->hasSlug($tokens)){
+
+                    return $this->buildTemplate($tokens, 'controllerSlugTemplate');
+                    break;
+
+                }
+
+                return $this->buildTemplate($tokens, 'controllerTemplate');
                 break;
 
             case 'apiController' :
 
                 if ($fileExists){
 
-                    return $this->buildAppendApiControllerTemplate($tokens);
+                    if ($this->hasChild($tokens) && $this->isChild($tokens)){
+
+                            if ($this->hasSlug($tokens)){
+
+                                return $this->buildTemplate($tokens, 'childAppendApiControllerSlugTemplate');
+                                break;
+
+
+                            }
+
+                            return $this->buildTemplate($tokens, 'childAppendApiControllerTemplate');
+                            break;
+
+
+                    }
+
+                    if ($this->hasSlug($tokens)){
+
+                        return $this->buildTemplate($tokens, 'appendApiControllerSlugTemplate');
+                        break;
+                    }
+
+                    return $this->buildTemplate($tokens, 'appendApiControllerTemplate');
                     break;
+
+                } else {
+
+                    if ($this->hasChild($tokens) && $this->isChild($tokens)){
+
+                            if ($this->hasSlug($tokens)){
+
+                                return $this->buildTemplate($tokens, 'childApiControllerSlugTemplate');
+                                break;
+
+
+                            }
+
+                            return $this->buildTemplate($tokens, 'childApiControllerTemplate');
+                            break;
+
+
+                    }
+
+                    if ($this->hasSlug($tokens)){
+
+                        return $this->buildTemplate($tokens, 'apiControllerSlugTemplate');
+                        break;
+                    }
+
+                    return $this->buildTemplate($tokens, 'apiControllerTemplate');
+                    break;
+
                 }
-                return $this->buildApiControllerTemplate($tokens);
-                break;
+
 
             case 'migration' :
 
-                return $this->buildMigrationTemplate($tokens);
+                if ($this->hasChild($tokens) && $this->isChild($tokens)){
+
+                        if ($this->hasSlug($tokens)){
+
+                            return $this->buildTemplate($tokens, 'childMigrationSlugTemplate');
+                            break;
+                        }
+
+                        return $this->buildTemplate($tokens, 'childMigrationTemplate');
+                        break;
+
+
+                }
+
+                if ($this->hasSlug($tokens)){
+
+                    return $this->buildTemplate($tokens, 'migrationSlugTemplate');
+                    break;
+
+                }
+
+                return $this->buildTemplate($tokens, 'migrationTemplate');
                 break;
 
             case 'routes' :
-                return $this->buildRouteTemplate($tokens);
+
+                if ($this->hasSlug($tokens)){
+
+                    return $this->buildTemplate($tokens, 'routeSlugTemplate');
+                    break;
+                }
+
+                return $this->buildTemplate($tokens, 'routeTemplate');
                 break;
 
             case 'factory' :
-                return $this->buildFactoryTemplate($tokens);
+
+                if ($this->hasChild($tokens) && $this->isChild($tokens)){
+
+                        if ($this->hasSlug($tokens)){
+
+                            return $this->buildTemplate($tokens, 'childFactorySlugTemplate');
+                            break;
+                        }
+
+                        return $this->buildTemplate($tokens, 'childFactoryTemplate');
+                        break;
+                    }
+
+
+                if ($this->hasSlug($tokens)){
+
+                    return $this->buildTemplate($tokens, 'factorySlugTemplate');
+                    break;
+                }
+
+                return $this->buildTemplate($tokens, 'factoryTemplate');
                 break;
 
             case 'test' :
-                return $this->buildTestTemplate($tokens);
+
+                if ($this->hasChild($tokens)  && $this->isChild($tokens)){
+
+
+                        return $this->buildTemplate($tokens, 'childTestTemplate');
+                        break;
+
+
+                }
+
+
+                return $this->buildTemplate($tokens, 'testTemplate');
                 break;
 
 
@@ -59,76 +225,20 @@ trait BuildsCrudTemplates
 
     }
 
-    private function buildModelTemplate($tokens)
-    {
-      $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->modelTemplate();
-
-    }
-
-    private function buildControllerTemplate($tokens)
-    {
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->controllerTemplate();
-
-    }
-
-    private function buildApiControllerTemplate($tokens)
+    private function buildTemplate($tokens, $template)
     {
 
         $this->setTemplateInstance($tokens);
 
-        return $this->crudTemplate->apiControllerTemplate();
-
-    }
-
-    private function buildAppendApiControllerTemplate($tokens)
-    {
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->appendApiControllerTemplate();
+        return $this->crudTemplate->$template();
 
 
-    }
-
-    private function buildMigrationTemplate($tokens)
-    {
-
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->migrationTemplate();
-
-
-    }
-
-    private function buildRouteTemplate($tokens)
-    {
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->routeTemplate();
-    }
-
-    private function buildFactoryTemplate($tokens)
-    {
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->factoryTemplate();
-    }
-
-    private function buildTestTemplate($tokens)
-    {
-        $this->setTemplateInstance($tokens);
-
-        return $this->crudTemplate->testTemplate();
     }
 
     private function setTemplateInstance($tokens)
     {
-        $this->crudTemplate = new CrudTemplates($tokens['upperCaseModelName']);
+        $this->crudTemplate = new CrudTemplates($tokens);
 
     }
-
 
 }

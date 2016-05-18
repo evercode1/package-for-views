@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\AuthWidget;
+use App\Blue;
 use Illuminate\Support\Facades\Redirect;
 
-class AuthWidgetController extends Controller
+class BlueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class AuthWidgetController extends Controller
     public function index()
     {
 
-        return view('auth-widget.index');
+        return view('blue.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class AuthWidgetController extends Controller
      */
     public function create()
     {
-        return view('auth-widget.create');
+        return view('blue.create');
     }
 
     /**
@@ -41,14 +41,17 @@ class AuthWidgetController extends Controller
     {
 
         $this->validate($request, [
-            'auth_widget_name' => 'required|unique:auth_widgets|string|max:30',
+            'blue_name' => 'required|unique:blues|string|max:30',
 
         ]);
 
-        $authWidget = AuthWidget::create(['auth_widget_name' => $request->auth_widget_name]);
-        $authWidget->save();
+        $slug = str_slug($request->blue_name, "-");
 
-        return Redirect::route('auth-widget.index');
+        $blue = Blue::create(['blue_name' => $request->blue_name,
+                                                                  'slug' => $slug,]);
+        $blue->save();
+
+        return Redirect::route('blue.index');
 
     }
 
@@ -58,11 +61,17 @@ class AuthWidgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $slug='')
     {
-        $authWidget = AuthWidget::findOrFail($id);
+        $blue = Blue::findOrFail($id);
 
-        return view('auth-widget.show', compact('authWidget'));
+        if ($blue->slug !== $slug) {
+
+            return Redirect::route('blue.show', ['id' => $blue->id,
+                                                   'slug' => $blue->slug], 301);
+        }
+
+        return view('blue.show', compact('blue'));
     }
 
     /**
@@ -73,9 +82,9 @@ class AuthWidgetController extends Controller
      */
     public function edit($id)
     {
-        $authWidget = AuthWidget::findOrFail($id);
+        $blue = Blue::findOrFail($id);
 
-        return view('auth-widget.edit', compact('authWidget'));
+        return view('blue.edit', compact('blue'));
     }
 
     /**
@@ -88,14 +97,18 @@ class AuthWidgetController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'auth_widget_name' => 'required|string|max:40|unique:auth_widgets,auth_widget_name,' .$id
+            'blue_name' => 'required|string|max:40|unique:blues,blue_name,' .$id
 
         ]);
-        $authWidget = AuthWidget::findOrFail($id);
-        $authWidget->update(['auth_widget_name' => $request->auth_widget_name]);
+        $blue = Blue::findOrFail($id);
+
+        $slug = str_slug($request->blue_name, "-");
+
+        $blue->update(['blue_name' => $request->blue_name,
+                                       'slug' => $slug,]);
 
 
-        return Redirect::route('auth-widget.show', ['authWidget' => $authWidget]);
+        return Redirect::route('blue.show', ['blue' => $blue, 'slug' => $slug]);
     }
 
     /**
@@ -106,8 +119,8 @@ class AuthWidgetController extends Controller
      */
     public function destroy($id)
     {
-        AuthWidget::destroy($id);
+        Blue::destroy($id);
 
-        return Redirect::route('auth-widget.index');
+        return Redirect::route('blue.index');
     }
 }

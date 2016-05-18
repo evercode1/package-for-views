@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>AuthWidget</title>
+    <title>Gadget</title>
 
 @endsection
 
@@ -10,11 +10,11 @@
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/auth-widget'>AuthWidget</a></li>
-        <li><a href='/auth-widget/{{ $authWidget->id }}'>{{ $authWidget->auth_widget_name }}</a></li>
+        <li><a href='/gadget'>Gadget</a></li>
+        <li><a href='/gadget/{{ $gadget->id }}'>{{ $gadget->gadget_name }}</a></li>
         </ol>
 
-        <h1>AuthWidget Details</h1>
+        <h1>Gadget Details</h1>
 
         <hr/>
 
@@ -26,6 +26,7 @@
 
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Widget</th>
                         <th>Date Created</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -34,12 +35,14 @@
 
 
                     <tr>
-                        <td>{{ $authWidget->id }} </td>
-                        <td> <a href="/auth-widget/{{ $authWidget->id }}/edit">
-                                {{ $authWidget->auth_widget_name }}</a></td>
-                        <td>{{ $authWidget->created_at }}</td>
+                        <td>{{ $gadget->id }} </td>
+                        <td> <a href="/gadget/{{ $gadget->id }}/edit">
+                                {{ $gadget->gadget_name }}</a></td>
+                        <td>{{ $widget }}</td>
 
-                        <td> <a href="/auth-widget/{{ $authWidget->id }}/edit">
+                        <td>{{ $gadget->created_at }}</td>
+
+                        <td> <a href="/gadget/{{ $gadget->id }}/edit">
 
                                 <button type="button" class="btn btn-default">Edit</button></a></td>
 
@@ -47,7 +50,7 @@
 
                         <div class="form-group">
 
-                       <form class="form" role="form" method="POST" action="{{ url('/auth-widget/'. $authWidget->id) }}">
+                       <form class="form" role="form" method="POST" action="{{ url('/gadget/'. $gadget->id) }}">
                        <input type="hidden" name="_method" value="delete">
                        {!! csrf_field() !!}
 

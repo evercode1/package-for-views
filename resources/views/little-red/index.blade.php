@@ -39,10 +39,10 @@
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href='/widget'>Widget</a></li>
+        <li><a href='/little-red'>LittleRed</a></li>
         </ol>
 
-        <h1>Widgets</h1>
+        <h1>LittleReds</h1>
 
 
     <!-- component template -->
@@ -79,12 +79,13 @@
                     @{{row.Id}}
                 </td>
                 <td>
-                    <a href="/widget/@{{row.Id}}">@{{row.Name}}</a>
+                    <a href="/little-red/@{{row.Id}}-@{{row.Slug}}">@{{row.Name}}</a>
                 </td>
+                <td>@{{ row.Blue }}</td>
                 <td>
                     @{{row.Created | formatDate}}
                 </td>
-                <td ><a href="/widget/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
+                <td ><a href="/little-red/@{{row.Id}}/edit"> <button type="button" class="btn btn-default">Edit</button></a></td>
             </tr>
             </tbody>
         </table>
@@ -121,8 +122,8 @@
     </script>
 
     <!-- root element -->
-    <div id="widget">
-        <widget-grid
+    <div id="littleRed">
+        <little-red-grid
                 :data="gridData"
                 :columns="gridColumns"
                 :query="query"
@@ -135,10 +136,10 @@
                 :last_page_url="last_page_url"
                 :first_page_url="first_page_url"
                 :go_to_page="go_to_page">
-        </widget-grid>
+        </little-red-grid>
     </div>
 
-    <div> <a href="/widget/create">
+    <div> <a href="/little-red/create">
               <button type="button" class="btn btn-lg btn-primary">
                         Create New
               </button></a>
@@ -171,7 +172,7 @@
         });
 
         // register the grid component
-        Vue.component('widget-grid', {
+        Vue.component('little-red-grid', {
             template: '#grid-template',
             props: {
                 data: Array,
@@ -241,7 +242,7 @@
 
                             case this.query :
 
-                            getPage = 'api/widget-vue?keyword=' + this.query + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
+                            getPage = 'api/little-red-vue?keyword=' + this.query + '&column=' + this.sortKey + '&direction=' + this.sortOrder;
 
                             break;
 
@@ -249,7 +250,7 @@
 
                             if( this.go_to_page != '' && this.go_to_page <= parseInt(this.last_page)){
 
-                                getPage = 'api/widget-vue?page=' + this.go_to_page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
+                                getPage = 'api/little-red-vue?page=' + this.go_to_page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
 
                                 this.go_to_page = '';
 
@@ -262,7 +263,7 @@
 
                         default :
 
-                            getPage = 'api/widget-vue?page=' + page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
+                            getPage = 'api/little-red-vue?page=' + page + '&column=' + this.sortKey + '&direction=' + this.sortOrder + '&keyword=' + this.query;
 
                             break;
                     }
@@ -288,8 +289,8 @@
                             this.last_page =  data.last_page;
                             this.next_page_url = (data.next_page_url == null) ? null : data.next_page_url + '&keyword=' +this.query;
                             this.prev_page_url = (data.prev_page_url == null) ? null : data.prev_page_url + '&keyword=' +this.query;
-                            this.first_page_url = 'api/widget-vue?page=1&keyword=' +this.query;
-                            this.last_page_url = 'api/widget-vue?page=' + this.last_page + '&keyword=' +this.query;
+                            this.first_page_url = 'api/little-red-vue?page=1&keyword=' +this.query;
+                            this.last_page_url = 'api/little-red-vue?page=' + this.last_page + '&keyword=' +this.query;
                             this.current_page = data.current_page;
                             this.resetPageNumbers();
                             }.bind(this));
@@ -326,11 +327,11 @@
         });
 
         // bootstrap the vue instance
-        var widget = new Vue({
-            el: '#widget',
+        var littleRed = new Vue({
+            el: '#littleRed',
             data: {
                 query: '',
-                gridColumns: ['Id', 'Name', 'Created'],
+                gridColumns: ['Id', 'Name', 'Blue', 'Created'],
                 gridData: [],
                 total: null,
                 next_page_url: null,
@@ -346,19 +347,19 @@
                 this.loadData();
             },
 
-            components: 'widget-grid',
+            components: 'little-red-grid',
 
             methods: {
                 loadData: function () {
-                    $.getJSON('api/widget-vue', function (data) {
+                    $.getJSON('api/little-red-vue', function (data) {
                         this.gridData = data.data;
                         this.total = data.total;
                         this.last_page =  data.last_page;
                         this.next_page_url = data.next_page_url;
                         this.prev_page_url = data.prev_page_url;
                         this.current_page = data.current_page;
-                        this.first_page_url = 'api/widget-vue?page=1';
-                        this.last_page_url = 'api/widget-vue?page=' + this.last_page;
+                        this.first_page_url = 'api/little-red-vue?page=1';
+                        this.last_page_url = 'api/little-red-vue?page=' + this.last_page;
                         this.setPageNumbers();
                     }.bind(this));
                 },

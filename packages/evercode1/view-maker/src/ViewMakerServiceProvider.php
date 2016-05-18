@@ -34,6 +34,8 @@ class ViewMakerServiceProvider extends ServiceProvider
         'Evercode1\ViewMaker\MakeCrud',
         'Evercode1\ViewMaker\MakeFoundation',
         'Evercode1\ViewMaker\MakeMaster',
+        'Evercode1\ViewMaker\MakeParentAndChild',
+        'Evercode1\ViewMaker\MakeChildOf',
     ];
 
 

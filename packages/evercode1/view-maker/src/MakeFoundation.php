@@ -7,7 +7,13 @@ use Carbon\Carbon;
 
 class MakeFoundation extends Command
 {
-    use BuildsCrudTemplates, ConfiguresCrudInput, WritesCrudFiles, FormatsInput, BuildsTemplates, WritesViewFiles;
+    use BuildsCrudTemplates,
+        ConfiguresCrudInput,
+        WritesCrudFiles,
+        FormatsInput,
+        BuildsTemplates,
+        WritesViewFiles,
+        HasParentAndChildAndSlug;
     /**
      * The name and signature of the console command.
      *
@@ -17,6 +23,7 @@ class MakeFoundation extends Command
                            {ModelName}
                            {MasterPage}
                            {TemplateType}
+                           {Slug=false}
                            {IndexOnly=false}';
 
     /**
@@ -50,13 +57,21 @@ class MakeFoundation extends Command
 
         $this->modelName = $this->formatModel($this->argument('ModelName'));
 
+        $this->slug = $this->argument('Slug');
+
+
+
         $this->setCrudTokens();
 
+
         $this->setFilePaths();
+
+
 
         // setup for views
 
         $this->setConfigFromInputs();
+
 
         // runs all commands
 

@@ -24,6 +24,8 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::resource('test', 'TestController@index');
+
 
 // Api Routes
 
@@ -35,9 +37,36 @@ Route::any('api/widget-vue', 'ApiController@widgetVueData');
 Route::resource('widget', 'WidgetController');
 // Api Routes
 
-Route::any('api/auth-widget', 'ApiController@authWidgetData');
-Route::any('api/auth-widget-vue', 'ApiController@authWidgetVueData');
+Route::any('api/gadget', 'ApiController@gadgetData');
+Route::any('api/gadget-vue', 'ApiController@gadgetVueData');
 
-// AuthWidget Routes
+// Gadget Routes
 
-Route::resource('auth-widget', 'AuthWidgetController');
+Route::resource('gadget', 'GadgetController');// Api Routes
+
+Route::any('api/blue', 'ApiController@blueData');
+Route::any('api/blue-vue', 'ApiController@blueVueData');
+
+// Api Routes
+
+Route::any('api/blue', 'ApiController@blueData');
+Route::any('api/blue-vue', 'ApiController@blueVueData');
+
+// Blue Routes with slug
+
+Route::get('blue/create', ['as' => 'blue.create', 'uses' => 'BlueController@create']);
+
+Route::get('blue/{id}-{slug?}', ['as' => 'blue.show', 'uses' => 'BlueController@show']);
+
+Route::resource('blue', 'BlueController', ['except' => ['show', 'create']]);// Api Routes
+
+Route::any('api/little-red', 'ApiController@littleRedData');
+Route::any('api/little-red-vue', 'ApiController@littleRedVueData');
+
+// LittleRed Routes with slug
+
+Route::get('little-red/create', ['as' => 'little-red.create', 'uses' => 'LittleRedController@create']);
+
+Route::get('little-red/{id}-{slug?}', ['as' => 'little-red.show', 'uses' => 'LittleRedController@show']);
+
+Route::resource('little-red', 'LittleRedController', ['except' => ['show', 'create']]);
