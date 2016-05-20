@@ -903,15 +903,15 @@ EOD;
     {
 
         $content = <<<EOD
-
-// Api Routes
+        \n
+// Begin :::upperCaseModelName::: Routes
 
 Route::any(':::apiRoute:::', 'ApiController@:::apiControllerMethod:::');
 Route::any(':::vueApiRoute:::', 'ApiController@:::vueApiControllerMethod:::');
 
-// :::upperCaseModelName::: Routes
-
 Route::resource(':::modelPath:::', ':::upperCaseModelName:::Controller');
+
+// End :::upperCaseModelName::: Routes
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -922,18 +922,19 @@ EOD;
     {
 
         $content = <<<EOD
-// Api Routes
+\n
+// Begin :::upperCaseModelName::: Routes
 
 Route::any(':::apiRoute:::', 'ApiController@:::apiControllerMethod:::');
 Route::any(':::vueApiRoute:::', 'ApiController@:::vueApiControllerMethod:::');
-
-// :::upperCaseModelName::: Routes with slug
 
 Route::get(':::modelPath:::/create', ['as' => ':::modelPath:::.create', 'uses' => ':::upperCaseModelName:::Controller@create']);
 
 Route::get(':::modelPath:::/{id}-{slug?}', ['as' => ':::modelPath:::.show', 'uses' => ':::upperCaseModelName:::Controller@show']);
 
 Route::resource(':::modelPath:::', ':::upperCaseModelName:::Controller', ['except' => ['show', 'create']]);
+
+// End :::upperCaseModelName::: Routes
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -945,12 +946,16 @@ EOD;
 
         $content = <<<EOD
 \n
+// Begin :::upperCaseModelName::: Factory
+
 \$factory->define(App\:::upperCaseModelName:::::class, function (Faker\Generator \$faker) {
     return [
         ':::field_name:::' => \$faker->unique()->word,
 
     ];
 });
+
+// End :::upperCaseModelName::: Factory
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -962,6 +967,8 @@ EOD;
 
         $content = <<<EOD
 \n
+// Begin :::upperCaseModelName::: Factory
+
 \$factory->define(App\:::upperCaseModelName:::::class, function (Faker\Generator \$faker) {
 
         \$uniqueWord = \$faker->unique()->word;
@@ -973,6 +980,8 @@ EOD;
 
     ];
 });
+
+// End :::upperCaseModelName::: Routes
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -984,6 +993,8 @@ EOD;
 
         $content = <<<EOD
 \n
+// Begin :::upperCaseModelName::: Factory
+
 \$factory->define(App\:::upperCaseModelName:::::class, function (Faker\Generator \$faker) {
     return [
         ':::field_name:::' => \$faker->unique()->word,
@@ -991,6 +1002,8 @@ EOD;
 
     ];
 });
+
+// End :::upperCaseModelName::: Routes
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -1002,6 +1015,8 @@ EOD;
 
         $content = <<<EOD
 \n
+// Begin :::upperCaseModelName::: Factory
+
 \$factory->define(App\:::upperCaseModelName:::::class, function (Faker\Generator \$faker) {
 
        \$uniqueWord = \$faker->unique()->word;
@@ -1014,6 +1029,8 @@ EOD;
 
     ];
 });
+
+// End :::upperCaseModelName::: Factory
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -1035,6 +1052,7 @@ use DB;
 
 class ApiController extends Controller
 {
+    // Begin :::upperCaseModelName::: Api Methods
 
     public function :::apiControllerMethod:::(){
 
@@ -1095,6 +1113,8 @@ class ApiController extends Controller
 
     }
 
+    // End :::upperCaseModelName::: Api Methods
+
 
 }
 
@@ -1119,6 +1139,8 @@ use DB;
 
 class ApiController extends Controller
 {
+
+    // Begin :::upperCaseModelName::: Api Methods
 
     public function :::apiControllerMethod:::(){
 
@@ -1181,6 +1203,8 @@ class ApiController extends Controller
         return response()->json(\$:::modelResults:::);
 
     }
+
+    // End :::upperCaseModelName::: Api Methods
 
 
 }
@@ -1208,6 +1232,8 @@ use DB;
 class ApiController extends Controller
 {
 
+    // Begin :::upperCaseModelName::: Api Methods
+
     public function :::apiControllerMethod:::(){
 
         \$result['data'] = DB::table(':::tableName:::')
@@ -1273,6 +1299,8 @@ class ApiController extends Controller
 
     }
 
+    // End :::upperCaseModelName::: Api Methods
+
 
 }
 
@@ -1297,6 +1325,8 @@ use DB;
 
 class ApiController extends Controller
 {
+
+    // Begin :::upperCaseModelName::: Api Methods
 
     public function :::apiControllerMethod:::(){
 
@@ -1366,6 +1396,8 @@ class ApiController extends Controller
 
     }
 
+    // End :::upperCaseModelName::: Api Methods
+
 
 }
 
@@ -1379,6 +1411,9 @@ EOD;
     {
 
         $content = <<<EOD
+
+    // Begin :::upperCaseModelName::: Api Methods
+
     public function :::apiControllerMethod:::(){
 
         \$result['data'] = DB::table(':::tableName:::')
@@ -1437,6 +1472,8 @@ EOD;
         return response()->json(\$:::modelResults:::);
 
     }
+
+    // End :::upperCaseModelName::: Api Methods
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -1447,6 +1484,9 @@ EOD;
     {
 
         $content = <<<EOD
+
+    // Begin :::upperCaseModelName::: Api Methods
+
     public function :::apiControllerMethod:::(){
 
         \$result['data'] = DB::table(':::tableName:::')
@@ -1508,6 +1548,8 @@ EOD;
         return response()->json(\$:::modelResults:::);
 
     }
+
+    // End :::upperCaseModelName::: Api Methods
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -1518,6 +1560,8 @@ EOD;
     {
 
         $content = <<<EOD
+    // Begin :::upperCaseModelName::: Api Methods
+
     public function :::apiControllerMethod:::(){
 
     \$result['data'] = DB::table(':::tableName:::')
@@ -1582,6 +1626,8 @@ EOD;
         return response()->json(\$:::modelResults:::);
 
     }
+
+    // End :::upperCaseModelName::: Api Methods
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);
@@ -1592,6 +1638,8 @@ EOD;
     {
 
         $content = <<<EOD
+    // Begin :::upperCaseModelName::: Api Methods
+
     public function :::apiControllerMethod:::(){
 
     \$result['data'] = DB::table(':::tableName:::')
@@ -1659,6 +1707,8 @@ EOD;
         return response()->json(\$:::modelResults:::);
 
     }
+
+    // End :::upperCaseModelName::: Api Methods
 EOD;
 
         return $this->tokenBuilder->insertTokensIntoContent($content);

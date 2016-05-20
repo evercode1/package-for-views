@@ -4,29 +4,9 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**ViewMaker** is for use with the Laravel PHP framework (5.2 and up). It's a plugin for the artisan command line tool that ships with Laravel, providing ready-made templates, designed to optimize your workflow.
+**ViewMaker** is for use with the Laravel PHP framework (5.2 and up) Artisan command line tool.
 
-**ViewMaker** does more than just create views.  The **[make:foundation](#makefoundation)** command builds a foundation for you by creating a model from scratch with corresponding migration, routes, api, controllers and views, forming a basic crud app, with searchable,
-sortable columns.  It also builds a basic unit test and sets up your factory for quick population of seed data.
-
-If you just want to create views quickly, the **[make:views](#makeviews)** command that lets you scaffold views for create, show, edit, and index, based on your input.  You simply input a model name, master page name and template type (plain, basic, dt, or vue), and the view folder and corresponding views are made for you instantly.  Our dt and vue templates come with working js datagrids out of the box.  Check out our [template types](#template-types) section for details on the templates.
-
-**ViewMaker** also creates a **[make:master](#makemaster)** command that creates a layouts folder and builds a master page, with the individual parts separated out into view partials.  It comes with a minimal bootstrap implementation and all of the required dependencies.  
-
-This makes working with our other commands, like **[make:views](#makeviews)** and
-**[make:foundation](#makefoundation)**, even more simple, because the dependencies and configuration are done for you. 
-
-This package also ships with a **[make:crud](#makecrud)** command, which creates the model, migration, routes, controllers, factory, and test without the views, in case you want to create those separately.
-
-We also have **[make:parent-child](#makeparent-child)**, which stands up a foundation for both a parent and child, for example, category and subcategory. 
-
-In cases where you already have an existing model, but want to create a child model, you can use our **[make:child-of](#makechild-of)** command, which creates a child relationship to an existing model, providing all the same files as the  **[make:foundation](#makefoundation)**  command, with the addition of the code needed for the relationship.
-
-With these commands, you can stand a project up quickly.  For example, you could use **[make:master](#makemaster)** to create your master page, and then use **[make:foundation](#makefoundation)** to stand up all the crud and views that you
-need to have an instant crud app in less than a minute.
-
-The commands are incredibly easy to use, nevertheless, I have included very thorough documentation and a work-flow tutorial, so that programmers of all levels can use this tool.  I hope you enjoy this plugin and find it useful.  I don’t have a donate button,
-but If you would like to support my work and learn more about Laravel, you can do so by buying one of my books, **[Laraboot: laravel 5.2 For Beginners](https://leanpub.com/laravel-5-for-beginners-laraboot)**, I really appreciate it.
+ViewMaker adds 6 new artisan commands, providing ready-made templates for CRUD generation, Views and Datagrids, with ajax-powered search, column sorts and pagination.   You can create and test a foundation of code in under a minute.
 
 ## Install ##
 
@@ -46,15 +26,7 @@ Evercode1\ViewMaker\ViewMakerServiceProvider::class,
 
 ## Summary
 
-ViewMaker will install 4 artisan commands, **[make:views](#makeviews)**, **[make:master](#makemaster)**, **[make:crud](#makecrud)**, and **[make:foundation](#makefoundation)**.
-
-Use **[make:views](#makeviews)** to create views, including:
-
-* appropriately-named view folder
-* index
-* create
-* edit
-* show
+ViewMaker will install 6 artisan commands, **[make:master](#makemaster)**,  **[make:foundation](#makefoundation)**, **[make:crud](#makecrud)**, **[make:views](#makeviews)**, **[make:parent-child](#makeparent-child)**, and **[make:child-of](#makechild-of)**.
 
 Use **[make:master](#makemaster)** to create a master page, which includes:
 
@@ -66,20 +38,6 @@ Use **[make:master](#makemaster)** to create a master page, which includes:
 * bottom partial
 * nav partial
 * shim partial
-
-Use **[make:crud](#makecrud)** to create the files necessary to display a view:
-
-* model
-* controller
-* api controller (if it does not yet exist)
-* migration
-* test
-
-The **[make:crud](#makecrud)** command also appends to the following files:
-
-* routes.php
-* ModelFactory.php
-* ApiController (if it already exists)
 
 Use **[make:foundation](#makefoundation)** to create all files for crud and views, including:
 
@@ -100,9 +58,75 @@ The **[make:foundation](#makefoundation)** command also appends to the following
 * ModelFactory.php
 * ApiController (if it already exists)
 
-Use the **[make:parent-child](#makeparent-child)** to create all crud and view files for both a parent and a child.  This command operates the same way as the **[make:foundation](#makefoundation)** command, but it builds a foundation for both the parent and child.  In the views, it will display the relationship and in the create and edit views of the child, you will get the related parent, so when you create a child record, you can associate it to a parent record.
+Use **[make:crud](#makecrud)** to create the files necessary to display a view:
 
-The **[make:child-of](#makechild-of)** command is similar to the **[make:parent-child](#makeparent-child)** command, but this command does not create the parent.  Instead it modifies the parent model to include the relationship.
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+
+The **[make:crud](#makecrud)** command also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists)
+
+Use **[make:views](#makeviews)** to create views, including:
+
+* appropriately-named view folder
+* index
+* create
+* edit
+* show
+
+The **[make:parent-child](#makeparent-child)** will create all crud and view files for both a parent and a child, including. 
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+* appropriately-named view folder
+* index view
+* create view
+* edit view
+* show view
+
+The  **[make:parent-child](#makeparent-child)** command also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists) 
+
+This command operates the same way as the **[make:foundation](#makefoundation)** command, but it builds a foundation for both the parent and child.  
+
+In the views, it will display the relationship and in the create and edit views of the child, you will get the related parent, so when you create a child record, you can associate it to a parent record.  Use the optional slug parameter if you want to have slugs on the show pages.
+
+The **[make:child-of](#makechild-of)** command is similar to the **[make:parent-child](#makeparent-child)** command, but only creates the child.
+
+The **[make:child-of](#makechild-of)** will create all crud and view files for both a parent and a child, including. 
+
+* model
+* controller
+* api controller (if it does not yet exist)
+* migration
+* test
+* appropriately-named view folder
+* index view
+* create view
+* edit view
+* show view
+
+The  **[make:child-of](#makechild-of)** command also appends to the following files:
+
+* routes.php
+* ModelFactory.php
+* ApiController (if it already exists) 
+
+Instead it modifies the parent model to include the relationship.  The slug option is available for this command as well.
+
+## Master Page Required For All Views
 
 Please note:
 
@@ -128,6 +152,12 @@ want to use ViewMaker to create views, you will need to write your model, route,
 controllers in order to be able to see the views created by ViewMaker in your application.
 
 All of these [requirements](#requirements-for-views) are listed in detail below, but since they are common sources of bugs, I have listed them up here.  You can use it as a checklist to make sure you have what you need to use ViewMaker successfully.
+
+## How to Learn ViewMaker Commands
+
+To play around with ViewMaker, and to learn quickly, we recommend installing a fresh build of Laravel with a working database connection.  Then run the **[make:master](#makemaster)**, which will provide your layouts folder, master page and asset dependencies.
+
+After you have your master page and dependencies, follow the **[make:foundation Workflow Example](#makefoundation-workflow-example)** in the next section.
 
 ## make:foundation Workflow Example
 
@@ -227,53 +257,6 @@ As you can see the workflow with the **[make:foundation](#makefoundation)** comm
 
 Also see the [tip for use with make:auth](#tip-for-use-with-makeauth) to see how you can use artisan's native make:auth command to set up all your auth views to extend the master page you have created with [make:master](#makemaster).
 
-## make:views
-
-The make views lets you quickly scaffold views for create, show, edit, and index, based on your input.
-
-The make:views command has  the following arguments:
-
-```
-php artisan make:views {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
-```
-The last argument is optional and indicates that you only want the index view in the view folder. 
-By default it is false, which means it's an optional argument, so if you leave it off
-entirely, you get all the views.  If you do wish to use that option, you must enter
-the word 'index' as your last argument, no quotes.
-
-Before running make:views, at a minimum, you should already have your model, route and controller created.
-
-As an alternative to doing that manually, you can use **ViewMaker's** **[make:crud](#makecrud)** to do it for you.  Or you could use **[make:foundation](#makefoundation)** to create everything all at once.  If you use **[make:foundation](#makefoundation)**, you do not need to run make:views, since the views will be included in the foundation.
-
-We recommend using our **[make:master](#makemaster)** command to make your master page.  In any event before you run make:views, you need to have your master page ready. Also see [requirements for views](#requirements-for-views).
-
-So for example, if you had a model named Widget, and you  had a master page
-named master.blade.php, you may do one of the following:
-
-```
-php artisan make:views Widget master plain
-```
-
-```
-php artisan make:views Widget master basic
-```
-
-```
-php artisan make:views Widget master dt
-```
-
-```
-php artisan make:views Widget master vue
-```
-
-In the examples above, we tell it the model name, 'Widget', the master page name 'master', and the template type.
-
-The plain template creates simple stubs, the basic template gives you a
-couple of working forms and the dt and vue templates give you a working data
-grid implementation with search and column sorts. 
-
-The templates are described in detail in **[Template Types](#template-types)** section.  Also see the **[Rquirements For Views](#requirements-for-views)** section to make sure you have what you need before running this.  And finally, check out the conventions section for naming tips on models and instance variables, so you know what to expect there.
-
 ## make:master
 
 ViewMaker's make:master command creates a layouts folder and places a master page and related files in it.
@@ -329,17 +312,19 @@ It will default to naming your app "Demo" in the bootstrap navbar-brand class, w
 
 ## Tip for use with make:auth
 
-Here's a tip for using make:master with artisan's native make:auth command.  As you probably already know, the make:auth command will create all your auth views, extending a master page named app.blade.php.  You can easily use both commands.  Run [make:master](#makemaster) first, but make sure you do not name your master page 'app,' so there is no conflict with the page that the make:auth command will make.  After running [make:master](#makemaster), run the make:auth command.  Then all you have to do is go to the views/auth folder and change the @extends('layouts.app') directive in those view files to @extends('layouts.whatever-your-master-page-is-named').
+Here's a tip for using make:master with artisan's native make:auth command.  As you probably already know, the make:auth command will create all your auth views, extending a master page named app.blade.php.  You can easily use both commands.  
+
+Run [make:master](#makemaster) first, but make sure you do not name your master page 'app,' so there is no conflict with the page that the make:auth command will make.  After running [make:master](#makemaster), run the make:auth command.  Then all you have to do is go to the views/auth folder and change the @extends('layouts.app') directive in those view files to @extends('layouts.whatever-your-master-page-is-named').
 
 Please note that the make:auth command also creates a controller that returns the user to a specific page for logging in and registering, so you will have to modify that view as well if you want your generated master page extended there as well.
 
 ## make:crud
 
 ```
-php artisan make:crud Widget
+php artisan make:crud Widget slug
 ```
 
-The make:crud command takes a single argument, the name of the model you wish to build your crud on.  Since the make:crud command builds the model for you, all you need is a name.  The make:crud command will create the following file types:
+The make:crud command takes two arguments, the name of the model you wish to build your crud on and the optional slug parameter.  As typed above, the command would create the following file types:
 
 * model
 * controller
@@ -353,21 +338,72 @@ It also appends to the following files:
 * ModelFactory.php
 * ApiController (if it already exists)
 
-You could then run the **[make:views](#makeviews)** command and have it functional, once you've migrated and seeded data or created a few records.  Note that the test included with make:crud will fail if you select 'plain' or 'basic' as your template type because those templates don't output the record name to the index page.  In that case modify the test as you see fit.
+Since we specified ‘slug’, it will include the code necessary to have slugs on the show view.
+
+You could then run the **[make:views](#makeviews)** command and have it functional, once you've migrated and seeded data or created a few records.  Note that the unit test included with make:crud will fail if you select 'plain' or 'basic' as your template type because those templates don't output the record name to the index page.  In that case modify the test as you see fit.
+
+## make:views
+
+The make views lets you quickly scaffold views for create, show, edit, and index, based on your input.
+
+The make:views command has  the following arguments:
+
+```
+php artisan make:views {ModelName} {MasterPageName} {TemplateType} {Slug=false} {IndexOnly=false}
+```
+The last argument is optional and indicates that you only want the index view in the view folder. 
+By default it is false, which means it's an optional argument, so if you leave it off
+entirely, you get all the views.  If you do wish to use that option, you must enter
+the word 'index' as your last argument, no quotes.
+
+Before running make:views, at a minimum, you should already have your model, route and controller created.
+
+As an alternative to doing that manually, you can use **ViewMaker's** **[make:crud](#makecrud)** to do it for you.  Or you could use **[make:foundation](#makefoundation)** to create everything all at once.  If you use **[make:foundation](#makefoundation)**, you do not need to run make:views, since the views will be included in the foundation.
+
+We recommend using our **[make:master](#makemaster)** command to make your master page.  In any event before you run make:views, you need to have your master page ready. Also see [requirements for views](#requirements-for-views).
+
+So for example, if you had a model named Widget, and you  had a master page
+named master.blade.php, you may do one of the following:
+
+```
+php artisan make:views Widget master plain
+```
+
+```
+php artisan make:views Widget master basic
+```
+
+```
+php artisan make:views Widget master dt
+```
+
+```
+php artisan make:views Widget master vue
+```
+
+In the examples above, we tell it the model name, 'Widget', the master page name 'master', and the template type.  Since we didn’t want the slug or index only options, we can simply leave those off the command, they will default to false.
+
+The plain template creates simple stubs, the basic template gives you a
+couple of working forms and the dt and vue templates give you a working data
+grid implementation with search and column sorts. 
+
+The templates are described in detail in **[Template Types](#template-types)** section.  Also see the **[Rquirements For Views](#requirements-for-views)** section to make sure you have what you need before running this.  And finally, check out the conventions section for naming tips on models and instance variables, so you know what to expect there.
 
 ## make:foundation
 
 The make:foundation command has the following arguments:
 
 ```
-php artisan make:foundation {ModelName} {MasterPageName} {TemplateType} {IndexOnly=false}
+php artisan make:foundation {ModelName} {MasterPageName} {TemplateType} {Slug=false} {IndexOnly=false}
 ```
 
 The last argument is optional and indicates that you only want the index view in the view folder. 
 By default it is false, so unless you indicate otherwise, you will get all the views.  If you do wish
 to use that option, you must enter the word 'index' as your last argument, no quotes.
 
-Let's look at some typical examples.  If you wanted to create a model named Widget, and you had a master page named master.blade.php, you may do one of the following:
+The make foundation command also supports the slug option to show slugs on the show view.  If you want to use that, include the string ‘slug’ as the 4th argument.
+
+Let's look at some typical examples.  If you wanted to create a model named Widget without slugs, and you had a master page named master.blade.php, you may do one of the following:
 
 ```
 php artisan make:foundation Widget master plain
@@ -418,7 +454,7 @@ command.
 The command has the following arugments:
 
 ```
-php artisan make:parent-child {ParentName} {ChildName} {MasterPageName} {TemplateType} {IndexOnly=false}
+php artisan make:parent-child {ParentName} {ChildName} {MasterPageName} {TemplateType} {Slug=false} {IndexOnly=false}
 ```
 
 So for example, you might want to run it as follows:
@@ -431,7 +467,7 @@ That would be the equivalent to running the **[make:foundation](#makefoundation)
 
 The datagrid it will build for Subcategory for example, will show the category that the subcategory belongs to.
 
-Both the parent model and the child model will be built with the relationship made for you.  The parent will have a has many relationship and the child will have a belongsTo relationsip in the model.
+Both the parent model and the child model will be built with the relationship made for you.  The parent will have a has many relationship and the child will have a belongsTo relationship in the model.
 
 You also get a dropdown list of parent models, for example, categories, on the child create form, or in this case the subcategory create form, which allows you to associate the child to the parent.
 
@@ -442,7 +478,7 @@ This command, like the **[make:foundation](#makefoundation)** command, will crea
 In cases where you have an existing model, and you want to create a foundation for a child model, you should use the make:child-of command.  The signature of the command is as follows:
 
 ```
-php artisan make:child-of {ParentName} {ChildName} {MasterPageName} {TemplateType} {IndexOnly=false}
+php artisan make:child-of {ParentName} {ChildName} {MasterPageName} {TemplateType} {Slug=false} {IndexOnly=false}
 ```
 
 So for example, if you had created a foundation for AutoMaker and you wanted a child model named AutoPart, you could run the following command:
@@ -452,8 +488,6 @@ php artisan make:child-of AutoMaker AutoPart master vue
 ```
 
 This would update the parent model, in this case AutoMaker, with the has many relationship and also create a foundation for AutoPart, which will include the belongs to relationship to AutoMaker.
-
-
 
 ## Requirements For Views
 
@@ -494,7 +528,13 @@ That should come after bootstrap or whatever your main css is.
 
 ## Template Types
 
-In the following sections, we cover the template types that are available in the **[make:views](#makeviews)** and **[make:foundation](#makefoundation)** commands.
+In the following sections, we cover the template types that are available in the **[make:views](#makeviews)** and **[make:foundation](#makefoundation)** commands.  The options are as follows:
+
+* plain
+* basic
+* dt
+* vue
+
 
 ## Plain Templates
 
@@ -658,9 +698,9 @@ class ApiController extends Controller
   public function widgetData(){
 
       $result['data'] = DB::table('widgets')
-                      ->select('id',
-                               'widget_name',
-                               'created_at')
+                      ->select('id as Id',
+                               'Widget_name as Name',
+                               'Created_at as Created')
                       ->get();
 
       return json_encode($result);
@@ -686,7 +726,7 @@ With our vue.js implementation, you get all of the views that come with basic, b
 you get also get a working data grid on the index page.
 
 Our vue template is a simple implementation of a vue.js grid component, which can get you up
-and running quickly with a sortable, searchable grid.  The command for that looks like
+and running quickly with a sortable, searchable grid.  The command for that can look like
 this:
 
 ```
@@ -980,5 +1020,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-packagist]: https://packagist.org/packages/evercode1/view-maker
 [link-downloads]: https://packagist.org/packages/evercode1/view-maker/stats
 [link-author]: https://github.com/evercode1
-
-

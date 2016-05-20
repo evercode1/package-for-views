@@ -28,7 +28,7 @@ class CommonTemplates
 
 @section('content')
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li><li class='active'>Create</li></ol>
+        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li><li class='active'>Create</li></ol>
 
         <h2>Create a New :::upperCaseModelName:::</h2>
 
@@ -85,7 +85,7 @@ EOD;
 
 @section('content')
 
-        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li><li class='active'>Create</li></ol>
+        <ol class='breadcrumb'><li><a href='/'>Home</a></li><li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li><li class='active'>Create</li></ol>
 
         <h2>Create a New :::upperCaseModelName:::</h2>
 
@@ -171,7 +171,7 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         <li><a href=':::modelRoute:::/{{\$:::modelId:::}}'>{{\$:::modelAttribute:::}}</a></li>
         <li class='active'>Edit</li>
         </ol>
@@ -234,7 +234,7 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         <li><a href=':::modelRoute:::/{{\$:::modelId:::}}'>{{\$:::modelAttribute:::}}</a></li>
         <li class='active'>Edit</li>
         </ol>
@@ -324,7 +324,7 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         <li><a href=':::modelRoute:::/{{ \$:::modelId::: }}'>{{ \$:::modelAttribute::: }}</a></li>
         </ol>
 
@@ -414,7 +414,7 @@ EOD;
 
         <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         <li><a href=':::modelRoute:::/{{ \$:::modelId::: }}'>{{ \$:::modelAttribute::: }}</a></li>
         </ol>
 

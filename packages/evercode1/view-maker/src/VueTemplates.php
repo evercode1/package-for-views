@@ -61,7 +61,7 @@ class VueTemplates
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         </ol>
 
         <h1>:::modelsUpperCase:::</h1>
@@ -450,7 +450,7 @@ EOD;
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         </ol>
 
         <h1>:::modelsUpperCase:::</h1>
@@ -839,7 +839,7 @@ EOD;
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         </ol>
 
         <h1>:::modelsUpperCase:::</h1>
@@ -1229,7 +1229,7 @@ EOD;
 
 <ol class='breadcrumb'>
         <li><a href='/'>Home</a></li>
-        <li><a href=':::modelRoute:::'>:::upperCaseModelName:::</a></li>
+        <li><a href=':::modelRoute:::'>:::modelsUpperCase:::</a></li>
         </ol>
 
         <h1>:::modelsUpperCase:::</h1>
