@@ -76,3 +76,21 @@ Route::resource('test', 'TestController@index');
 
         
 
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+

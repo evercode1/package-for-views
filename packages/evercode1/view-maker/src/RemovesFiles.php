@@ -15,6 +15,10 @@ trait RemovesFiles
 
     private $modelPath;
 
+    private $parentName;
+
+    private $childName;
+
     public function deleteDirectoryAndFiles($path)
     {
         if (empty($path) || ! $this->folderExists($path)){
